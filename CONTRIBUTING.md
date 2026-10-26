@@ -6,7 +6,7 @@ In the issues. Open one to argue with the scheme, to report a use it cannot tag 
 
 ## The acceptance rule
 
-A token is accepted when three real uses cannot be tagged honestly without it. A use is real when it happened and can be described; a hypothetical does not count. Three uses that the existing tokens tag awkwardly do not count either. The test is cannot, not clumsily.
+A token is accepted when three real uses cannot be tagged honestly without it. A use is real when it happened and can be described; a hypothetical does not count. Three uses that the existing tokens tag awkwardly do not count either. The test is that it cannot be tagged, not that it is tagged clumsily.
 
 ## Tokens are forever
 
@@ -29,4 +29,4 @@ A typo, a broken link or a sentence that reads badly needs no issue first. Open 
 
 ## Style
 
-Plain and declarative. Short sentences. British and Canadian spelling. No superlatives, no exclamation marks, no "we".
+Plain and declarative. Short sentences. British and Canadian spelling. No superlatives, no exclamation marks, no "we". It follows the 4th Culture content guidelines (docs/content-guidelines.md).

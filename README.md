@@ -1,6 +1,6 @@
 # AI Use Levels
 
-"I used AI for this" has stopped meaning anything. It covers a chatbot that polished one paragraph and an agent that ran all night with the keys to production. AI Use Levels is a tag of four words, Level · Hand · Door · Tool, that says in one breath what one piece of work owes to generative AI, so two people can tell whether they are talking about the same kind of use. SAE rates the car. This rates the trip. A tag describes what happened on one piece of work, never what the tool could have done.
+"I used AI for this" has stopped meaning anything. It covers a chatbot that polished one paragraph and an agent that ran all night with the keys to production. AI Use Levels is a tag of four words, Level · Hand · Door · Tool, that says in one breath what one piece of work owes to generative AI, so two people can tell whether they are talking about the same kind of use. A tag describes what happened on one piece of work, never what the tool could have done.
 
 ## The tag
 
@@ -11,7 +11,7 @@ L2 · made · undo · Claude Code
 - Level: could it change anything by itself, and did each change wait for a yes? `L0` none, `L1` suggested, `L2` supervised, `L3` unattended.
 - Hand: how much of the result is its output. `touched`, `drafted` or `made`.
 - Door: can what it changed be taken back? `undo` or `no undo`. Only at L2 and L3, because at L1 it changed nothing.
-- Tool: name it, as specifically as you can. The model name is the date.
+- Tool: name it, as specifically as you can; a model version is better than a product name.
 - One flag, `unread`, for work no accountable person has read.
 
 No tag means nothing claimed. It never means L0.
@@ -44,7 +44,7 @@ In running text, "AI Use Levels 1.0" with the link is enough. A tag with no vers
 
 ## Argue with it
 
-This repository is the place. Open an issue to report a use the scheme cannot tag honestly, or to propose a token: a token is accepted when three real uses cannot be tagged honestly without it. Typos are pull requests. [CONTRIBUTING.md](CONTRIBUTING.md) has the rest.
+This repository is the place. Open an issue to report a use the scheme cannot tag honestly, or to propose a token: a token is accepted when three real uses cannot be tagged honestly without it. A typo needs no issue; open a pull request. [CONTRIBUTING.md](CONTRIBUTING.md) has the rest.
 
 ## Licence
 
@@ -52,7 +52,7 @@ CC BY 4.0, for text and data alike ([LICENSE](LICENSE)), and a link to the canon
 
 ## Repository
 
-`npm test` runs the checks with `node --test`: `spec.json` has the right shape, every example tokenises, the examples match SPEC.md section 9, and every token published in an earlier `v*` tag is still present and unchanged in the current `spec.json`, because tokens are forever. CI runs on GitHub-hosted runners because this repository is public.
+`npm test` runs the checks with `node --test`: `spec.json` has the right shape, every example tokenises, the examples match SPEC.md section 9, and every token published in an earlier `v*` tag is still present and unchanged in the current `spec.json`, because a published token never changes meaning. CI runs on GitHub-hosted runners because this repository is public.
 
 The text in this repository was written by Claude Code from the author's data sheet, then rewritten by Claude Code at the author's direction, each time under supervision, on a branch, and read by the author before it was merged.
 
