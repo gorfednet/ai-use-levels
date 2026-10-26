@@ -1,0 +1,37 @@
+name: release
+
+# A pushed v* tag becomes a GitHub Release with its CHANGELOG entry, so the
+# Releases page and the tag the paper was built from never drift apart
+# (2026-10-26: v1.0.2 was tagged and published without a release, and the
+# Releases page kept 1.0.1 as latest). Runs for seconds; hosted is the
+# allowed exception for a release step that must not wait on the pool.
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Notes from CHANGELOG.md
+        id: notes
+        run: |
+          set -euo pipefail
+          v="${GITHUB_REF_NAME#v}"
+          v="${v%.0}"   # "1.0.0" is listed as "## 1.0"
+          awk -v v="$v" -v full="${GITHUB_REF_NAME#v}" '
+            /^## /{on = ($2==v || $2==full)} on && !/^## /{print}
+          ' CHANGELOG.md | sed '/./,$!d' > notes.md
+          test -s notes.md || { echo "no CHANGELOG entry for $GITHUB_REF_NAME"; exit 1; }
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 && exit 0
+          gh release create "$GITHUB_REF_NAME" --title "AI Use Levels ${GITHUB_REF_NAME#v}" --latest --notes-file notes.md
