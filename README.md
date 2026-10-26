@@ -41,8 +41,8 @@ CC BY 4.0, one licence for text and data ([LICENSE](LICENSE)). If you embed the 
 
 `npm test` runs the checks with `node --test`: `spec.json` has the right shape, every example tokenises, the examples match SPEC.md section 9, and every token published in an earlier `v*` tag is still present and unchanged in the current `spec.json` (tokens are forever). CI runs on GitHub-hosted runners because this repository is public.
 
-The first version of this repository was drafted by Claude Code from the author's data sheet, under supervision, on a branch, and is being reworked by hand.
+The first version of this repository was written by Claude Code from the author's data sheet, under supervision, on a branch, and read by the author before it was published.
 
 ```
-AI-Use: L2 drafted undo (Claude Fable 5.1)
+AI-Use: L2 made undo (Claude Fable 5.1)
 ```
