@@ -52,5 +52,23 @@
     "where": "spec.json:machineForm.pattern",
     "reason": "'door' is the slot id and token value in spec.json, machine data a parser matches on; a published token never changes meaning (SPEC.md, versioning rule 1)",
     "reviewBy": "2026-11-08"
+  },
+  {
+    "match": "Door",
+    "where": "README.md",
+    "reason": "published 1.0 spec prose; token names and scheme words",
+    "reviewBy": "2026-11-08"
+  },
+  {
+    "match": "carries",
+    "where": "README.md",
+    "reason": "published 1.0 spec prose; token names and scheme words",
+    "reviewBy": "2026-11-08"
+  },
+  {
+    "match": "carries",
+    "where": "CONTRIBUTING.md",
+    "reason": "published 1.0 spec prose; token names and scheme words",
+    "reviewBy": "2026-11-08"
   }
 ]

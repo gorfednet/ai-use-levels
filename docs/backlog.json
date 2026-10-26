@@ -4,11 +4,13 @@
     {
       "id": "voice-markdown-prose-unread",
       "title": "check-voice reads README.md, SPEC.md and CONTRIBUTING.md as script, so most of their prose goes unchecked",
-      "status": "confirmed-bug",
+      "status": "landed",
       "assignee": "main-model",
       "userSymptom": "A reader of the README or the spec can meet a phrase the content guidelines bar (for example 'carries' in the README's machine-form paragraph) while the gate reports 0 hits for that file.",
       "evidence": "verification-kit/bin/check-voice.mjs checkFile sends any extension but .html and .json to scriptStrings, which reads only quoted and backticked spans. On 2026-10-26 it found 0 hits in README.md and 1 in CONTRIBUTING.md; a paragraph-level read of the same files with the kit's checkString found 'Door' and 'carries' in README.md and 'carries' in CONTRIBUTING.md and three more paragraphs of SPEC.md. The fix is upstream in gorfednet/.github (Markdown as text), then a refresh.",
-      "reviewBy": "2026-11-08"
+      "reviewBy": "2026-11-08",
+      "pr": 3,
+      "landedIn": "verification kit 0.48.1 (check-voice reads Markdown as prose; allowlist additions for README.md)"
     }
   ]
 }
