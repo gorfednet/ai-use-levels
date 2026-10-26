@@ -11,6 +11,8 @@ permissions:
 
 jobs:
   test:
+    # Named to match the check the main branch protection requires ("ci / test").
+    name: ci / test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
