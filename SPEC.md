@@ -43,7 +43,7 @@ AI-Use: L2 made undo (Claude Code)
 
 Pattern: `AI-Use: <level> [hand] [door] [flag] (<tool>) [v<major>]`.
 
-Every token identifies itself. An `L` and a digit is a Level, a Hand word is a Hand, a Door word is a Door, `unread` is the flag, and parentheses hold the tool. A parser reads by token, not by position. The tool runs from the first opening parenthesis to the last closing one, so a reach parenthetical nests: `AI-Use: L1 touched (Copilot (IDE))`. A tag with no version token is version 1. A tag under a later version carries its own after the tool: `v2`. The trailer sits beside git's `Co-Authored-By`: Co-Authored-By names the tool; AI-Use says what it was allowed to do.
+Every token identifies itself. An `L` and a digit is a Level, a Hand word is a Hand, a Door word is a Door, `unread` is the flag, and parentheses hold the tool. A parser reads by token, not by position. The tool runs from the first opening parenthesis to the last closing one, so a reach parenthetical nests: `AI-Use: L1 touched (Copilot (IDE))`. A tag with no version token is version 1. A tag under a later version carries its own after the tool: `v2`. The trailer sits beside git's `Co-Authored-By`: that trailer names the tool, and this one says what it was allowed to do.
 
 Absence. No tag means nothing claimed. It never means L0.
 
