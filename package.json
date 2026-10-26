@@ -9,6 +9,8 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test 'test/*.test.mjs'"
+    "test": "node --test 'test/*.test.mjs' && npm run voice && npm run kit",
+    "voice": "node verification-kit/bin/check-voice.mjs README.md SPEC.md CONTRIBUTING.md examples/examples.json spec.json --allow voice-allow.json",
+    "kit": "node verification-kit/bin/check-kit-drift.mjs --offline && node verification-kit/bin/check-backlog.mjs"
   }
 }
