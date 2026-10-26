@@ -1,0 +1,14 @@
+{
+  "name": "ai-use-levels",
+  "version": "1.0.0",
+  "description": "AI Use Levels: a scheme for saying what one piece of work owes to generative AI",
+  "type": "module",
+  "private": true,
+  "license": "CC-BY-4.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test 'test/*.test.mjs'"
+  }
+}

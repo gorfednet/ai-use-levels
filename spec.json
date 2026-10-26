@@ -1,0 +1,117 @@
+{
+  "name": "AI Use Levels",
+  "version": "1.0",
+  "canonical": "https://papers.4thcltr.com/ai-use-levels/",
+  "licence": "CC-BY-4.0",
+  "slots": [
+    { "id": "level", "order": 1, "required": "always" },
+    { "id": "hand", "order": 2, "required": "recommended" },
+    { "id": "door", "order": 3, "required": "at L2 and L3" },
+    { "id": "flag", "order": 4, "required": "when true" },
+    {
+      "id": "tool",
+      "order": 5,
+      "required": "always",
+      "free": true,
+      "reach": ["chat", "IDE", "app", "API", "agent"]
+    }
+  ],
+  "tokens": [
+    {
+      "id": "L0",
+      "slot": "level",
+      "name": "None",
+      "meaning": "No AI touched it.",
+      "test": null,
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "L1",
+      "slot": "level",
+      "name": "Suggested",
+      "meaning": "It could change nothing by itself. A person moved every piece of its output into the work (pasted, typed, accepted, pressed send).",
+      "test": "Did anything take effect except by a person's own action? No.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "L2",
+      "slot": "level",
+      "name": "Supervised",
+      "meaning": "It made changes itself, and each change waited for a person's yes before it took effect.",
+      "test": "Could a person have stopped every change before it counted? Yes.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "L3",
+      "slot": "level",
+      "name": "Unattended",
+      "meaning": "It made changes itself without waiting for anyone.",
+      "test": "Did anything take effect before a person could stop it? Yes.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "touched",
+      "slot": "hand",
+      "name": "touched",
+      "meaning": "Corrections and local changes to a person's material: polish, autocomplete, spot fixes, formatting.",
+      "test": "Would a reader recognise anything of its output in the final? Barely.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "drafted",
+      "slot": "hand",
+      "name": "drafted",
+      "meaning": "It produced a first version a person substantially reworked.",
+      "test": "Its shape survives; most of the words or code are a person's.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "made",
+      "slot": "hand",
+      "name": "made",
+      "meaning": "The final is substantially its output; a person chose, read, maybe trimmed.",
+      "test": "Its words, code or pixels survive.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "undo",
+      "slot": "door",
+      "name": "undo",
+      "meaning": "Everything it changed can be reversed by the tagger alone, asking nobody: a branch, a versioned document, a trash can, a staging system nobody else saw.",
+      "test": "Could you put it all back in minutes without telling anyone? Yes.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "no undo",
+      "slot": "door",
+      "name": "no undo",
+      "meaning": "At least one change cannot be taken back: sent, paid, deployed, deleted without backup, published, told someone. Reaching a person or system you do not control always counts, even if a rollback exists, because they saw it.",
+      "test": "Did anything leave your control? Yes.",
+      "since": "1.0",
+      "deprecated": null
+    },
+    {
+      "id": "unread",
+      "slot": "flag",
+      "name": "unread",
+      "meaning": "No accountable person has read the result. A state, not a level: it is removed when a person reads.",
+      "test": "Has someone accountable for the work read the result? No.",
+      "since": "1.0",
+      "deprecated": null
+    }
+  ],
+  "machineForm": {
+    "trailer": "AI-Use",
+    "pattern": "AI-Use: <level> [hand] [door] [flag] (<tool>) [v<major>]",
+    "versionToken": "absent means v1"
+  },
+  "absence": "No tag means nothing claimed. It never means L0."
+}
