@@ -70,7 +70,7 @@
     "machine": "AI-Use: L3 made no undo unread (tool)"
   },
   {
-    "use": "AI drafted the email, I pressed send",
+    "use": "AI drafted the email, I reworked it and pressed send",
     "tag": "L1 · drafted · Claude",
     "machine": "AI-Use: L1 drafted (Claude)"
   }

@@ -7,19 +7,19 @@ labels: token-proposal
 
 ## Three real uses
 
-Each one happened. Say what the tool did, what a person did, and what the honest tag would be today and why it is wrong or incomplete.
+Each one happened. For each, say what the tool did, what a person did, the tag you would write today, and why that tag is wrong or incomplete.
 
 1.
 2.
 3.
 
-## Proposed slot
+## Slot
 
-Which slot the token belongs in (`level`, `hand`, `door`, `flag`), or the name and closed vocabulary of a new slot. A new slot shares no word with an existing one.
+The slot the token belongs in (`level`, `hand`, `door`, `flag`), or the name and closed vocabulary of a new slot. A new slot shares no word with an existing one.
 
-## Proposed word
+## Word
 
-The token itself, its one-sentence meaning, and the test a tagger applies.
+The token, its meaning in one sentence, and the test a tagger applies to a real piece of work.
 
 ## What it does not cover
 
