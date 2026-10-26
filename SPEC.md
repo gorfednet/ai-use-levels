@@ -11,7 +11,7 @@ Canonical page: https://papers.4thcltr.com/ai-use-levels/. Machine-readable form
 | Name | AI Use Levels. A tag is a *use tag*. A piece of work is "a level-two use" |
 | Version | 1.0. The scheme is versioned. A use tag is not dated (section 7) |
 | Purpose | Say, in one breath, what one piece of work owes to generative AI, so two people can tell whether they are talking about the same kind of use |
-| Principle | SAE rates the car. This rates the trip. The same tool is `L1` on Monday and `L3` on Tuesday, and both tags are true |
+| Principle | The same tool is `L1` on Monday and `L3` on Tuesday, and both tags are true |
 | What it is not | A permission system, an audit or a liability column. It records the chance a person had to intervene, not how well they used it |
 | The four questions | Could it change anything by itself? Did each change wait for a yes? How much of the result is its output? Could it be undone? |
 
@@ -43,7 +43,7 @@ AI-Use: L2 made undo (Claude Code)
 
 Pattern: `AI-Use: <level> [hand] [door] [flag] (<tool>) [v<major>]`.
 
-Every token identifies itself. An `L` and a digit is a Level, a Hand word is a Hand, a Door word is a Door, `unread` is the flag, and parentheses hold the tool. A parser reads by token, not by position. The tool runs from the first opening parenthesis to the last closing one, so a reach parenthetical nests: `AI-Use: L1 touched (Copilot (IDE))`. A tag with no version token is version 1. A tag under a later version carries its own after the tool: `v2`. The trailer sits beside git's `Co-Authored-By`: that one says who, this one says how.
+Every token identifies itself. An `L` and a digit is a Level, a Hand word is a Hand, a Door word is a Door, `unread` is the flag, and parentheses hold the tool. A parser reads by token, not by position. The tool runs from the first opening parenthesis to the last closing one, so a reach parenthetical nests: `AI-Use: L1 touched (Copilot (IDE))`. A tag with no version token is version 1. A tag under a later version carries its own after the tool: `v2`. The trailer sits beside git's `Co-Authored-By`: that trailer names the tool, and this one says what it was allowed to do.
 
 Absence. No tag means nothing claimed. It never means L0.
 
@@ -63,14 +63,14 @@ The flag `unread` means no accountable person has read the result. It attaches t
 Rules:
 
 - One tag per piece of work. Where the steps differed, tag the highest level reached by any step that changed something. A read-only step raises nothing.
-- Granularity is the person's. One yes to a plan of forty changes is L2: the person could have said no before anything happened. Four hundred yeses in two hours is still L2. The tag rates the opportunity to intervene, not the diligence. A rubber stamp is a lie the tagger tells, and the scheme cannot catch it.
+- Granularity is the person's. One yes to a plan of forty changes is L2: the person could have said no before anything happened. Four hundred yeses in two hours is still L2. The tag rates the opportunity to intervene, not the diligence. A rubber stamp is still tagged L2; the scheme cannot tell diligence from its absence.
 - A person is someone accountable for the work. A model reviewing a model lowers nothing.
 - A run that changed nothing outside the conversation is L1, however long it ran. A research agent that worked for twenty minutes and produced a report is `L1 · made`.
 - The numbers do not map to SAE J3016. SAE L3 is the handover level. This L3 means only that it acted without waiting.
 
 ## 4. HAND (its hand in the result)
 
-Hand says how much of the final is the machine's output. It rates production, not ideas: a transcript, a translation and a summary are all `made`, and the reader knows from the genre whose ideas they were. Hand is independent of Level. A person can press every button and still publish something the machine made whole. That is `L1 · made`, and it is the case people hide.
+Hand says how much of the final is the machine's output. It rates production, not ideas: a transcript, a translation and a summary are all `made`, and the reader knows from the genre whose ideas they were. Hand is independent of Level. A person can press every button and still publish something the machine made whole. That is `L1 · made`, the case most often left untagged.
 
 | Token | Definition | Test |
 |---|---|---|
@@ -101,7 +101,7 @@ Rules:
 
 ## 6. TOOL (free text, last)
 
-Name the tool as specifically as you can: `Claude Opus 5.5`, `Claude Code`, `Copilot (IDE)`, `GPT-5 (API)`. A product name is acceptable. A model version is better, because the model version is the date. How the tool was reached goes here as an optional parenthetical: `(chat)`, `(IDE)`, `(app)`, `(API)`, `(agent)`. Reach is a property of the tool, and its risk is already carried by Level and Door, so it earns no slot of its own.
+Name the tool as specifically as you can: `Claude Opus 5.5`, `Claude Code`, `Copilot (IDE)`, `GPT-5 (API)`. A product name is acceptable. A model version is better, because it fixes the date. How the tool was reached goes here as an optional parenthetical: `(chat)`, `(IDE)`, `(app)`, `(API)`, `(agent)`. Reach is a property of the tool, and its risk is already carried by Level and Door, so it earns no slot of its own.
 
 Several tools: name the one with the biggest hand first, then the others after a plus: `L2 · made · undo · Claude Code + Copilot`.
 
@@ -115,11 +115,11 @@ Version the scheme. Do not date a use tag. Date a standing tag.
 4. A standing tag on a system or a policy is dated. "Support bot runs at `L3 · made · no undo`, 2% read, since June 2026." "Production changes are L2 or lower (policy of 2026-10)." A stance gets revised, and a reader needs to know which one was in force. The standing tag is also the fleet form: ten thousand chats get one dated standing tag, not ten thousand use tags.
 5. An artifact with no date of its own carries one beside the tag: a bio, an evergreen page, a screenshot that will be reposted.
 
-The objection that the same agent suggests today and executes unattended tomorrow is answered by the principle, not by a date. The tag describes the trip.
+The objection that the same agent suggests today and executes unattended tomorrow is answered by the principle, not by a date. The tag describes one piece of work.
 
 ## 8. Extension rules
 
-1. Tokens are forever. A published token never changes meaning. A bad token is fixed by adding a new token and deprecating the old one. Nothing is redefined and nothing is renumbered.
+1. A published token never changes meaning. A bad token is fixed by adding a new token and deprecating the old one. Nothing is redefined and nothing is renumbered.
 2. Levels grow upward only. The first candidate for `L4` is *it chose the task*. Every current level assumes a person set the goal. A proactive agent that decides what to do next is a new rung, not a flag.
 3. A new slot carries its own closed vocabulary, and no word is shared between slots, so every token still identifies itself and order stays a reading convention. New slots go before the tool.
 4. A minor version adds tokens, flags or slots and stays backward compatible. A major version is a last resort. Deprecate, never remove.

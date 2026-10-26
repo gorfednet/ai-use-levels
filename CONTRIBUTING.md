@@ -6,9 +6,9 @@ In the issues. Open one to argue with the scheme, to report a use it cannot tag 
 
 ## The acceptance rule
 
-A token is accepted when three real uses cannot be tagged honestly without it. A use is real when it happened and can be described; a hypothetical does not count. Three uses that the existing tokens tag awkwardly do not count either. The test is cannot, not clumsily.
+A token is accepted when three real uses cannot be tagged honestly without it. A use is real when it happened and can be described; a hypothetical does not count. Three uses that the existing tokens tag awkwardly do not count either. The test is that it cannot be tagged, not that it is tagged clumsily.
 
-## Tokens are forever
+## Tokens do not change
 
 A published token never changes meaning. A bad token is fixed by adding a new one and marking the old one deprecated. Nothing is redefined, renumbered or removed. Levels grow upward only. A new slot carries its own closed vocabulary and shares no word with another slot. `test/tokens-stable.test.mjs` checks every published `v*` tag against the current `spec.json`, and a change that breaks it is a change the scheme does not make.
 
@@ -23,10 +23,10 @@ Open an issue with the "Token proposal" template. It asks for exactly what the a
 
 An issue that argues with a rule rather than proposing a token needs less: the rule, the use that breaks it, and the tag you would want to write.
 
-## Typos are pull requests
+## Small fixes
 
 A typo, a broken link or a sentence that reads badly needs no issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` move together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenises, that section 9 of `SPEC.md` and `examples.json` agree, and that no published token has moved.
 
 ## Style
 
-Plain and declarative. Short sentences. British and Canadian spelling. No superlatives, no exclamation marks, no "we".
+Plain and declarative. Short sentences. British and Canadian spelling. No superlatives, no exclamation marks, no "we". It follows the 4th Culture content guidelines (docs/content-guidelines.md).
