@@ -54,6 +54,8 @@ CC BY 4.0, for text and data alike ([LICENSE](LICENSE)), and a link to the canon
 
 `npm test` runs the checks with `node --test`: `spec.json` has the right shape, every example tokenises, the examples match SPEC.md section 9, and every token published in an earlier `v*` tag is still present and unchanged in the current `spec.json`, because tokens are forever. CI runs on GitHub-hosted runners because this repository is public.
 
+It then runs two checks from the shared verification kit in `verification-kit/`: `check-voice` holds the README, SPEC.md, CONTRIBUTING.md, `spec.json` and the examples to the [content guidelines](docs/content-guidelines.md), with each current exception and its reason in `voice-allow.json`, and `check-kit-drift` fails if the vendored kit has been edited here. Open work is in `docs/backlog.json`.
+
 The text in this repository was written by Claude Code from the author's data sheet, then rewritten by Claude Code at the author's direction, each time under supervision, on a branch, and read by the author before it was merged.
 
 ```
