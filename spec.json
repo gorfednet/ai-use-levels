@@ -115,6 +115,7 @@
       "name": "AI USE LEVEL ZERO SYMBOL",
       "spoken": "AI use level zero, None",
       "braille": "⠠⠇⠼⠚",
+      "brailleName": "⠠⠝⠕⠝⠑",
       "files": {
         "light": "marks/l0-light.svg",
         "dark": "marks/l0-dark.svg"
@@ -127,6 +128,7 @@
       "name": "AI USE LEVEL ONE SYMBOL",
       "spoken": "AI use level one, Suggested",
       "braille": "⠠⠇⠼⠁",
+      "brailleName": "⠠⠎⠥⠛⠛⠑⠎⠞⠑⠙",
       "files": {
         "light": "marks/l1-light.svg",
         "dark": "marks/l1-dark.svg"
@@ -139,6 +141,7 @@
       "name": "AI USE LEVEL TWO SYMBOL",
       "spoken": "AI use level two, Supervised",
       "braille": "⠠⠇⠼⠃",
+      "brailleName": "⠠⠎⠥⠏⠑⠗⠧⠊⠎⠑⠙",
       "files": {
         "light": "marks/l2-light.svg",
         "dark": "marks/l2-dark.svg"
@@ -151,6 +154,7 @@
       "name": "AI USE LEVEL THREE SYMBOL",
       "spoken": "AI use level three, Unattended",
       "braille": "⠠⠇⠼⠉",
+      "brailleName": "⠠⠥⠝⠁⠞⠞⠑⠝⠙⠑⠙",
       "files": {
         "light": "marks/l3-light.svg",
         "dark": "marks/l3-dark.svg"
@@ -165,7 +169,7 @@
   },
   "absence": "No tag means nothing claimed. It never means L0.",
   "marksStatus": {
-    "braille": "pending a braille reader's check",
+    "braille": "braille spells the level token (L0 to L3); brailleName spells the level name; both uncontracted UEB, pending a braille reader's check",
     "unicode": "not encoded; see SPEC.md section 12"
   }
 }
