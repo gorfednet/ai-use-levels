@@ -1,4 +1,4 @@
-# AI Use Levels 1.0
+# AI Use Levels 1.1
 
 "I used AI for this" has stopped meaning anything. The same sentence covers a chatbot that polished one paragraph and an agent that ran all night with access to production. AI Use Levels is a tag of four words in a fixed order, Level · Hand · Door · Tool, that says in one breath what one piece of work owes to generative AI: whether the tool could change anything by itself, how much of the result is its output, whether what it did can be taken back, and what the tool was. SAE rates the car. This rates the trip. A tag describes what happened on one piece of work, never what the tool could have done.
 
@@ -9,7 +9,7 @@ Canonical page: https://papers.4thcltr.com/ai-use-levels/. Machine-readable form
 | Field | Value |
 |---|---|
 | Name | AI Use Levels. A tag is a *use tag*. A piece of work is "a level-two use" |
-| Version | 1.0. The scheme is versioned. A use tag is not dated (section 7) |
+| Version | 1.1. The scheme is versioned. A use tag is not dated (section 7) |
 | Purpose | Say, in one breath, what one piece of work owes to generative AI, so two people can tell whether they are talking about the same kind of use |
 | Principle | The same tool is `L1` on Monday and `L3` on Tuesday, and both tags are true |
 | What it is not | A permission system, an audit or a liability column. It records the chance a person had to intervene, not how well they used it |
@@ -125,6 +125,7 @@ The objection that the same agent suggests today and executes unattended tomorro
 4. A minor version adds tokens, flags or slots and stays backward compatible. A major version is a last resort. Deprecate, never remove.
 5. Candidates for 1.1, left out to keep the tag at four words: `checked` (tests, a fact-check or a second reader ran; the answer to whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
 6. Governance. The specification is public and forkable, with a changelog. Proposals are issues. A token is accepted when three real uses cannot be tagged honestly without it.
+7. A mark (section 12) is not a token, so the three-uses test in rule 6 does not apply to it. The mark set is fixed for every 1.x version. A new mark is added only with a new level, and a published mark never changes its level.
 
 ## 9. Worked examples
 
@@ -183,3 +184,48 @@ Sources read:
 - https://labs.cloudsecurityalliance.org/research/agentic-ai-autonomy-levels-control-framework-v2-csa-styled/
 - https://www.alphaxiv.org/abs/2607.23438
 - https://medium.com/@tahirbalarabe2/what-is-loop-engineering-four-levels-of-agentic-loops-ccc48b850002
+
+## 12. Marks
+
+A mark is a symbol for the Level alone, for places with no room for the full tag: a social bio, an image overlay, a chat display name, a slide footer. The circle is the work and the dot is the tool. The four marks differ only by where the dot is, so they read without colour, without letters and in any language.
+
+| Level | Mark | Where the dot is | Name | Spoken |
+|---|---|---|---|---|
+| `L0` None | ![AI use level 0, None](marks/l0-light.svg) | no dot | AI USE LEVEL ZERO SYMBOL | "AI use level zero, None" |
+| `L1` Suggested | ![AI use level 1, Suggested](marks/l1-light.svg) | outside the circle: the tool never touched the work, and a person carried its output in | AI USE LEVEL ONE SYMBOL | "AI use level one, Suggested" |
+| `L2` Supervised | ![AI use level 2, Supervised](marks/l2-light.svg) | on the circle's edge: each change stopped at the edge for a yes | AI USE LEVEL TWO SYMBOL | "AI use level two, Supervised" |
+| `L3` Unattended | ![AI use level 3, Unattended](marks/l3-light.svg) | inside the circle: the tool changed the work by itself | AI USE LEVEL THREE SYMBOL | "AI use level three, Unattended" |
+
+1. A mark carries the Level and nothing else. Hand, Door, the flag and the Tool are in the full tag.
+2. A mark refers to a full tag. Put the full tag in the mark's link, alt text or title, or beside the work. A mark with no full tag behind it claims nothing, the same as a missing tag (section 2).
+3. Alt text and the SVG `<title>` use the spoken form. A screen reader then says "AI use level two, Supervised", not a description of the shape.
+4. The marks are monochrome and must stay distinct at 12 px and at 1 bit. Do not add letters, digits or colour inside the circle.
+5. The files are in `marks/`, black on white (`-light`) and white on black (`-dark`), under CC0 so anyone can redraw or embed them. `spec.json` lists each mark with its name, spoken form, file names and braille.
+6. Braille for each Level is Unified English Braille, uncontracted, stored as Unicode braille cells: `L0` ⠠⠇⠼⠚, `L1` ⠠⠇⠼⠁, `L2` ⠠⠇⠼⠃, `L3` ⠠⠇⠼⠉. A braille reader has not yet checked these strings; `spec.json` says so under `marksStatus`.
+
+Examples:
+
+| Where | Mark | Full tag behind it |
+|---|---|---|
+| A blog post byline, linked | L1 mark | `L1 · drafted · Claude Opus 5.5` |
+| A slide footer | L2 mark | `L2 · made · undo · Claude Code` in the speaker notes and the deck's sources slide |
+| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's alt text and sidecar |
+| A support bot's display name | L3 mark | the dated standing tag on the help page: `L3 · made · no undo`, since June 2026 |
+
+The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. An emoji depends on the platform's drawing, and a screen reader reads it as "robot face".
+
+## 13. Route to a standard
+
+The aim is for the four marks to be encoded in Unicode, as the Creative Commons symbols were: 🅭 and 🅯 entered Unicode 13.0 in 2020, years after the licences were in wide use. The Unicode Technical Committee (UTC) encodes a symbol when there is evidence that people other than its authors use it in running text. The order of work:
+
+1. Publish the marks: the SVGs in this repository under CC0, then a small open font that maps them to Private Use Area code points until real ones exist.
+2. Use them on the 4th Culture sites and in the README of each gorfednet repository whose commits carry the `AI-Use` trailer.
+3. Keep a public log of third-party use with links and dates, opened as issues in this repository.
+4. When the log shows use by unrelated publishers, submit a UTC proposal for four characters with the names in section 12, the spoken forms, the reference glyphs and the log as evidence.
+
+Alongside that:
+
+- Machine form. Register `AI-Use` as an HTML meta name on the WHATWG MetaExtensions list, and propose the tag as a value set to IPTC beside its digital source type, which C2PA manifests already reference.
+- Commit trailer. `AI-Use` follows git's trailer syntax and needs no registration. Tools that read `Co-Authored-By` are asked to read it too.
+
+Nothing has been submitted to any body yet. Each submission is listed here with its date when it is made.

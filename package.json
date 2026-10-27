@@ -1,6 +1,6 @@
 {
   "name": "ai-use-levels",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AI Use Levels: a scheme for saying what one piece of work owes to generative AI",
   "type": "module",
   "private": true,

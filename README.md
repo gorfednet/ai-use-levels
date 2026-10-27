@@ -25,6 +25,8 @@ The machine form carries the same tokens with the tool in parentheses. One line,
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
 
+Where four words do not fit, a mark stands for the Level: a circle for the work and a dot for the tool, outside, on the edge or inside. The SVGs are in [marks/](marks/) under CC0.
+
 The rules, the test for each token and fifteen worked examples are in [SPEC.md](SPEC.md).
 
 ## Read it
