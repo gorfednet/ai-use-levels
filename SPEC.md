@@ -198,7 +198,7 @@ A mark is a symbol for the Level alone, for places with no room for the full tag
 
 1. A mark carries the Level and nothing else. Hand, Door, the flag and the Tool are in the full tag.
 2. A mark refers to a full tag. Put the full tag in the mark's link, alt text or title, or beside the work. A mark with no full tag behind it claims nothing, the same as a missing tag (section 2).
-3. Alt text and the SVG `<title>` use the spoken form. A screen reader then says "AI use level two, Supervised", not a description of the shape.
+3. Alt text and the SVG `<title>` are the label `AI use level 2, Supervised`, which a screen reader says as the spoken form "AI use level two, Supervised", not as a description of the shape.
 4. The marks are monochrome and must stay distinct at 12 px and at 1 bit. Do not add letters, digits or colour inside the circle.
 5. The files are in `marks/`, black on white (`-light`) and white on black (`-dark`), under CC0 so anyone can redraw or embed them. `spec.json` lists each mark with its name, spoken form, file names and braille.
 6. Braille for each Level is Unified English Braille, uncontracted, stored as Unicode braille cells: `L0` ⠠⠇⠼⠚, `L1` ⠠⠇⠼⠁, `L2` ⠠⠇⠼⠃, `L3` ⠠⠇⠼⠉. A braille reader has not yet checked these strings; `spec.json` says so under `marksStatus`.
