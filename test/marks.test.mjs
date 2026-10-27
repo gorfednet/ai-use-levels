@@ -44,8 +44,8 @@ function decode(braille) {
   let capital = false;
   let numeric = false;
   for (const cell of braille) {
-    if (cell === '⠠') { capital = true; numeric = false; continue; }
-    if (cell === '⠼') { numeric = true; continue; }
+    if (cell === '⠠') { assert.ok(!capital, `doubled capital indicator in ${braille}`); capital = true; numeric = false; continue; }
+    if (cell === '⠼') { assert.ok(!numeric, `doubled numeric indicator in ${braille}`); numeric = true; continue; }
     const i = CELLS.indexOf(cell);
     assert.ok(i !== -1, `unknown cell ${cell} in ${braille}`);
     if (numeric) {
@@ -53,6 +53,7 @@ function decode(braille) {
       out += String((i + 1) % 10);
     } else {
       out += capital ? LETTERS[i].toUpperCase() : LETTERS[i];
+      numeric = false;
       capital = false;
     }
   }
