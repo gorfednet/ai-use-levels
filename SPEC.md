@@ -145,7 +145,7 @@ A mark is a symbol for the Level alone, for places with no room for the full tag
 3. Alt text and the SVG `<title>` are the label `AI use level 2, Supervised`, which a screen reader says as the spoken form "AI use level two, Supervised", not as a description of the shape.
 4. The marks are monochrome and must stay distinct at 12 px and at 1 bit. Do not add letters, digits or colour inside the circle.
 5. The files are in `marks/`, black on white (`-light`) and white on black (`-dark`), under CC0 so anyone can redraw or embed them. `spec.json` lists each mark with its name, spoken form, file names and braille.
-6. Braille is Unified English Braille, uncontracted, stored as Unicode braille cells. `braille` spells the level token as typed in a tag: `L0` ⠠⠇⠼⠚, `L1` ⠠⠇⠼⠁, `L2` ⠠⠇⠼⠃, `L3` ⠠⠇⠼⠉ (capital sign, l, number sign, digit). `brailleName` spells the level name: None ⠠⠝⠕⠝⠑, Suggested ⠠⠎⠥⠛⠛⠑⠎⠞⠑⠙, Supervised ⠠⠎⠥⠏⠑⠗⠧⠊⠎⠑⠙, Unattended ⠠⠥⠝⠁⠞⠞⠑⠝⠙⠑⠙. A tactile label puts the token, the name or both beside the raised mark. A braille reader has not yet checked these strings; `spec.json` says so under `marksStatus`.
+6. Braille is Unified English Braille, uncontracted, stored as Unicode braille cells. `braille` spells the level token as typed in a tag: `L0` ⠠⠇⠼⠚, `L1` ⠠⠇⠼⠁, `L2` ⠠⠇⠼⠃, `L3` ⠠⠇⠼⠉ (capital letter indicator, l, numeric indicator, digit). `brailleName` spells the level name: None ⠠⠝⠕⠝⠑, Suggested ⠠⠎⠥⠛⠛⠑⠎⠞⠑⠙, Supervised ⠠⠎⠥⠏⠑⠗⠧⠊⠎⠑⠙, Unattended ⠠⠥⠝⠁⠞⠞⠑⠝⠙⠑⠙. A tactile label puts the token, the name or both beside the raised mark. A braille reader has not yet checked these strings; `spec.json` says so under `marksStatus`.
 
 Examples:
 
