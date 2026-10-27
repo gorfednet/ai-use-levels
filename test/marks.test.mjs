@@ -35,3 +35,34 @@ for (const level of levels) {
     }
   });
 }
+
+// Uncontracted UEB: capital sign, letters, number sign then digits a-j = 1-0.
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+const CELLS = '⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵';
+function decode(braille) {
+  let out = '';
+  let capital = false;
+  let numeric = false;
+  for (const cell of braille) {
+    if (cell === '⠠') { capital = true; numeric = false; continue; }
+    if (cell === '⠼') { numeric = true; continue; }
+    const i = CELLS.indexOf(cell);
+    assert.ok(i !== -1, `unknown cell ${cell} in ${braille}`);
+    if (numeric) {
+      assert.ok(i < 10, `${cell} is not a digit in ${braille}`);
+      out += String((i + 1) % 10);
+    } else {
+      out += capital ? LETTERS[i].toUpperCase() : LETTERS[i];
+      capital = false;
+    }
+  }
+  return out;
+}
+
+for (const level of levels) {
+  test(`${level.id} braille spells the token and brailleName spells the name`, () => {
+    const mark = spec.marks.find((m) => m.level === level.id);
+    assert.equal(decode(mark.braille), level.id);
+    assert.equal(decode(mark.brailleName), level.name);
+  });
+}

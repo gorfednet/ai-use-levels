@@ -4,7 +4,7 @@ The scheme is versioned. A minor version adds tokens, flags or slots and stays b
 
 ## 1.1.1 (2026-10-27)
 
-Wording: section 12 rule 3 now says the alt text and SVG title are the label with a digit (`AI use level 2, Supervised`), as the files already were, and that a screen reader says it as the spoken form. Section 12 adds that `🤖2` is no shorter than `L2` to the reasons it was withdrawn. Sections reordered so the reference material comes last: Worked examples is section 7, Marks 8, Dated or versioned 9, Extension rules 10 (the mark rule is 10.7), Known limits 11, Route to a standard 12, Prior art 13. The examples test finds its section by title. No token, mark or test changed.
+Wording: section 12 rule 3 now says the alt text and SVG title are the label with a digit (`AI use level 2, Supervised`), as the files already were, and that a screen reader says it as the spoken form. Section 12 adds that `🤖2` is no shorter than `L2` to the reasons it was withdrawn. Sections reordered so the reference material comes last: Worked examples is section 7, Marks 8, Dated or versioned 9, Extension rules 10 (the mark rule is 10.7), Known limits 11, Route to a standard 12, Prior art 13. The examples test finds its section by title. Braille: section 8 rule 6 now says `braille` spells the level token (`L2` is capital sign, l, number sign, b), and `spec.json` adds `brailleName` with each level name in uncontracted UEB; a test decodes both. Still pending a braille reader's check. No token, mark or test changed.
 
 ## 1.1 (2026-10-27)
 
