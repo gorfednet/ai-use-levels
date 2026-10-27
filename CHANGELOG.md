@@ -2,6 +2,10 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## 1.1.5 (2026-10-27)
+
+Wording. Section 10 rule 5 named `checked`, `data`, `whose` and duration as candidates for 1.1. Version 1.1 shipped marks instead, so they are now candidates for a later minor version (1.2 or after). No token or definition changed.
+
 ## 1.1.4 (2026-10-27)
 
 Braille. Section 8 rule 6 now says the `braille` field spells the level token: `L2` is capital letter indicator, l, numeric indicator, b. `spec.json` adds `brailleName` with each level name in uncontracted UEB, as a reading aid for tactile labels. It is a patch because it adds no token, flag or slot. A new test decodes both strings and rejects doubled indicators. A braille reader has still not checked the strings. No token or definition changed.

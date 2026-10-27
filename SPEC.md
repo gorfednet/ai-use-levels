@@ -176,7 +176,7 @@ The objection that the same agent suggests today and executes unattended tomorro
 2. Levels grow upward only. The first candidate for `L4` is *it chose the task*. Every current level assumes a person set the goal. A proactive agent that decides what to do next is a new rung, not a flag.
 3. A new slot carries its own closed vocabulary, and no word is shared between slots, so every token still identifies itself and order stays a reading convention. New slots go before the tool.
 4. A minor version adds tokens, flags or slots and stays backward compatible. A major version is a last resort. Deprecate, never remove.
-5. Candidates for 1.1, left out to keep the tag at four words: `checked` (tests, a fact-check or a second reader ran; the answer to whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
+5. Candidates for a later minor version (1.2 or after), left out to keep the tag at four words: `checked` (tests, a fact-check or a second reader ran; the answer to whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
 6. Governance. The specification is public and forkable, with a changelog. Proposals are issues. A token is accepted when three real uses cannot be tagged honestly without it.
 7. A mark (section 8) is not a token, so the three-uses test in rule 6 does not apply to it. The mark set is fixed for every 1.x version. A new mark is added only with a new level, and a published mark never changes its level.
 
