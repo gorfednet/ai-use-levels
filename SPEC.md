@@ -9,7 +9,7 @@ Canonical page: https://papers.4thcltr.com/ai-use-levels/. Machine-readable form
 | Field | Value |
 |---|---|
 | Name | AI Use Levels. A tag is a *use tag*. A piece of work is "a level-two use" |
-| Version | 1.1. The scheme is versioned. A use tag is not dated (section 7) |
+| Version | 1.1. The scheme is versioned. A use tag is not dated (section 9) |
 | Purpose | Say, in one breath, what one piece of work owes to generative AI, so two people can tell whether they are talking about the same kind of use |
 | Principle | The same tool is `L1` on Monday and `L3` on Tuesday, and both tags are true |
 | What it is not | A permission system, an audit or a liability column. It records the chance a person had to intervene, not how well they used it |
@@ -105,29 +105,7 @@ Name the tool as specifically as you can: `Claude Opus 5.5`, `Claude Code`, `Cop
 
 Several tools: name the one with the biggest hand first, then the others after a plus: `L2 · made · undo · Claude Code + Copilot`.
 
-## 7. Dated or versioned?
-
-Version the scheme. Do not date a use tag. Date a standing tag.
-
-1. The scheme is versioned: 1.0, 1.1 and so on, like CC 4.0. A tag with no version token is version 1.
-2. A use tag on one piece of work is not dated. The artifact carries the date: the post, the commit, the document, the release. Tokens never change meaning (section 8), so an old tag reads correctly forever. A hand-typed tag must stay short.
-3. The tool name is versioned where it can be. `Claude Opus 5.5`, not `Claude`. The model name is the date.
-4. A standing tag on a system or a policy is dated. "Support bot runs at `L3 · made · no undo`, 2% read, since June 2026." "Production changes are L2 or lower (policy of 2026-10)." A stance gets revised, and a reader needs to know which one was in force. The standing tag is also the fleet form: ten thousand chats get one dated standing tag, not ten thousand use tags.
-5. An artifact with no date of its own carries one beside the tag: a bio, an evergreen page, a screenshot that will be reposted.
-
-The objection that the same agent suggests today and executes unattended tomorrow is answered by the principle, not by a date. The tag describes one piece of work.
-
-## 8. Extension rules
-
-1. A published token never changes meaning. A bad token is fixed by adding a new token and deprecating the old one. Nothing is redefined and nothing is renumbered.
-2. Levels grow upward only. The first candidate for `L4` is *it chose the task*. Every current level assumes a person set the goal. A proactive agent that decides what to do next is a new rung, not a flag.
-3. A new slot carries its own closed vocabulary, and no word is shared between slots, so every token still identifies itself and order stays a reading convention. New slots go before the tool.
-4. A minor version adds tokens, flags or slots and stays backward compatible. A major version is a last resort. Deprecate, never remove.
-5. Candidates for 1.1, left out to keep the tag at four words: `checked` (tests, a fact-check or a second reader ran; the answer to whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
-6. Governance. The specification is public and forkable, with a changelog. Proposals are issues. A token is accepted when three real uses cannot be tagged honestly without it.
-7. A mark (section 12) is not a token, so the three-uses test in rule 6 does not apply to it. The mark set is fixed for every 1.x version. A new mark is added only with a new level, and a published mark never changes its level.
-
-## 9. Worked examples
+## 7. Worked examples
 
 Each tag follows from the tests in sections 3 to 5. `(tool)` stands for whichever tool it was.
 
@@ -151,41 +129,7 @@ Each tag follows from the tests in sections 3 to 5. `(tool)` stands for whicheve
 
 The same examples are in `examples/examples.json` with their machine form, and a test holds the two lists equal.
 
-## 10. Known limits
-
-- It rates opportunity, not diligence. A rubber stamp at `L2` tags the same as a real review.
-- Hand is self-reported and will be shaded downward. CRediT had the same problem and spread only when publishers required it.
-- It says nothing about what the tool was *permitted* to do. That is a governance question (the Cloud Security Alliance framework, Zheng et al.) and belongs in a dated standing tag, not a use tag.
-- It does not establish liability. It does show where liability needs an owner: every `L3 · no undo`.
-
-## 11. Prior art
-
-| Scheme | What it rates | Relation |
-|---|---|---|
-| Sheridan & Verplank 1978; Parasuraman, Sheridan & Wickens 2000 (ten levels of automation) | Who decides and who is told | The lineage. `L1` to `L3` compress their "executes with veto / executes and informs / does not inform" |
-| SAE J3016 L0 to L5 | The vehicle, fixed at manufacture | The analogy. This scheme rates the trip and does not share its numbers |
-| Human in / on / out of the loop (DoD 3000.09, autonomous-weapons policy) | Oversight position | The same idea as L1 to L3. The words were dropped because "on the loop" is jargon and sounds like "in the loop" aloud |
-| AI Assessment Scale, Perkins / Furze / Roe / MacVaugh (five levels) | What a student is permitted to use | Permission, not disclosure; no agents acting on the world |
-| Feng, McDonald & Zhang 2025, operator to observer | The user's role in an agent system | Rates the configuration; the closest in spirit |
-| Mitchell et al. 2025 (Hugging Face), autonomy levels | Agent systems | Argues against the top rung; rates the system |
-| Morris et al. 2023, Levels of AGI (DeepMind) | System capability and autonomy | Rates the system |
-| Cloud Security Alliance, Agentic AI Autonomy Levels v2 (2026) | Enterprise deployments, five dimensions, prescribed controls | Governance. The standing tag of section 7 is its small cousin |
-| Zheng et al. 2026, capability vs permission | Separates could from may | Adopted: a use tag is about did |
-| CRediT | Human authorship roles | Hand is a three-rung CRediT for machines |
-| IPTC digital source type, C2PA | Machine-readable provenance of media | The machine-readable Hand for images. A use tag can sit beside it |
-| Creative Commons | Licence terms | The syntax model: few self-identifying tokens, versioned, a human layer and a machine layer. CC Signals (2025) is about training and is not this |
-| Bezos's one-way and two-way doors | Decision reversibility | Door is that idiom applied to the machine's changes |
-| "Loop engineering", "four levels of agentic loops" | Agent architecture | A name collision only, and the reason the working title "Loop Levels" was dropped |
-
-Sources read:
-
-- https://arxiv.org/abs/2403.14692v2
-- https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-1/
-- https://labs.cloudsecurityalliance.org/research/agentic-ai-autonomy-levels-control-framework-v2-csa-styled/
-- https://www.alphaxiv.org/abs/2607.23438
-- https://medium.com/@tahirbalarabe2/what-is-loop-engineering-four-levels-of-agentic-loops-ccc48b850002
-
-## 12. Marks
+## 8. Marks
 
 A mark is a symbol for the Level alone, for places with no room for the full tag: a social bio, an image overlay, a chat display name, a slide footer. The circle is the work and the dot is the tool. The four marks differ only by where the dot is, so they read without colour, without letters and in any language.
 
@@ -214,14 +158,43 @@ Examples:
 
 The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. It is no shorter than `L2`, an emoji depends on the platform's drawing, and a screen reader reads it as "robot face".
 
-## 13. Route to a standard
+## 9. Dated or versioned?
+
+Version the scheme. Do not date a use tag. Date a standing tag.
+
+1. The scheme is versioned: 1.0, 1.1 and so on, like CC 4.0. A tag with no version token is version 1.
+2. A use tag on one piece of work is not dated. The artifact carries the date: the post, the commit, the document, the release. Tokens never change meaning (section 10), so an old tag reads correctly forever. A hand-typed tag must stay short.
+3. The tool name is versioned where it can be. `Claude Opus 5.5`, not `Claude`. The model name is the date.
+4. A standing tag on a system or a policy is dated. "Support bot runs at `L3 · made · no undo`, 2% read, since June 2026." "Production changes are L2 or lower (policy of 2026-10)." A stance gets revised, and a reader needs to know which one was in force. The standing tag is also the fleet form: ten thousand chats get one dated standing tag, not ten thousand use tags.
+5. An artifact with no date of its own carries one beside the tag: a bio, an evergreen page, a screenshot that will be reposted.
+
+The objection that the same agent suggests today and executes unattended tomorrow is answered by the principle, not by a date. The tag describes one piece of work.
+
+## 10. Extension rules
+
+1. A published token never changes meaning. A bad token is fixed by adding a new token and deprecating the old one. Nothing is redefined and nothing is renumbered.
+2. Levels grow upward only. The first candidate for `L4` is *it chose the task*. Every current level assumes a person set the goal. A proactive agent that decides what to do next is a new rung, not a flag.
+3. A new slot carries its own closed vocabulary, and no word is shared between slots, so every token still identifies itself and order stays a reading convention. New slots go before the tool.
+4. A minor version adds tokens, flags or slots and stays backward compatible. A major version is a last resort. Deprecate, never remove.
+5. Candidates for 1.1, left out to keep the tag at four words: `checked` (tests, a fact-check or a second reader ran; the answer to whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
+6. Governance. The specification is public and forkable, with a changelog. Proposals are issues. A token is accepted when three real uses cannot be tagged honestly without it.
+7. A mark (section 8) is not a token, so the three-uses test in rule 6 does not apply to it. The mark set is fixed for every 1.x version. A new mark is added only with a new level, and a published mark never changes its level.
+
+## 11. Known limits
+
+- It rates opportunity, not diligence. A rubber stamp at `L2` tags the same as a real review.
+- Hand is self-reported and will be shaded downward. CRediT had the same problem and spread only when publishers required it.
+- It says nothing about what the tool was *permitted* to do. That is a governance question (the Cloud Security Alliance framework, Zheng et al.) and belongs in a dated standing tag, not a use tag.
+- It does not establish liability. It does show where liability needs an owner: every `L3 · no undo`.
+
+## 12. Route to a standard
 
 The aim is for the four marks to be encoded in Unicode, as the Creative Commons symbols were: 🅭 and 🅯 entered Unicode 13.0 in 2020, years after the licences were in wide use. The Unicode Technical Committee (UTC) encodes a symbol when there is evidence that people other than its authors use it in running text. The order of work:
 
 1. Publish the marks: the SVGs in this repository under CC0, then a small open font that maps them to Private Use Area code points until real ones exist.
 2. Use them on the 4th Culture sites and in the README of each gorfednet repository whose commits carry the `AI-Use` trailer.
 3. Keep a public log of third-party use with links and dates, opened as issues in this repository.
-4. When the log shows use by unrelated publishers, submit a UTC proposal for four characters with the names in section 12, the spoken forms, the reference glyphs and the log as evidence.
+4. When the log shows use by unrelated publishers, submit a UTC proposal for four characters with the names in section 8, the spoken forms, the reference glyphs and the log as evidence.
 
 Alongside that:
 
@@ -229,3 +202,30 @@ Alongside that:
 - Commit trailer. `AI-Use` follows git's trailer syntax and needs no registration. Tools that read `Co-Authored-By` are asked to read it too.
 
 Nothing has been submitted to any body yet. Each submission is listed here with its date when it is made.
+
+## 13. Prior art
+
+| Scheme | What it rates | Relation |
+|---|---|---|
+| Sheridan & Verplank 1978; Parasuraman, Sheridan & Wickens 2000 (ten levels of automation) | Who decides and who is told | The lineage. `L1` to `L3` compress their "executes with veto / executes and informs / does not inform" |
+| SAE J3016 L0 to L5 | The vehicle, fixed at manufacture | The analogy. This scheme rates the trip and does not share its numbers |
+| Human in / on / out of the loop (DoD 3000.09, autonomous-weapons policy) | Oversight position | The same idea as L1 to L3. The words were dropped because "on the loop" is jargon and sounds like "in the loop" aloud |
+| AI Assessment Scale, Perkins / Furze / Roe / MacVaugh (five levels) | What a student is permitted to use | Permission, not disclosure; no agents acting on the world |
+| Feng, McDonald & Zhang 2025, operator to observer | The user's role in an agent system | Rates the configuration; the closest in spirit |
+| Mitchell et al. 2025 (Hugging Face), autonomy levels | Agent systems | Argues against the top rung; rates the system |
+| Morris et al. 2023, Levels of AGI (DeepMind) | System capability and autonomy | Rates the system |
+| Cloud Security Alliance, Agentic AI Autonomy Levels v2 (2026) | Enterprise deployments, five dimensions, prescribed controls | Governance. The standing tag of section 9 is its small cousin |
+| Zheng et al. 2026, capability vs permission | Separates could from may | Adopted: a use tag is about did |
+| CRediT | Human authorship roles | Hand is a three-rung CRediT for machines |
+| IPTC digital source type, C2PA | Machine-readable provenance of media | The machine-readable Hand for images. A use tag can sit beside it |
+| Creative Commons | Licence terms | The syntax model: few self-identifying tokens, versioned, a human layer and a machine layer. CC Signals (2025) is about training and is not this |
+| Bezos's one-way and two-way doors | Decision reversibility | Door is that idiom applied to the machine's changes |
+| "Loop engineering", "four levels of agentic loops" | Agent architecture | A name collision only, and the reason the working title "Loop Levels" was dropped |
+
+Sources read:
+
+- https://arxiv.org/abs/2403.14692v2
+- https://leonfurze.com/2023/12/18/the-ai-assessment-scale-version-1/
+- https://labs.cloudsecurityalliance.org/research/agentic-ai-autonomy-levels-control-framework-v2-csa-styled/
+- https://www.alphaxiv.org/abs/2607.23438
+- https://medium.com/@tahirbalarabe2/what-is-loop-engineering-four-levels-of-agentic-loops-ccc48b850002

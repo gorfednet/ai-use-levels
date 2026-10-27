@@ -54,7 +54,7 @@ CC BY 4.0, for text and data alike ([LICENSE](LICENSE)), and a link to the canon
 
 ## Repository
 
-`npm test` runs the checks with `node --test`: `spec.json` has the right shape, every example tokenises, the examples match SPEC.md section 9, and every token published in an earlier `v*` tag is still present and unchanged in the current `spec.json`, because a published token never changes meaning. CI runs on GitHub-hosted runners because this repository is public.
+`npm test` runs the checks with `node --test`: `spec.json` has the right shape, every example tokenises, the examples match the Worked examples section of SPEC.md, and every token published in an earlier `v*` tag is still present and unchanged in the current `spec.json`, because a published token never changes meaning. CI runs on GitHub-hosted runners because this repository is public.
 
 The text in this repository was written by Claude Code from the author's data sheet, then rewritten by Claude Code at the author's direction, each time under supervision, on a branch, and read by the author before it was merged.
 
