@@ -2,6 +2,10 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## 1.1 (2026-10-27)
+
+Adds marks: one symbol per Level, a circle for the work and a dot for the tool, with the dot outside (`L1`), on the edge (`L2`) or inside (`L3`), and an empty circle for `L0`. Section 12 gives the rules and examples, and section 13 gives the route to Unicode encoding. Extension rule 8.7 says a mark is not a token. `spec.json` gains `marks` (name, spoken form, braille, files) and `marksStatus`. The SVGs are in `marks/` under CC0. The `🤖2` mark proposed in issue 6 is withdrawn. No token changed.
+
 ## 1.0.2 (2026-10-26)
 
 Editorial pass: repeated epigrams reduced to one instance each, so "SAE rates the car. This rates the trip." and "The model name is the date." each appear once in `SPEC.md`. `CONTRIBUTING.md` points at the 4th Culture content guidelines, now in `docs/content-guidelines.md`. No token, definition or test changed.

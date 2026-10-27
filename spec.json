@@ -1,6 +1,6 @@
 {
   "name": "AI Use Levels",
-  "version": "1.0",
+  "version": "1.1",
   "canonical": "https://papers.4thcltr.com/ai-use-levels/",
   "licence": "CC-BY-4.0",
   "slots": [
@@ -108,10 +108,64 @@
       "deprecated": null
     }
   ],
+  "marks": [
+    {
+      "level": "L0",
+      "dot": "none",
+      "name": "AI USE LEVEL ZERO SYMBOL",
+      "spoken": "AI use level zero, None",
+      "braille": "⠠⠇⠼⠚",
+      "files": {
+        "light": "marks/l0-light.svg",
+        "dark": "marks/l0-dark.svg"
+      },
+      "since": "1.1"
+    },
+    {
+      "level": "L1",
+      "dot": "outside the circle",
+      "name": "AI USE LEVEL ONE SYMBOL",
+      "spoken": "AI use level one, Suggested",
+      "braille": "⠠⠇⠼⠁",
+      "files": {
+        "light": "marks/l1-light.svg",
+        "dark": "marks/l1-dark.svg"
+      },
+      "since": "1.1"
+    },
+    {
+      "level": "L2",
+      "dot": "on the circle's edge",
+      "name": "AI USE LEVEL TWO SYMBOL",
+      "spoken": "AI use level two, Supervised",
+      "braille": "⠠⠇⠼⠃",
+      "files": {
+        "light": "marks/l2-light.svg",
+        "dark": "marks/l2-dark.svg"
+      },
+      "since": "1.1"
+    },
+    {
+      "level": "L3",
+      "dot": "inside the circle",
+      "name": "AI USE LEVEL THREE SYMBOL",
+      "spoken": "AI use level three, Unattended",
+      "braille": "⠠⠇⠼⠉",
+      "files": {
+        "light": "marks/l3-light.svg",
+        "dark": "marks/l3-dark.svg"
+      },
+      "since": "1.1"
+    }
+  ],
   "machineForm": {
     "trailer": "AI-Use",
     "pattern": "AI-Use: <level> [hand] [door] [flag] (<tool>) [v<major>]",
     "versionToken": "absent means v1"
   },
-  "absence": "No tag means nothing claimed. It never means L0."
+  "absence": "No tag means nothing claimed. It never means L0.",
+  "marksStatus": {
+    "braille": "pending a braille reader's check",
+    "unicode": "not encoded; see SPEC.md section 13"
+  }
 }
