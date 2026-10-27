@@ -4,7 +4,7 @@ The scheme is versioned. A minor version adds tokens, flags or slots and stays b
 
 ## 1.1.1 (2026-10-27)
 
-Wording: section 12 rule 3 now says the alt text and SVG title are the label with a digit (`AI use level 2, Supervised`), as the files already were, and that a screen reader says it as the spoken form. No token, mark or test changed.
+Wording: section 12 rule 3 now says the alt text and SVG title are the label with a digit (`AI use level 2, Supervised`), as the files already were, and that a screen reader says it as the spoken form. Section 12 adds that `🤖2` is no shorter than `L2` to the reasons it was withdrawn. No token, mark or test changed.
 
 ## 1.1 (2026-10-27)
 

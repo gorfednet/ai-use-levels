@@ -212,7 +212,7 @@ Examples:
 | An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's alt text and sidecar |
 | A support bot's display name | L3 mark | the dated standing tag on the help page: `L3 · made · no undo`, since June 2026 |
 
-The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. An emoji depends on the platform's drawing, and a screen reader reads it as "robot face".
+The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. It is no shorter than `L2`, an emoji depends on the platform's drawing, and a screen reader reads it as "robot face".
 
 ## 13. Route to a standard
 
