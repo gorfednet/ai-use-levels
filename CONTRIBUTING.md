@@ -25,7 +25,7 @@ An issue that argues with a rule rather than proposing a token needs less: the r
 
 ## Small fixes
 
-A typo, a broken link or a sentence that reads badly needs no issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` move together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenises, that section 9 of `SPEC.md` and `examples.json` agree, and that no published token has moved.
+A typo, a broken link or a sentence that reads badly needs no issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` move together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenises, that the Worked examples section of `SPEC.md` and `examples.json` agree, and that no published token has moved.
 
 ## Style
 

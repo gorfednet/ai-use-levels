@@ -166,6 +166,6 @@
   "absence": "No tag means nothing claimed. It never means L0.",
   "marksStatus": {
     "braille": "pending a braille reader's check",
-    "unicode": "not encoded; see SPEC.md section 13"
+    "unicode": "not encoded; see SPEC.md section 12"
   }
 }
