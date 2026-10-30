@@ -2,6 +2,10 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## Unreleased
+
+Repository: `CITATION.cff` added, and a test holds it to the version in `spec.json`. No token, definition or specification text changed.
+
 ## 1.1.6 (2026-10-30)
 
 Wording. `SPEC.md`, `README.md`, `CONTRIBUTING.md` and the descriptions of the worked examples (SPEC.md section 7 and `examples/examples.json`) were rewritten in plain language under the 30 October content guidelines: fewer "X, not Y" contrasts and colon-led statements, mixed sentence lengths, contractions, digits for counts, and "I" only where the author speaks. `docs/content-guidelines.md` is refreshed from gorfednet/.github. No token, slot, flag, rule, section number, definition, example tag or machine form changed, and `spec.json` is untouched.
