@@ -27,6 +27,12 @@ If your issue argues with a rule and doesn't propose a token, it needs less: the
 
 A typo, a broken link or a sentence that reads badly doesn't need an issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` change together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenises, that the Worked examples section of `SPEC.md` agrees with `examples.json`, and that no published token has moved.
 
+## Tags on commits
+
+A commit here doesn't need an `AI-Use:` trailer. If you add one, you're accountable for what it says. An agent can draft a tag, and a person confirms or corrects it before it goes on a commit; [docs/for-agents.md](docs/for-agents.md) has the detail.
+
+CI runs `scripts/check-trailers.mjs` on a pull request's commits. It checks the form of any trailer against `spec.json`, including a Door at L2 and L3 and none at L0 and L1. A commit with no trailer passes, because no tag means nothing is claimed, and the check can't tell whether a tag is true.
+
 ## Style
 
 Write plainly, in sentences of mixed length, with contractions where speech would use them. State rules in the second person or in a neutral voice, and keep "I" for the places where the author speaks, such as the rationale in `SPEC.md` and this file. Use British and Canadian spelling, and leave out superlatives, exclamation marks and "we". The full guide is the 4th Culture content guidelines in `docs/content-guidelines.md`.

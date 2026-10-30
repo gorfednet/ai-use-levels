@@ -2,6 +2,10 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## Unreleased
+
+Record: on 30 October 2026 I counted the commits made since 1 October in 5 gorfednet repositories. 102 of them carried an `AI-Use:` line, agents had written those lines themselves, and 34 were malformed: 20 were L2 with an invented word and no Door (`L2 rewrote wording`), 9 were L1 with an invented word, and 5 said only `directed`. Of the 68 well-formed tags, 67 were `L2 made undo`. Those commits stay as they are. From now on an agent only drafts a tag and a person confirms it. [docs/for-agents.md](docs/for-agents.md) says so, and CI now checks the form of any trailer on a pull request's commits. No token, slot or definition changed, and `spec.json` is untouched.
+
 ## 1.1.6 (2026-10-30)
 
 Wording. `SPEC.md`, `README.md`, `CONTRIBUTING.md` and the descriptions of the worked examples (SPEC.md section 7 and `examples/examples.json`) were rewritten in plain language under the 30 October content guidelines: fewer "X, not Y" contrasts and colon-led statements, mixed sentence lengths, contractions, digits for counts, and "I" only where the author speaks. `docs/content-guidelines.md` is refreshed from gorfednet/.github. No token, slot, flag, rule, section number, definition, example tag or machine form changed, and `spec.json` is untouched.

@@ -35,6 +35,7 @@ Where 4 words don't fit, a mark can stand for the Level. It's a circle for the w
 - [spec.json](spec.json): the same scheme as data, with the slots, the tokens and the machine form.
 - [examples/examples.json](examples/examples.json): the worked examples with their machine form.
 - [CHANGELOG.md](CHANGELOG.md): what each version changed.
+- [docs/for-agents.md](docs/for-agents.md): what an agent may draft and what a person confirms.
 
 The canonical page is https://papers.4thcltr.com/ai-use-levels/. It serves each version at its own URL, so a tag can cite a version that never moves.
 
@@ -54,7 +55,7 @@ Text and data are both under CC BY 4.0 ([LICENSE](LICENSE)). If you embed the to
 
 ## Repository
 
-`npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape, that every example tokenises and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI runs on GitHub-hosted runners because this repository is public.
+`npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape, that every example tokenises and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
 
 Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged.
 
