@@ -1,7 +1,7 @@
 // The shape of spec.json and examples/examples.json.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compareVersions, parseVersion, readJson, tokenise } from './lib/spec.mjs';
+import { compareVersions, parseVersion, readJson, readText, tokenise } from './lib/spec.mjs';
 
 const spec = readJson('spec.json');
 const examples = readJson('examples/examples.json');
@@ -84,4 +84,11 @@ test('every example machine string tokenises into known tokens plus a parenthesi
     }
     assert.equal(parsed.version, null, `${example.machine}: a 1.x tag carries no version token`);
   }
+});
+
+test('CITATION.cff cites the version in spec.json', () => {
+  const cff = readText('CITATION.cff');
+  const { version } = readJson('spec.json');
+  assert.ok(cff.includes(`version: "${version}"`), `CITATION.cff does not name version ${version}`);
+  assert.ok(cff.includes(`/ai-use-levels/${version}/`), `CITATION.cff does not link version ${version}`);
 });
