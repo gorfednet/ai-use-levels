@@ -24,3 +24,10 @@ jobs:
         with:
           node-version: 22
       - run: npm test
+        if: ${{ !cancelled() }}
+      - name: AI-Use trailers on the pull request's commits
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/check-trailers.mjs --range "$BASE_SHA..$HEAD_SHA"
