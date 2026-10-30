@@ -2,6 +2,10 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## 1.1.6 (2026-10-30)
+
+Wording. `SPEC.md`, `README.md`, `CONTRIBUTING.md` and the descriptions of the worked examples (SPEC.md section 7 and `examples/examples.json`) were rewritten in plain language under the 30 October content guidelines: fewer "X, not Y" contrasts and colon-led statements, mixed sentence lengths, contractions, digits for counts, and "I" only where the author speaks. `docs/content-guidelines.md` is refreshed from gorfednet/.github. No token, slot, flag, rule, section number, definition, example tag or machine form changed, and `spec.json` is untouched.
+
 ## 1.1.5 (2026-10-27)
 
 Wording. Section 10 rule 5 named `checked`, `data`, `whose` and duration as candidates for 1.1. Version 1.1 shipped marks instead, so they are now candidates for a later minor version (1.2 or after). No token or definition changed.

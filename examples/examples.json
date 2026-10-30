@@ -20,57 +20,57 @@
     "machine": "AI-Use: L1 touched (Grammarly)"
   },
   {
-    "use": "One of forty generated images, unedited",
+    "use": "I picked 1 of 40 generated images and didn't edit it",
     "tag": "L1 · made · Midjourney",
     "machine": "AI-Use: L1 made (Midjourney)"
   },
   {
-    "use": "A research agent ran twenty minutes, changed nothing, I used the report",
+    "use": "A research agent ran for 20 minutes and changed nothing, and I used its report",
     "tag": "L1 · made · Deep Research",
     "machine": "AI-Use: L1 made (Deep Research)"
   },
   {
-    "use": "Machine translation posted in a language I cannot read",
+    "use": "I posted a machine translation in a language I can't read",
     "tag": "L1 · made · unread · DeepL",
     "machine": "AI-Use: L1 made unread (DeepL)"
   },
   {
-    "use": "Coding agent, permission prompt on every edit, I read each diff",
+    "use": "A coding agent asked permission for every edit, and I read each diff",
     "tag": "L2 · made · undo · Claude Code",
     "machine": "AI-Use: L2 made undo (Claude Code)"
   },
   {
-    "use": "Agent proposed an infrastructure plan, I approved once, apply made forty changes",
+    "use": "An agent proposed an infrastructure plan, I approved it once, and the apply made 40 changes",
     "tag": "L2 · made · no undo · (tool)",
     "machine": "AI-Use: L2 made no undo (tool)"
   },
   {
-    "use": "Agent ran overnight on a branch and opened a PR I then read",
+    "use": "An agent ran overnight on a branch and opened a pull request, which I then read",
     "tag": "L3 · made · undo · Claude Code",
     "machine": "AI-Use: L3 made undo (Claude Code)"
   },
   {
-    "use": "Lint-fixer ran unattended on a branch; I read, then merged",
+    "use": "A lint-fixer ran unattended on a branch, and I read its changes before merging",
     "tag": "L3 · touched · undo · (tool)",
     "machine": "AI-Use: L3 touched undo (tool)"
   },
   {
-    "use": "Agent with production and email access ran unattended; I read the logs after",
+    "use": "An agent with production and email access ran unattended, and I read the logs afterwards",
     "tag": "L3 · made · no undo · (tool)",
     "machine": "AI-Use: L3 made no undo (tool)"
   },
   {
-    "use": "Bot auto-merged on green CI; nobody has read the diff",
+    "use": "A bot auto-merged on green CI, and nobody has read the diff",
     "tag": "L3 · made · no undo · unread · (tool)",
     "machine": "AI-Use: L3 made no undo unread (tool)"
   },
   {
-    "use": "Meeting bot emailed its summary to every attendee before the host saw it",
+    "use": "A meeting bot emailed its summary to every attendee before the host saw it",
     "tag": "L3 · made · no undo · unread · (tool)",
     "machine": "AI-Use: L3 made no undo unread (tool)"
   },
   {
-    "use": "AI drafted the email, I reworked it and pressed send",
+    "use": "AI drafted the email, and I reworked it and pressed send",
     "tag": "L1 · drafted · Claude",
     "machine": "AI-Use: L1 drafted (Claude)"
   }
