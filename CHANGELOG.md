@@ -4,7 +4,7 @@ The scheme is versioned. A minor version adds tokens, flags or slots and stays b
 
 ## Unreleased
 
-Record: on 30 October 2026 I counted the commits made since 1 October in 5 gorfednet repositories. 102 of them carried an `AI-Use:` line, agents had written those lines themselves, and 34 were malformed: 20 were L2 with an invented word and no Door (`L2 rewrote wording`), 9 were L1 with an invented word, and 5 said only `directed`. Of the 68 well-formed tags, 67 were `L2 made undo`. Those commits stay as they are. From now on an agent only drafts a tag and a person confirms it. [docs/for-agents.md](docs/for-agents.md) says so, and CI now checks the form of any trailer on a pull request's commits. No token, slot or definition changed, and `spec.json` is untouched.
+Record: on 30 October 2026 I counted the commits made since 1 October in 5 gorfednet repositories. 102 of them carried an `AI-Use:` line, agents had written those lines themselves, and 34 were malformed: 20 were L2 with an invented word and no Door (`L2 rewrote wording`), 9 were L1 with an invented word, and 5 said only `directed`. Of the 68 well-formed tags, 67 were `L2 made undo`. Those commits stay as they are. From now on an agent only drafts a tag and a person confirms it. [docs/for-agents.md](docs/for-agents.md) says so, and CI now checks the form of any trailer on a pull request's commits. No token, slot or definition changed, and `spec.json` is untouched. See [pull request 19](https://github.com/gorfednet/ai-use-levels/pull/19).
 
 ## 1.1.6 (2026-10-30)
 
