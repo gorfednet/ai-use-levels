@@ -56,7 +56,7 @@ Text and data are both under CC BY 4.0 ([LICENSE](LICENSE)). If you embed the to
 
 ## Repository
 
-`npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape, that every example tokenizes and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
+Run `npm ci` once, then `npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape and validates against `spec.schema.json`, that every example tokenizes and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
 
 Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged.
 

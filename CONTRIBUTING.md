@@ -25,7 +25,7 @@ If your issue argues with a rule and doesn't propose a token, it needs less: the
 
 ## Small fixes
 
-A typo, a broken link or a sentence that reads badly doesn't need an issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` change together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenizes, that the Worked examples section of `SPEC.md` agrees with `examples.json`, and that no published token has moved.
+A typo, a broken link or a sentence that reads badly doesn't need an issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` change together, and `npm test` checks the parts a test can check: the shape of `spec.json` and its schema, that every example tokenizes, that the Worked examples section of `SPEC.md` agrees with `examples.json`, and that no published token has moved.
 
 ## Tags on commits
 
