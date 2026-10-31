@@ -1,6 +1,6 @@
 # AI Use Levels
 
-"I used AI for this" has stopped meaning anything. It covers a chatbot that polished one paragraph and an agent that ran all night with the keys to production. AI Use Levels is a tag of four words, Level · Hand · Door · Tool, that says in one breath what one piece of work owes to generative AI. With it, 2 people can tell whether they're talking about the same kind of use. A tag describes what happened on one piece of work, and what the tool was capable of doesn't change it.
+"I used AI for this" has stopped meaning anything. It covers a chatbot that polished one paragraph and an agent that ran all night with the keys to production. AI Use Levels is a tag of 4 words, Level · Hand · Door · Tool, that says in one breath what one piece of work owes to generative AI. With it, 2 people can tell whether they're talking about the same kind of use. A tag describes what happened on one piece of work, and what the tool was capable of doesn't change it.
 
 ## The tag
 
@@ -14,25 +14,26 @@ L2 · made · undo · Claude Code
 - Tool: name it as specifically as you can. A model version is better than a product name.
 - One flag, `unread`, for work no accountable person has read.
 
-No tag means nothing is claimed. It never means L0.
+No tag means nothing is claimed. It never means L0. `L0` is a tag of its own, 1 word with no Hand, Door, flag or Tool, and it's a person's claim about their own work.
 
 ## Use it
 
 The machine form uses the same tokens and puts the tool in parentheses. Add one line wherever the work already keeps its metadata:
 
-- In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`
+- In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it.
 - In YAML front matter, the same line unchanged: `AI-Use: L2 made undo (Claude Code)`
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
 
 Where 4 words don't fit, a mark can stand for the Level. It's a circle for the work with a dot for the tool, placed outside the circle, on its edge or inside it. The SVGs are in [marks/](marks/) under CC0.
 
-[SPEC.md](SPEC.md) has the rules, the test for each token and 15 worked examples.
+[SPEC.md](SPEC.md) has the rules, the test for each token and 17 worked examples.
 
 ## Read it
 
-- [SPEC.md](SPEC.md): the specification, version 1.1.
+- [SPEC.md](SPEC.md): the specification, version 1.2.
 - [spec.json](spec.json): the same scheme as data, with the slots, the tokens and the machine form.
+- [spec.schema.json](spec.schema.json): the JSON Schema that `spec.json` has to fit.
 - [examples/examples.json](examples/examples.json): the worked examples with their machine form.
 - [CHANGELOG.md](CHANGELOG.md): what each version changed.
 - [docs/for-agents.md](docs/for-agents.md): what an agent may draft and what a person confirms.
@@ -41,9 +42,9 @@ The canonical page is https://papers.4thcltr.com/ai-use-levels/. It serves each 
 
 ## Cite it
 
-> AI Use Levels 1.1. 4th Culture, Toronto, 2026. https://papers.4thcltr.com/ai-use-levels/
+> AI Use Levels 1.2. 4th Culture, Toronto, 2026. https://papers.4thcltr.com/ai-use-levels/
 
-In running text, "AI Use Levels 1.1" with the link is enough. A tag with no version token is version 1.
+In running text, "AI Use Levels 1.2" with the link is enough. A tag with no version token is version 1.
 
 ## Argue with it
 
@@ -55,7 +56,7 @@ Text and data are both under CC BY 4.0 ([LICENSE](LICENSE)). If you embed the to
 
 ## Repository
 
-`npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape, that every example tokenises and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
+`npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape, that every example tokenizes and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
 
 Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged.
 

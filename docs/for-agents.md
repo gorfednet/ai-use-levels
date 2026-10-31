@@ -30,7 +30,8 @@ A change is an effect outside the conversation: it wrote, sent, paid, deployed, 
 
 - `L0` means no AI touched it, so it can't be the level of your own work.
 - A change that ran under auto-approval, with no person's yes, is L3. Reading the result closely afterwards doesn't make it L2.
-- One yes to a plan of 40 changes is L2, because the person could have said no before anything happened. The yes has to cover the change, and a change outside the plan didn't wait for it.
+- One yes to a plan of 40 changes is L2, because the person could have said no before anything happened. The yes has to come after the plan exists and has to cover the change, and a change outside the plan didn't wait for it.
+- A standing instruction, such as "merge and deploy without asking", isn't a yes. It was given before there was a plan to say yes to, so changes made under one are L3.
 - Where the steps differed, tag the highest level reached by any step that changed something. A read-only step doesn't raise the level.
 - A run that changed nothing outside the conversation is L1, however long it ran.
 
@@ -38,7 +39,7 @@ A change is an effect outside the conversation: it wrote, sent, paid, deployed, 
 
 | Token | Test |
 |---|---|
-| `touched` | Would a reader recognise anything of its output in the final? Barely |
+| `touched` | Would a reader recognize anything of its output in the final? Barely |
 | `drafted` | Its shape survives; most of the words or code are a person's |
 | `made` | Its words, code or pixels survive |
 

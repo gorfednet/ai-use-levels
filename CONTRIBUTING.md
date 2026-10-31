@@ -25,7 +25,7 @@ If your issue argues with a rule and doesn't propose a token, it needs less: the
 
 ## Small fixes
 
-A typo, a broken link or a sentence that reads badly doesn't need an issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` change together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenises, that the Worked examples section of `SPEC.md` agrees with `examples.json`, and that no published token has moved.
+A typo, a broken link or a sentence that reads badly doesn't need an issue first. Open a pull request. A change in meaning goes through an issue. `SPEC.md`, `spec.json` and `examples/examples.json` change together, and `npm test` checks the parts a test can check: the shape of `spec.json`, that every example tokenizes, that the Worked examples section of `SPEC.md` agrees with `examples.json`, and that no published token has moved.
 
 ## Tags on commits
 
@@ -35,4 +35,4 @@ CI runs `scripts/check-trailers.mjs` on a pull request's commits. It checks the 
 
 ## Style
 
-Write plainly, in sentences of mixed length, with contractions where speech would use them. State rules in the second person or in a neutral voice, and keep "I" for the places where the author speaks, such as the rationale in `SPEC.md` and this file. Use British and Canadian spelling, and leave out superlatives, exclamation marks and "we". The full guide is the 4th Culture content guidelines in `docs/content-guidelines.md`.
+Write plainly, in sentences of mixed length, with contractions where speech would use them. State rules in the second person or in a neutral voice, and keep "I" for the places where the author speaks, such as the rationale in `SPEC.md` and this file. Use Canadian Press spelling (behaviour, centre, colour, with -ize: organize, recognize), and leave out superlatives, exclamation marks and "we". The full guide is the 4th Culture content guidelines in `docs/content-guidelines.md`.
