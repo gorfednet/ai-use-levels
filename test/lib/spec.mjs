@@ -12,6 +12,10 @@ export function readText(relative) {
   return readFileSync(path.join(root, relative), 'utf8');
 }
 
+// The values a slot's "required" may take. spec.schema.json lists the same ones, and
+// test/spec-schema.test.mjs checks the two agree.
+export const REQUIRED_VALUES = new Set(['always', 'recommended', 'at L2 and L3', 'when true', 'at L1 and above']);
+
 // "1.0" -> [1, 0]. Throws on anything that is not dotted integers.
 export function parseVersion(version) {
   if (typeof version !== 'string' || !/^\d+(\.\d+)*$/.test(version)) {
@@ -32,11 +36,14 @@ export function compareVersions(a, b) {
   return 0;
 }
 
-// Splits a machine-form tag into its known tokens, its tool and its version token.
-// The tool is everything from the first "(" to the last ")", so "(Copilot (IDE))" nests.
-// Throws on an unknown token, a missing tool, or a malformed string.
-export function tokenise(machine, spec) {
-  const match = /^AI-Use: ([^(]*?)\s*\((.*)\)(?: (v\d+))?$/.exec(machine);
+// Splits a machine-form tag into its known tokens, its tool and its version token, following
+// the pattern in spec.json: AI-Use: <level> [hand] [door] [flag] [(<tool>)] [v<major>].
+// The tool is everything from the first "(" to the last ")", so "(Copilot (IDE))" nests, and
+// it is null when the tag has no parentheses, as "AI-Use: L0" has. Whether a level may leave the
+// tool out is a rule of the spec, not of the syntax, so checkTag in scripts/check-trailers.mjs
+// decides that. Throws on an unknown token, an empty "()" or a malformed string.
+export function tokenize(machine, spec) {
+  const match = /^AI-Use: ([^(]*?)(?:\s*\((.*)\))?(?: (v\d+))?$/.exec(machine);
   if (!match) throw new Error(`not a machine-form tag: ${JSON.stringify(machine)}`);
   const known = spec.tokens.map((token) => token.id).sort((a, b) => b.length - a.length);
   const tokens = [];
@@ -47,7 +54,10 @@ export function tokenise(machine, spec) {
     tokens.push(hit);
     rest = rest.slice(hit.length).trim();
   }
-  const tool = match[2].trim();
-  if (tool.length === 0) throw new Error(`empty tool in ${JSON.stringify(machine)}`);
+  let tool = null;
+  if (match[2] !== undefined) {
+    tool = match[2].trim();
+    if (tool.length === 0) throw new Error(`empty tool in ${JSON.stringify(machine)}`);
+  }
   return { tokens, tool, version: match[3] ?? null };
 }

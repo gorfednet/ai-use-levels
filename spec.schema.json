@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json",
+  "title": "AI Use Levels spec.json",
+  "description": "The shape of spec.json, the machine-readable form of AI Use Levels. It says what the hand-written shape tests in test/ say, so a copy of spec.json can be checked without them. It does not say what a token means; SPEC.md does.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "version", "canonical", "licence", "slots", "tokens", "marks", "machineForm", "absence", "marksStatus"],
+  "properties": {
+    "name": { "const": "AI Use Levels" },
+    "version": {
+      "type": "string",
+      "description": "Dotted integers, such as 1.2. A patch tag does not move it.",
+      "pattern": "^\\d+(\\.\\d+)*$"
+    },
+    "canonical": {
+      "type": "string",
+      "description": "The canonical page, an https URL ending in a slash.",
+      "pattern": "^https://[^\\s]+/$"
+    },
+    "licence": { "const": "CC-BY-4.0" },
+    "slots": {
+      "type": "array",
+      "description": "The slots of a tag in reading order. Every slot but the last is a closed vocabulary; the last is the free-text tool.",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/slot" }
+    },
+    "tokens": {
+      "type": "array",
+      "description": "Every published token. A token never changes meaning once published (SPEC.md section 10).",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/token" }
+    },
+    "marks": {
+      "type": "array",
+      "description": "One mark per level, in level order (SPEC.md section 8).",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/mark" }
+    },
+    "machineForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["trailer", "pattern", "level0", "versionToken"],
+      "properties": {
+        "trailer": { "const": "AI-Use" },
+        "pattern": {
+          "type": "string",
+          "description": "The machine form as a pattern. The tool is optional because L0 has none.",
+          "pattern": "^AI-Use: .*\\[\\(<tool>\\)\\]"
+        },
+        "level0": {
+          "type": "string",
+          "description": "The whole L0 tag: the level token alone.",
+          "pattern": "^AI-Use: L0$"
+        },
+        "versionToken": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "absence": {
+      "$ref": "#/$defs/nonEmptyString",
+      "description": "What no tag means."
+    },
+    "marksStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["braille", "unicode"],
+      "properties": {
+        "braille": { "$ref": "#/$defs/nonEmptyString" },
+        "unicode": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": { "type": "string", "minLength": 1 },
+    "levelId": { "type": "string", "pattern": "^L\\d+$" },
+    "braille": {
+      "type": "string",
+      "description": "Unicode braille cells only.",
+      "pattern": "^[\\u2800-\\u28FF]+$"
+    },
+    "slot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "order", "required"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "order": { "type": "integer", "minimum": 1 },
+        "required": {
+          "description": "When the slot is filled. The same list is REQUIRED_VALUES in test/spec-shape.test.mjs.",
+          "enum": ["always", "recommended", "at L2 and L3", "when true", "at L1 and above"]
+        },
+        "free": {
+          "type": "boolean",
+          "description": "True on the tool slot only: free text instead of a closed vocabulary."
+        },
+        "reach": {
+          "type": "array",
+          "description": "How the tool was reached, an optional parenthetical inside the tool.",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      }
+    },
+    "token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "slot", "name", "meaning", "test", "since", "deprecated"],
+      "properties": {
+        "id": { "$ref": "#/$defs/nonEmptyString" },
+        "slot": { "$ref": "#/$defs/nonEmptyString" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "meaning": { "$ref": "#/$defs/nonEmptyString" },
+        "test": {
+          "description": "The question that decides the token, or null where there is none (L0).",
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/nonEmptyString" }]
+        },
+        "since": {
+          "type": "string",
+          "description": "The version that published the token, dotted integers.",
+          "pattern": "^\\d+(\\.\\d+)*$"
+        },
+        "deprecated": {
+          "description": "Null while the token is current. A deprecated token stays in the list and names its replacement.",
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["since", "replacedBy"],
+              "properties": {
+                "since": { "type": "string", "pattern": "^\\d+(\\.\\d+)*$" },
+                "replacedBy": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "mark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "dot", "name", "spoken", "braille", "brailleName", "files", "since"],
+      "properties": {
+        "level": { "$ref": "#/$defs/levelId" },
+        "dot": { "$ref": "#/$defs/nonEmptyString" },
+        "name": { "type": "string", "pattern": "^AI USE LEVEL [A-Z]+ SYMBOL$" },
+        "spoken": { "type": "string", "pattern": "^AI use level [a-z]+, [A-Z][a-z]+$" },
+        "braille": { "$ref": "#/$defs/braille" },
+        "brailleName": { "$ref": "#/$defs/braille" },
+        "files": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["light", "dark"],
+          "properties": {
+            "light": { "type": "string", "pattern": "^marks/[a-z0-9-]+-light\\.svg$" },
+            "dark": { "type": "string", "pattern": "^marks/[a-z0-9-]+-dark\\.svg$" }
+          }
+        },
+        "since": { "type": "string", "pattern": "^\\d+(\\.\\d+)*$" }
+      }
+    }
+  }
+}
