@@ -1,5 +1,10 @@
 [
   {
+    "use": "I wrote it with no AI at all",
+    "tag": "L0",
+    "machine": "AI-Use: L0"
+  },
+  {
     "use": "A chatbot polished one paragraph",
     "tag": "L1 · touched · ChatGPT",
     "machine": "AI-Use: L1 touched (ChatGPT)"
@@ -56,6 +61,11 @@
   },
   {
     "use": "An agent with production and email access ran unattended, and I read the logs afterwards",
+    "tag": "L3 · made · no undo · (tool)",
+    "machine": "AI-Use: L3 made no undo (tool)"
+  },
+  {
+    "use": "An agent ran under a standing instruction to merge and deploy, and I read the result afterwards",
     "tag": "L3 · made · no undo · (tool)",
     "machine": "AI-Use: L3 made no undo (tool)"
   },

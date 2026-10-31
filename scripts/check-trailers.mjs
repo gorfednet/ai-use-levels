@@ -9,7 +9,7 @@
 import { execFileSync } from 'node:child_process';
 import { realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { readJson, tokenise } from '../test/lib/spec.mjs';
+import { readJson, tokenize } from '../test/lib/spec.mjs';
 
 // Loose on purpose: "ai-use:" and "AI_Use:" are read as tags, so checkTag can reject them.
 // Only column 0 counts, so a commit message can quote a tag by indenting it.
@@ -29,11 +29,36 @@ export function doorLevels(spec) {
   return levels;
 }
 
+// The lowest level that takes a Tool, read from the tool slot in spec.json ("at L1 and above").
+export function toolFloor(spec) {
+  const floor = spec.slots.find((slot) => slot.id === 'tool')?.required.match(/^at (L\d+) and above$/)?.[1];
+  if (!floor) throw new Error('spec.json: the tool slot names no lowest level');
+  return floor;
+}
+
+// The one tag a level below the tool floor can be, read from machineForm.level0 in spec.json.
+// It is the level token alone: no Hand, Door, flag or Tool.
+export function bareForm(spec) {
+  const form = spec.machineForm?.level0;
+  if (typeof form !== 'string') throw new Error('spec.json: machineForm.level0 is missing');
+  const parsed = tokenize(form, spec);
+  if (parsed.tokens.length !== 1 || parsed.tool !== null) {
+    throw new Error(`spec.json: machineForm.level0 is not a level token alone: ${JSON.stringify(form)}`);
+  }
+  return parsed.tokens[0];
+}
+
+function levelNumber(id) {
+  return Number(/^L(\d+)$/.exec(id)[1]);
+}
+
+const SLOT_NAMES = { hand: 'Hand', door: 'Door', flag: 'flag', tool: 'Tool' };
+
 // Returns what is wrong with one machine-form tag. An empty list means it is well formed.
 export function checkTag(line, spec) {
   let parsed;
   try {
-    parsed = tokenise(line, spec);
+    parsed = tokenize(line, spec);
   } catch (error) {
     return [error.message];
   }
@@ -59,6 +84,16 @@ export function checkTag(line, spec) {
     const hasDoor = bySlot.has('door');
     if (needsDoor && !hasDoor) problems.push(`${levels[0]} needs a Door (undo or no undo)`);
     if (!needsDoor && hasDoor) problems.push(`${levels[0]} takes no Door`);
+    const needsTool = levelNumber(levels[0]) >= levelNumber(toolFloor(spec));
+    const hasTool = parsed.tool !== null;
+    if (needsTool && !hasTool) problems.push(`${levels[0]} needs a Tool in parentheses`);
+    if (!needsTool && hasTool) problems.push(`${levels[0]} takes no Tool`);
+    if (levels[0] === bareForm(spec)) {
+      // The whole tag is the level token (spec.json machineForm.level0). Door is reported above.
+      for (const slot of [...bySlot.keys()].filter((s) => s !== 'level' && s !== 'door')) {
+        problems.push(`${levels[0]} takes no ${SLOT_NAMES[slot] ?? slot}`);
+      }
+    }
   }
   return problems;
 }

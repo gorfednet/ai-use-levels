@@ -5,7 +5,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { checkTag, doorLevels, tagLines } from '../scripts/check-trailers.mjs';
+import { bareForm, checkTag, doorLevels, tagLines, toolFloor } from '../scripts/check-trailers.mjs';
 import { readJson, root } from './lib/spec.mjs';
 
 const spec = readJson('spec.json');
@@ -22,7 +22,8 @@ test('every worked example passes', () => {
 test('well-formed tags outside the examples pass', () => {
   for (const line of [
     'AI-Use: L1 (ChatGPT)',
-    'AI-Use: L0 (none)',
+    'AI-Use: L0',
+    'AI-Use: L0 v1',
     'AI-Use: L2 undo (Claude Opus 5.5)',
     'AI-Use: L1 touched (Copilot (IDE))',
     'AI-Use: L2 made no undo (Copilot (IDE)) v1',
@@ -32,15 +33,28 @@ test('well-formed tags outside the examples pass', () => {
   }
 });
 
-// The first 3 are forms that reached real commits in October 2026.
+// The first 3 are forms that reached real commits in October 2026. "AI-Use: directed" was
+// "not a machine-form tag" under 1.1, when the tool's parentheses were part of the syntax;
+// since 1.2 the parentheses are optional and the word fails as an unknown token instead.
 const nearMisses = [
   ['AI-Use: L2 rewrote wording (Claude Opus 5.5)', /unknown token/],
   ['AI-Use: L2 made wording (Claude Opus 5.5)', /unknown token/],
-  ['AI-Use: directed', /not a machine-form tag/],
+  ['AI-Use: directed', /unknown token/],
   ['AI-Use: L2 made (Claude Code)', /L2 needs a Door/],
   ['AI-Use: L3 (Claude Code)', /L3 needs a Door/],
   ['AI-Use: L1 made undo (Claude Code)', /L1 takes no Door/],
   ['AI-Use: L0 no undo (Claude Code)', /L0 takes no Door/],
+  // L0 is the level token alone (SPEC.md section 2, spec.json machineForm.level0).
+  ['AI-Use: L0 (ChatGPT)', /L0 takes no Tool/],
+  ['AI-Use: L0 (none)', /L0 takes no Tool/],
+  ['AI-Use: L0 made', /L0 takes no Hand/],
+  ['AI-Use: L0 unread', /L0 takes no flag/],
+  ['AI-Use: L0 no undo', /L0 takes no Door/],
+  // L1 and above name a Tool.
+  ['AI-Use: L1 made', /L1 needs a Tool/],
+  ['AI-Use: L1', /L1 needs a Tool/],
+  ['AI-Use: L3 made no undo unread', /L3 needs a Tool/],
+  ['AI-Use: L2 made undo v1', /L2 needs a Tool/],
   ['AI-Use: made undo (Claude Code)', /no level token/],
   ['AI-Use: (Claude Code)', /no level token/],
   ['AI-Use: L1 L2 undo (Claude Code)', /2 level tokens/],
@@ -54,8 +68,12 @@ const nearMisses = [
   ['AI-Use: L2 Made undo (Claude Code)', /unknown token/],
   ['AI-Use: L2 made noundo (Claude Code)', /unknown token/],
   ['AI-Use: Supervised made undo (Claude Code)', /unknown token/],
-  ['AI-Use: L2 made undo', /not a machine-form tag/],
+  ['AI-Use: L2 made undo', /L2 needs a Tool/],
   ['AI-Use: L2 made undo ()', /empty tool/],
+  ['AI-Use: L0 ()', /empty tool/],
+  ['AI-Use: L0v1', /unknown token/],
+  ['AI-Use: L0 2', /unknown token/],
+  ['AI-Use: L0 (none) 2', /not a machine-form tag/],
   ['AI-Use: L2 made undo (Claude Code) 2', /not a machine-form tag/],
   ['AI-Use: L2 made undo (Claude Code) v', /not a machine-form tag/],
   ['AI-Use:L2 made undo (Claude Code)', /not a machine-form tag/],
@@ -75,6 +93,24 @@ test('the Door levels come from spec.json', () => {
   assert.deepEqual(doorLevels(spec), ['L2', 'L3']);
   const noLevels = { slots: [{ id: 'door', required: 'sometimes' }] };
   assert.throws(() => doorLevels(noLevels), /names no levels/);
+});
+
+test('the lowest level with a Tool comes from spec.json', () => {
+  assert.equal(toolFloor(spec), 'L1');
+  assert.throws(() => toolFloor({ slots: [{ id: 'tool', required: 'always' }] }), /names no lowest level/);
+  assert.throws(() => toolFloor({ slots: [] }), /names no lowest level/);
+});
+
+test('the bare form comes from spec.json machineForm.level0', () => {
+  assert.equal(bareForm(spec), 'L0');
+  assert.throws(() => bareForm({ ...spec, machineForm: { trailer: 'AI-Use' } }), /level0 is missing/);
+  for (const level0 of ['AI-Use: L0 (none)', 'AI-Use: L0 made', 'AI-Use: L1 touched (ChatGPT)']) {
+    assert.throws(
+      () => bareForm({ ...spec, machineForm: { ...spec.machineForm, level0 } }),
+      /not a level token alone/,
+      level0,
+    );
+  }
 });
 
 test('tagLines takes lines that start with the key, and only those', () => {
@@ -124,9 +160,10 @@ test('a commit with no trailer passes', (t) => {
 test('a well-formed trailer passes', (t) => {
   const { commit, run } = repo(t);
   commit('Good\n\nAI-Use: L2 made undo (Claude Code)');
-  const result = run('--range', 'HEAD~1..HEAD');
+  commit('No AI\n\nAI-Use: L0');
+  const result = run('--range', 'HEAD~2..HEAD');
   assert.equal(result.status, 0, result.stderr);
-  assert.match(result.stdout, /1 commit\(s\), 1 tag\(s\), 0 bad/);
+  assert.match(result.stdout, /2 commit\(s\), 2 tag\(s\), 0 bad/);
 });
 
 test('one bad trailer fails the range and names the commit', (t) => {

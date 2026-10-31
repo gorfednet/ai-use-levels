@@ -1,12 +1,10 @@
 // The shape of spec.json and examples/examples.json.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compareVersions, parseVersion, readJson, readText, tokenise } from './lib/spec.mjs';
+import { REQUIRED_VALUES, compareVersions, parseVersion, readJson, readText, tokenize } from './lib/spec.mjs';
 
 const spec = readJson('spec.json');
 const examples = readJson('examples/examples.json');
-
-const REQUIRED_VALUES = new Set(['always', 'recommended', 'at L2 and L3', 'when true']);
 
 test('spec.json has its top-level fields', () => {
   assert.equal(spec.name, 'AI Use Levels');
@@ -18,7 +16,16 @@ test('spec.json has its top-level fields', () => {
   assert.equal(spec.machineForm.trailer, 'AI-Use');
   assert.equal(typeof spec.machineForm.pattern, 'string');
   assert.ok(spec.machineForm.pattern.startsWith('AI-Use: '), 'pattern starts with the trailer');
+  assert.ok(spec.machineForm.pattern.includes('[(<tool>)]'), 'the tool is optional in the pattern');
   assert.equal(typeof spec.machineForm.versionToken, 'string');
+});
+
+test('machineForm.level0 is the lowest level token alone, with no tool', () => {
+  const lowest = spec.tokens.find((token) => token.slot === 'level');
+  const bare = tokenize(spec.machineForm.level0, spec);
+  assert.deepEqual(bare.tokens, [lowest.id], 'level0 is one token, the lowest level');
+  assert.equal(bare.tool, null, 'level0 has no tool');
+  assert.equal(bare.version, null, 'level0 has no version token');
 });
 
 test('slots have id, order and required; the tool slot is free with a reach list', () => {
@@ -31,6 +38,7 @@ test('slots have id, order and required; the tool slot is free with a reach list
   }
   const tool = spec.slots.at(-1);
   assert.equal(tool.id, 'tool', 'the tool slot is last');
+  assert.equal(tool.required, 'at L1 and above', 'the tool is left out at L0 only');
   assert.equal(tool.free, true);
   assert.ok(Array.isArray(tool.reach) && tool.reach.length > 0, 'tool reach is a non-empty list');
   for (const slot of spec.slots.slice(0, -1)) {
@@ -65,17 +73,26 @@ test('tokens have their fields, belong to a closed slot, and since <= version', 
   }
 });
 
-test('every example machine string tokenises into known tokens plus a parenthesised tool', () => {
+test('every example machine string tokenizes into known tokens plus a parenthesized tool, except L0', () => {
   assert.ok(Array.isArray(examples) && examples.length > 0, 'there are examples');
   const slotOf = new Map(spec.tokens.map((token) => [token.id, token.slot]));
   const orderOf = new Map(spec.slots.map((slot) => [slot.id, slot.order]));
+  const lowest = spec.tokens.find((token) => token.slot === 'level').id;
+  assert.ok(examples.some((example) => example.machine === spec.machineForm.level0), 'the L0 example is present');
   for (const example of examples) {
     for (const field of ['use', 'tag', 'machine']) {
       assert.equal(typeof example[field], 'string', `example ${JSON.stringify(example)}: ${field}`);
     }
-    const parsed = tokenise(example.machine, spec);
+    const parsed = tokenize(example.machine, spec);
     const slots = parsed.tokens.map((id) => slotOf.get(id));
     assert.equal(slots[0], 'level', `${example.machine}: first token is a level`);
+    if (parsed.tokens[0] === lowest) {
+      assert.deepEqual(parsed.tokens, [lowest], `${example.machine}: L0 is the level token alone`);
+      assert.equal(parsed.tool, null, `${example.machine}: L0 names no tool`);
+      assert.equal(example.tag, lowest, `${example.machine}: the human form of L0 is the level alone`);
+    } else {
+      assert.ok(typeof parsed.tool === 'string' && parsed.tool.length > 0, `${example.machine}: names a tool`);
+    }
     assert.equal(new Set(slots).size, slots.length, `${example.machine}: one token per slot`);
     const orders = slots.map((slot) => orderOf.get(slot));
     assert.deepEqual(orders, [...orders].sort((a, b) => a - b), `${example.machine}: slot order`);

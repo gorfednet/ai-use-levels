@@ -1,6 +1,6 @@
 {
   "name": "AI Use Levels",
-  "version": "1.1",
+  "version": "1.2",
   "canonical": "https://papers.4thcltr.com/ai-use-levels/",
   "licence": "CC-BY-4.0",
   "slots": [
@@ -11,7 +11,7 @@
     {
       "id": "tool",
       "order": 5,
-      "required": "always",
+      "required": "at L1 and above",
       "free": true,
       "reach": ["chat", "IDE", "app", "API", "agent"]
     }
@@ -58,7 +58,7 @@
       "slot": "hand",
       "name": "touched",
       "meaning": "Corrections and local changes to a person's material: polish, autocomplete, spot fixes, formatting.",
-      "test": "Would a reader recognise anything of its output in the final? Barely.",
+      "test": "Would a reader recognize anything of its output in the final? Barely.",
       "since": "1.0",
       "deprecated": null
     },
@@ -164,7 +164,8 @@
   ],
   "machineForm": {
     "trailer": "AI-Use",
-    "pattern": "AI-Use: <level> [hand] [door] [flag] (<tool>) [v<major>]",
+    "pattern": "AI-Use: <level> [hand] [door] [flag] [(<tool>)] [v<major>]",
+    "level0": "AI-Use: L0",
     "versionToken": "absent means v1"
   },
   "absence": "No tag means nothing claimed. It never means L0.",
