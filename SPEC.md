@@ -107,7 +107,7 @@ Rules:
 
 Name the tool as specifically as you can: `Claude Opus 5.5`, `Claude Code`, `Copilot (IDE)`, `GPT-5 (API)`. A product name is acceptable, but a model version is better because it fixes the date. How the tool was reached goes here as an optional parenthetical: `(chat)`, `(IDE)`, `(app)`, `(API)`, `(agent)`. Reach is a property of the tool, and Level and Door already cover its risk, so it doesn't get a slot of its own.
 
-With several tools, name the one with the biggest hand first and add the others after a plus: `L2 · made · undo · Claude Code + Copilot`.
+With several tools, name the one with the biggest hand first and add the others after a plus: `L2 · made · undo · Claude Code + Copilot`. Order a long list by hand, biggest first. A display may show the whole list on demand rather than all at once.
 
 ## 7. Worked examples
 
@@ -161,6 +161,7 @@ Examples:
 | A slide footer | L2 mark | `L2 · made · undo · Claude Code` in the speaker notes and the deck's sources slide |
 | An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's alt text and sidecar |
 | A support bot's display name | L3 mark | the dated standing tag on the help page: `L3 · made · no undo · (tool)`, since June 2026 |
+| A site footer | the level's mark | the full tag in the panel the mark opens |
 
 The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. It's no shorter than `L2`, an emoji looks different on each platform, and a screen reader reads it as "robot face".
 

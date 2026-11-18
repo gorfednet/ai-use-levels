@@ -2,6 +2,10 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots, or settles a rule the scheme left open, and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## 1.2.1 (2026-11-12)
+
+Wording. Section 8's examples table gains a site footer, which shows the level's mark and keeps the full tag in the panel the mark opens. Section 6 says to order a long Tool list by hand, biggest first, and that a display may show the whole list on demand. No token, slot, flag, rule, definition or machine form changed, and `spec.json` is untouched.
+
 ## 1.2 (2026-10-30)
 
 Settles rules the scheme had left open. No token changed meaning, and a tag written before 1.2 reads the same under 1.2.
