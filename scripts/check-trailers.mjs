@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Checks the form of every AI-Use line on the commits in a range. It says nothing about whether a
-// tag is true, and a commit with no AI-Use line passes, because no tag means nothing is claimed.
+// tag is true or who wrote it (a person, or an agent under a delegation, SPEC.md section 3), and a
+// commit with no AI-Use line passes, because no tag means nothing is claimed.
 //
 //   node scripts/check-trailers.mjs --range <base>..<head>
 //

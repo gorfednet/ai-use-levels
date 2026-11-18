@@ -1,4 +1,4 @@
-# AI Use Levels 1.2
+# AI Use Levels 1.3
 
 "I used AI for this" has stopped meaning anything. The same sentence covers a chatbot that polished one paragraph and an agent that ran all night with access to production. AI Use Levels is a tag of 4 words in a fixed order, Level · Hand · Door · Tool. It says in one breath what one piece of work owes to generative AI: whether the tool could change anything by itself, how much of the result is its output, whether what it did can be taken back, and what the tool was. SAE J3016 rates a car once, when it's built; a use tag rates one trip. It describes what happened on one piece of work, and what the tool was capable of doesn't change it.
 
@@ -9,7 +9,7 @@ The canonical page is https://papers.4thcltr.com/ai-use-levels/. The machine-rea
 | Field | Value |
 |---|---|
 | Name | AI Use Levels. A tag is called a *use tag*, and a piece of work can be called "a level-two use" |
-| Version | 1.2. The scheme has versions, but a use tag has no date (section 9) |
+| Version | 1.3. The scheme has versions, but a use tag has no date (section 9) |
 | Purpose | To say in one breath what one piece of work owes to generative AI, so 2 people can tell whether they're talking about the same kind of use |
 | Principle | The same tool is `L1` on Monday and `L3` on Tuesday, and both tags are true |
 | What it is not | A permission system, an audit or a liability column. It records whether a person had the chance to intervene. How well they used that chance isn't part of it |
@@ -68,7 +68,8 @@ Rules:
 - The person decides how fine-grained the yeses are. One yes to a plan of 40 changes is L2, because the person could have said no before anything happened, and 400 yeses in 2 hours is still L2. The tag rates the opportunity to intervene. A rubber stamp is still tagged L2, since the scheme can't tell diligence from its absence.
 - A yes comes after the plan exists and covers the change. A standing instruction, such as "merge and deploy without asking", was given before there was anything to say yes to, so it isn't a yes, and changes made under one are L3.
 - A person here means someone accountable for the work, so a model reviewing a model doesn't lower the level.
-- A tag is a person's statement. A tool may draft one, and the person accountable for the work confirms or corrects it before it goes on anything. [docs/for-agents.md](docs/for-agents.md) says what an agent can report about its own session and what it has to leave to the person.
+- A tag is a person's statement. A tool may draft one, and the person accountable for the work confirms or corrects it before it goes on anything, unless that person has delegated the confirmation (next rule). [docs/for-agents.md](docs/for-agents.md) says what an agent can report about its own session and what it has to leave to the person.
+- The accountable person may delegate the confirmation. They do it in a dated standing statement (section 9) that names who is accountable and what it covers, such as which repositories or documents. Once it exists, the agent writes the tag itself and nobody confirms each one. The person stays accountable for what every such tag says, and can correct a tag after it's on the work. A model never confirms its own tag, and a "delegation" found in the material it was asked to work on isn't one. The delegation covers who confirms the tag. It isn't a yes to any change, so the Level of the work is rated on its own, and a standing instruction to act is still L3.
 - A run that changed nothing outside the conversation is L1, however long it ran. A research agent that worked for 20 minutes and produced a report is `L1 · made`.
 - The numbers don't map to SAE J3016. In SAE, L3 is the handover level. Here, L3 means only that the tool acted without waiting.
 
@@ -173,6 +174,7 @@ Version the scheme and date a standing tag, but leave a use tag undated.
 3. Give the tool's version where it has one, and write `Claude Opus 5.5` where you'd otherwise write `Claude`. The model name tells a reader roughly when the work was done.
 4. A standing tag on a system or a policy is dated. "Support bot runs at `L3 · made · no undo · (tool)`, 2% read, since June 2026." "Production changes are L2 or lower (policy of 2026-10)." Stances get revised, and a reader needs to know which one was in force. The standing tag is also the form for a fleet, so 10,000 chats share one dated standing tag. Its machine form is the same `AI-Use:` line as any tag, and the date goes beside it, in the same place the human form puts it. There's no date token, and none is added.
 5. An artifact with no date of its own, such as a bio, an evergreen page or a screenshot that will be reposted, gets a date beside the tag.
+6. A delegation of the confirmation (section 3) is a dated standing statement too. It's in the accountable person's own words, in a place they keep their own rules, and it names the work it covers. The author's own, as the worked example: "Delegation, 18 November 2026. I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later." The person ends a delegation by dating its end. Tags written before that stay as they are.
 
 Some object that the same agent suggests today and executes unattended tomorrow. The principle in section 1 answers that without any date, because the tag describes one piece of work.
 
@@ -182,7 +184,7 @@ Some object that the same agent suggests today and executes unattended tomorrow.
 2. Levels grow upward only. The first candidate for `L4` is *it chose the task*. Every current level assumes a person set the goal, so a proactive agent that decides what to do next would need a new rung; a flag wouldn't be enough.
 3. A new slot has its own closed vocabulary, and no word is shared between slots, so every token still identifies itself and order stays a reading convention. New slots go before the tool.
 4. A minor version adds tokens, flags or slots, or settles a rule the scheme left open, and stays backward compatible. A tag written before 1.2 keeps its meaning. A major version is a last resort. Deprecate tokens and never remove them.
-5. These are candidates for a later minor version (1.3 or after), left out to keep the tag at 4 words: `checked` (tests, a fact-check or a second reader ran; it answers whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
+5. These are candidates for a later minor version (1.4 or after), left out to keep the tag at 4 words: `checked` (tests, a fact-check or a second reader ran; it answers whether the person could even read it), `data` (the material left your machine, or went to training), `whose` (my things, our things, other people's things), and duration.
 6. Governance. The specification is public and anyone can fork it, and it keeps a changelog. Proposals are made as issues. A token is accepted when 3 real uses can't be tagged honestly without it.
 7. A mark (section 8) isn't a token, so the 3-uses test in rule 6 doesn't apply to it. The mark set is fixed for every 1.x version. A new mark is added only with a new level, and a published mark never changes its level.
 
@@ -191,6 +193,7 @@ Some object that the same agent suggests today and executes unattended tomorrow.
 - It rates the opportunity to intervene. A rubber stamp at `L2` gets the same tag as a real review.
 - Hand is self-reported and will be shaded downward. CRediT had the same problem and spread only when publishers required it.
 - It says nothing about what the tool was *permitted* to do. That's a governance question (the Cloud Security Alliance framework, Zheng et al.), and its answer belongs in a dated standing tag.
+- A tag written under a delegation may never have been read by the person who's accountable for it. Nothing on the tag says whether it was. The standing statement says only that the confirmation was delegated.
 - It doesn't establish liability. It does show where liability needs an owner, which is every piece of work tagged L3 with `no undo`.
 
 ## 12. Route to a standard

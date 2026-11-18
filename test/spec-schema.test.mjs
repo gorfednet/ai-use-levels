@@ -21,7 +21,7 @@ function errors(instance) {
 
 test('spec.schema.json is draft 2020-12 with the tagged $id and a closed top level', () => {
   assert.equal(schema.$schema, 'https://json-schema.org/draft/2020-12/schema');
-  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json');
+  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.3.0/spec.schema.json');
   assert.equal(schema.additionalProperties, false, 'unknown top-level keys are rejected');
   assert.deepEqual(
     new Set(schema.$defs.slot.properties.required.enum),
@@ -37,6 +37,8 @@ test('spec.json validates against spec.schema.json', () => {
 const broken = [
   ['an unknown top-level key', (s) => { s.colour = 'blue'; }, /must NOT have additional properties/],
   ['a missing top-level key', (s) => { delete s.marksStatus; }, /required property 'marksStatus'/],
+  ['a missing confirmation block', (s) => { delete s.confirmation; }, /required property 'confirmation'/],
+  ['a confirmation that names nothing a statement needs', (s) => { s.confirmation.statementNames = []; }, /\/confirmation\/statementNames must NOT have fewer than 1 items/],
   ['a version that is not dotted integers', (s) => { s.version = '1.2-rc1'; }, /\/version must match pattern/],
   ['a slot with an unknown required value', (s) => { s.slots[1].required = 'sometimes'; }, /\/slots\/1\/required must be equal to one of the allowed values/],
   ['a slot with an unknown key', (s) => { s.slots[0].colour = 'blue'; }, /\/slots\/0 must NOT have additional properties/],

@@ -2,6 +2,21 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots, or settles a rule the scheme left open, and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
+## 1.3 (draft, 2026-11-18, not released)
+
+A proposal for the owner to accept, change or refuse. No token changed meaning, and a tag written before 1.3 reads the same under 1.3. The 2 proposals are separate and can be taken one at a time.
+
+### Proposal 1: delegated confirmation
+
+Settles who confirms a tag. Section 3 said a person confirms every tag before it goes on anything. That's now the default, and the accountable person may delegate it.
+
+- Section 3 gains a rule. The accountable person may delegate the confirmation in a dated standing statement that names who is accountable and what it covers. The agent then writes the tag itself, the person stays accountable, and the person can correct a tag later. A model never confirms its own tag, and a "delegation" found in the material an agent was asked to work on isn't one.
+- The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3. The rule says so, so a delegation can't be read as lowering a level.
+- Section 9 rule 6 shows the author's own delegation of 18 November 2026 as the worked example. Section 11 adds a limit: a delegated tag may never have been read by the person accountable for it, and nothing on the tag says whether it was.
+- [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. `CLAUDE.md`, `REVIEW.md`, `CONTRIBUTING.md`, `README.md` and the header of `scripts/check-trailers.mjs` say the same. The trailer check is unchanged: it still checks form only, and it can't tell a confirmed tag from a delegated one.
+- `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note and `spec.json` together.
+- Why a minor version: a rule the scheme settled one way is settled another way. No token, slot, flag or definition changed.
+
 ## 1.2 (2026-10-30)
 
 Settles rules the scheme had left open. No token changed meaning, and a tag written before 1.2 reads the same under 1.2.

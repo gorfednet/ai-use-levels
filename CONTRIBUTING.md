@@ -29,9 +29,9 @@ A typo, a broken link or a sentence that reads badly doesn't need an issue first
 
 ## Tags on commits
 
-A commit here doesn't need an `AI-Use:` trailer. If you add one, you're accountable for what it says. An agent can draft a tag, and a person confirms or corrects it before it goes on a commit; [docs/for-agents.md](docs/for-agents.md) has the detail.
+A commit here doesn't need an `AI-Use:` trailer. If you add one, you're accountable for what it says. An agent can draft a tag, and a person confirms or corrects it before it goes on a commit. The person can instead delegate the confirmation in a dated standing statement, and the agent then writes the tag itself (SPEC.md section 3). [docs/for-agents.md](docs/for-agents.md) has the detail.
 
-CI runs `scripts/check-trailers.mjs` on a pull request's commits. It checks the form of any trailer against `spec.json`, including a Door at L2 and L3 and none at L0 and L1. A commit with no trailer passes, because no tag means nothing is claimed, and the check can't tell whether a tag is true.
+CI runs `scripts/check-trailers.mjs` on a pull request's commits. It checks the form of any trailer against `spec.json`, including a Door at L2 and L3 and none at L0 and L1. A commit with no trailer passes, because no tag means nothing is claimed. The check can't tell whether a tag is true, and it can't tell a tag a person confirmed from one an agent wrote under a delegation.
 
 ## Style
 

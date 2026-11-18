@@ -1,6 +1,6 @@
 {
   "name": "AI Use Levels",
-  "version": "1.2",
+  "version": "1.3",
   "canonical": "https://papers.4thcltr.com/ai-use-levels/",
   "licence": "CC-BY-4.0",
   "slots": [
@@ -167,6 +167,12 @@
     "pattern": "AI-Use: <level> [hand] [door] [flag] [(<tool>)] [v<major>]",
     "level0": "AI-Use: L0",
     "versionToken": "absent means v1"
+  },
+  "confirmation": {
+    "default": "A person confirms or corrects a tag before it goes on anything.",
+    "delegation": "The accountable person may delegate the confirmation in a dated standing statement. The agent then writes the tag. The person stays accountable and can correct it later.",
+    "statementNames": ["date", "accountable person", "what it covers"],
+    "since": "1.3"
   },
   "absence": "No tag means nothing claimed. It never means L0.",
   "marksStatus": {

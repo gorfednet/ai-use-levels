@@ -1,16 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json",
+  "$id": "https://github.com/gorfednet/ai-use-levels/blob/v1.3.0/spec.schema.json",
   "title": "AI Use Levels spec.json",
   "description": "The shape of spec.json, the machine-readable form of AI Use Levels. It says what the hand-written shape tests in test/ say, so a copy of spec.json can be checked without them. It does not say what a token means; SPEC.md does.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "version", "canonical", "licence", "slots", "tokens", "marks", "machineForm", "absence", "marksStatus"],
+  "required": ["name", "version", "canonical", "licence", "slots", "tokens", "marks", "machineForm", "confirmation", "absence", "marksStatus"],
   "properties": {
     "name": { "const": "AI Use Levels" },
     "version": {
       "type": "string",
-      "description": "Dotted integers, such as 1.2. A patch tag does not move it.",
+      "description": "Dotted integers, such as 1.3. A patch tag does not move it.",
       "pattern": "^\\d+(\\.\\d+)*$"
     },
     "canonical": {
@@ -54,6 +54,23 @@
           "pattern": "^AI-Use: L0$"
         },
         "versionToken": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "confirmation": {
+      "type": "object",
+      "description": "Who confirms a tag before it goes on the work (SPEC.md section 3). Added in 1.3.",
+      "additionalProperties": false,
+      "required": ["default", "delegation", "statementNames", "since"],
+      "properties": {
+        "default": { "$ref": "#/$defs/nonEmptyString" },
+        "delegation": { "$ref": "#/$defs/nonEmptyString" },
+        "statementNames": {
+          "type": "array",
+          "description": "What a delegating statement has to name.",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "since": { "type": "string", "pattern": "^\\d+(\\.\\d+)*$" }
       }
     },
     "absence": {

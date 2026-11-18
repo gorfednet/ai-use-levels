@@ -20,7 +20,7 @@ No tag means nothing is claimed. It never means L0. `L0` is a tag of its own, 1 
 
 The machine form uses the same tokens and puts the tool in parentheses. Add one line wherever the work already keeps its metadata:
 
-- In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it.
+- In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it or has delegated the confirmation in a dated standing statement.
 - In YAML front matter, the same line unchanged: `AI-Use: L2 made undo (Claude Code)`
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
@@ -31,20 +31,20 @@ Where 4 words don't fit, a mark can stand for the Level. It's a circle for the w
 
 ## Read it
 
-- [SPEC.md](SPEC.md): the specification, version 1.2.
+- [SPEC.md](SPEC.md): the specification, version 1.3.
 - [spec.json](spec.json): the same scheme as data, with the slots, the tokens and the machine form.
 - [spec.schema.json](spec.schema.json): the JSON Schema that `spec.json` has to fit.
 - [examples/examples.json](examples/examples.json): the worked examples with their machine form.
 - [CHANGELOG.md](CHANGELOG.md): what each version changed.
-- [docs/for-agents.md](docs/for-agents.md): what an agent may draft and what a person confirms.
+- [docs/for-agents.md](docs/for-agents.md): what an agent may draft, what a person confirms and how a person delegates the confirmation.
 
 The canonical page is https://papers.4thcltr.com/ai-use-levels/. It serves each version at its own URL, so a tag can cite a version that never moves.
 
 ## Cite it
 
-> AI Use Levels 1.2. 4th Culture, Toronto, 2026. https://papers.4thcltr.com/ai-use-levels/
+> AI Use Levels 1.3. 4th Culture, Toronto, 2026. https://papers.4thcltr.com/ai-use-levels/
 
-In running text, "AI Use Levels 1.2" with the link is enough. A tag with no version token is version 1.
+In running text, "AI Use Levels 1.3" with the link is enough. A tag with no version token is version 1.
 
 ## Argue with it
 

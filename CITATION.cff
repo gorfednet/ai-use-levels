@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you cite AI Use Levels, cite the version you used, at its own URL."
 title: "AI Use Levels"
-version: "1.2"
+version: "1.3"
 type: dataset
 authors:
   - family-names: "McArthur"
@@ -9,5 +9,5 @@ authors:
     website: "https://gorfed.net/"
 date-released: "2026-10-30"
 license: CC-BY-4.0
-url: "https://papers.4thcltr.com/ai-use-levels/1.2/"
+url: "https://papers.4thcltr.com/ai-use-levels/1.3/"
 repository-code: "https://github.com/gorfednet/ai-use-levels"
