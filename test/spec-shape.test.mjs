@@ -103,9 +103,21 @@ test('every example machine string tokenizes into known tokens plus a parenthesi
   }
 });
 
-test('CITATION.cff cites the version in spec.json', () => {
+// The newest version CHANGELOG.md lists as released: the first "## <version> (<date>)" heading that
+// isn't marked draft. A draft in spec.json and SPEC.md is cited only once it is released.
+function released() {
+  for (const line of readText('CHANGELOG.md').split('\n')) {
+    const match = /^## (\d+(?:\.\d+)*) \((.+)\)$/.exec(line);
+    if (match && !/draft/i.test(match[2])) return { version: match[1], date: match[2] };
+  }
+  throw new Error('CHANGELOG.md lists no released version');
+}
+
+test('CITATION.cff cites the newest released version, with its date', () => {
   const cff = readText('CITATION.cff');
-  const { version } = readJson('spec.json');
+  const { version, date } = released();
+  assert.ok(compareVersions(version, readJson('spec.json').version) <= 0, 'a released version is not newer than spec.json');
   assert.ok(cff.includes(`version: "${version}"`), `CITATION.cff does not name version ${version}`);
   assert.ok(cff.includes(`/ai-use-levels/${version}/`), `CITATION.cff does not link version ${version}`);
+  assert.ok(cff.includes(`date-released: "${date}"`), `CITATION.cff does not carry the release date ${date}`);
 });

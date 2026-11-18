@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/gorfednet/ai-use-levels/blob/v1.3.0/spec.schema.json",
+  "$id": "https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json",
   "title": "AI Use Levels spec.json",
   "description": "The shape of spec.json, the machine-readable form of AI Use Levels. It says what the hand-written shape tests in test/ say, so a copy of spec.json can be checked without them. It does not say what a token means; SPEC.md does.",
   "type": "object",

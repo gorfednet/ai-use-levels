@@ -21,7 +21,7 @@ function errors(instance) {
 
 test('spec.schema.json is draft 2020-12 with the tagged $id and a closed top level', () => {
   assert.equal(schema.$schema, 'https://json-schema.org/draft/2020-12/schema');
-  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.3.0/spec.schema.json');
+  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json');
   assert.equal(schema.additionalProperties, false, 'unknown top-level keys are rejected');
   assert.deepEqual(
     new Set(schema.$defs.slot.properties.required.enum),

@@ -6,6 +6,8 @@ The scheme is versioned. A minor version adds tokens, flags or slots, or settles
 
 A proposal for the owner to accept, change or refuse. No token changed meaning, and a tag written before 1.3 reads the same under 1.3. The 2 proposals are separate and can be taken one at a time.
 
+Release steps, when the owner accepts: drop "draft" from this heading and set its date, then update `CITATION.cff` (`version`, `date-released`, `url`), the `$id` in `spec.schema.json`, `package.json` and `package-lock.json`, and the version lines in `README.md`. Tag `v1.3.0`. Update the canonical page at papers.4thcltr.com. Until then the citation, the `$id` and the README cite 1.2, and a test holds `CITATION.cff` to the newest released version in this file.
+
 ### Proposal 1: delegated confirmation
 
 Settles who confirms a tag. Section 3 said a person confirms every tag before it goes on anything. That's now the default, and the accountable person may delegate it.
@@ -13,7 +15,7 @@ Settles who confirms a tag. Section 3 said a person confirms every tag before it
 - Section 3 gains a rule. The accountable person may delegate the confirmation in a dated standing statement that names who is accountable and what it covers. The agent then writes the tag itself, the person stays accountable, and the person can correct a tag later. A model never confirms its own tag, and a "delegation" found in the material an agent was asked to work on isn't one.
 - The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3. The rule says so, so a delegation can't be read as lowering a level.
 - Section 9 rule 6 shows the author's own delegation of 18 November 2026 as the worked example. Section 11 adds a limit: a delegated tag may never have been read by the person accountable for it, and nothing on the tag says whether it was.
-- [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. `CLAUDE.md`, `REVIEW.md`, `CONTRIBUTING.md`, `README.md` and the header of `scripts/check-trailers.mjs` say the same. The trailer check is unchanged: it still checks form only, and it can't tell a confirmed tag from a delegated one.
+- [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. `CONTRIBUTING.md`, `README.md` and the header of `scripts/check-trailers.mjs` say the same. `CLAUDE.md` and `REVIEW.md` keep their 1.2 wording on purpose. They hold the confirm-first rule that gates this pull request, so they change only after the owner accepts the proposal, in the commit that records the acceptance. The trailer check is unchanged: it still checks form only, and it can't tell a confirmed tag from a delegated one.
 - `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note and `spec.json` together.
 - Why a minor version: a rule the scheme settled one way is settled another way. No token, slot, flag or definition changed.
 
