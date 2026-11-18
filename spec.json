@@ -166,7 +166,14 @@
     "trailer": "AI-Use",
     "pattern": "AI-Use: <level> [hand] [door] [flag] [(<tool>)] [v<major>]",
     "level0": "AI-Use: L0",
-    "versionToken": "absent means v1"
+    "versionToken": "absent means v1",
+    "policy": {
+      "trailer": "AI-Use-Policy",
+      "pattern": "AI-Use-Policy: <standing tag> <YYYY-MM-DD>",
+      "records": ["who set the rules and when", "which gates are enforced", "how much a person reads"],
+      "changesLevel": false,
+      "since": "1.3"
+    }
   },
   "confirmation": {
     "default": "A person confirms or corrects a tag before it goes on anything.",

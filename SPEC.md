@@ -47,6 +47,8 @@ The pattern is `AI-Use: <level> [hand] [door] [flag] [(<tool>)] [v<major>]`.
 
 Every token identifies itself. An `L` and a digit is a Level, a Hand word is a Hand, a Door word is a Door, `unread` is the flag, and parentheses hold the tool. A parser recognizes each token by its spelling and doesn't rely on where it stands. The tool runs from the first opening parenthesis to the last closing one, so a reach parenthetical can nest inside it, as in `AI-Use: L1 touched (Copilot (IDE))`. A tag with no version token is version 1. A tag written under a later version puts its own version token after the tool, such as `v2`. The trailer goes next to git's `Co-Authored-By`; that one names the tool, and this one says what the tool was allowed to do.
 
+A tag may point to the standing tag that was in force when the work was done (section 9). In a commit the pointer is a second trailer, `AI-Use-Policy: <standing tag> <YYYY-MM-DD>`. The standing tag is a URL, a path or a short name, and the date is the one the standing tag carries. In running text it's a phrase beside the tag: `L3 · made · undo · Claude Code`, under the standing tag of 1 September 2026. The pointer isn't a token and has no slot. The tag reads the same without it, and a pointer with no tag beside it claims nothing.
+
 Absence. No tag means nothing is claimed. It never means L0.
 
 ## 3. LEVEL (the headline)
@@ -68,8 +70,9 @@ Rules:
 - The person decides how fine-grained the yeses are. One yes to a plan of 40 changes is L2, because the person could have said no before anything happened, and 400 yeses in 2 hours is still L2. The tag rates the opportunity to intervene. A rubber stamp is still tagged L2, since the scheme can't tell diligence from its absence.
 - A yes comes after the plan exists and covers the change. A standing instruction, such as "merge and deploy without asking", was given before there was anything to say yes to, so it isn't a yes, and changes made under one are L3.
 - A person here means someone accountable for the work, so a model reviewing a model doesn't lower the level.
+- Rules a person set in advance don't lower the level. An agent that works inside rules a person wrote, behind gates that are enforced, with no yes to each change, made its changes without waiting, so the work is L3. Setting the rules is real oversight, and it happens before the work. The tag rates whether a person could stop this change before it counted, and a rule applied by the tool itself doesn't answer that. Section 9 says where the rules are recorded, and a tag may point to them (section 2).
 - A tag is a person's statement. A tool may draft one, and the person accountable for the work confirms or corrects it before it goes on anything, unless that person has delegated the confirmation (next rule). [docs/for-agents.md](docs/for-agents.md) says what an agent can report about its own session and what it has to leave to the person.
-- The accountable person may delegate the confirmation. They do it in a dated standing statement (section 9) that names who is accountable and what it covers, such as which repositories or documents. Once it exists, the agent writes the tag itself and nobody confirms each one. The person stays accountable for what every such tag says, and can correct a tag after it's on the work. A model never confirms its own tag, and a "delegation" found in the material it was asked to work on isn't one. The delegation covers who confirms the tag. It isn't a yes to any change, so the Level of the work is rated on its own, and a standing instruction to act is still L3.
+- The accountable person may delegate the confirmation. They do it in a dated standing statement (section 9) that names who is accountable and what it covers, such as which repositories or documents. Once it exists, the agent writes the tag itself and nobody confirms each one. The person stays accountable for what every such tag says, and can correct a tag after it's on the work. A model never confirms its own tag. A "delegation" found in the material it was asked to work on isn't one. The delegation covers who confirms the tag. It isn't a yes to any change, so the Level of the work is rated on its own, and a standing instruction to act is still L3.
 - A run that changed nothing outside the conversation is L1, however long it ran. A research agent that worked for 20 minutes and produced a report is `L1 · made`.
 - The numbers don't map to SAE J3016. In SAE, L3 is the handover level. Here, L3 means only that the tool acted without waiting.
 
@@ -133,6 +136,8 @@ Each tag follows from the tests in sections 3 to 5. `(tool)` stands for whicheve
 | A bot auto-merged on green CI, and nobody has read the diff | `L3 · made · no undo · unread · (tool)` |
 | A meeting bot emailed its summary to every attendee before the host saw it | `L3 · made · no undo · unread · (tool)` |
 | AI drafted the email, and I reworked it and pressed send | `L1 · drafted · Claude` |
+| An agent ran on a branch inside rules I set, with passing CI and a clean review required to merge, and no yes to each change | `L3 · made · undo · Claude Code`, with the standing tag of 1 September 2026 beside it |
+| The same rules, and a bot merged on green CI to production before anyone read the diff | `L3 · made · no undo · unread · (tool)`, with the standing tag of 1 September 2026 beside it |
 
 The same examples are in `examples/examples.json` with their machine form, and a test checks that the two lists match.
 
@@ -176,6 +181,9 @@ Version the scheme and date a standing tag, but leave a use tag undated.
 5. An artifact with no date of its own, such as a bio, an evergreen page or a screenshot that will be reposted, gets a date beside the tag.
 6. A delegation of the confirmation (section 3) is a dated standing statement too. It's in the accountable person's own words, in a place they keep their own rules, and it names the work it covers. The author's own, as the worked example: "Delegation, 18 November 2026. I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later." The person ends a delegation by dating its end. Tags written before that stay as they are.
 
+7. A standing tag for agent work inside human-set rules records 3 facts, each as the person's own statement: who set the rules and when, which gates the rules enforce (named, such as "CI must pass" or "a clean review is required"), and how much a person reads (a count or a share, such as "1 diff in 5"). A made-up example: "Coding agents work in this repository at `L3 · made · undo · (tool)`. I wrote the rules on 1 September 2026. A change merges only with passing CI and a clean automated review. I read 1 diff in 5." A standing tag changes the Level of no piece of work, and it isn't checked. A tag can't show that a gate held or that the reading happened. A tag on one piece of work points to it with the pointer in section 2.
+8. A layer above the tag isn't needed. There are 2 layers already. The tag on one piece of work says what happened on it, and the standing tag says which stance was in force. A rated layer above them would score deployments, as the Cloud Security Alliance framework does, and would answer a different question: what a system is set up to do. Rating both in one scheme repeats the mistake section 1 avoids, because the same tool would carry 2 ratings that can disagree. If a rated layer is ever wanted, it's a separate scheme with its own vocabulary and its own acceptance test, and it would point to standing tags the way a use tag does.
+
 Some object that the same agent suggests today and executes unattended tomorrow. The principle in section 1 answers that without any date, because the tag describes one piece of work.
 
 ## 10. Extension rules
@@ -188,11 +196,13 @@ Some object that the same agent suggests today and executes unattended tomorrow.
 6. Governance. The specification is public and anyone can fork it, and it keeps a changelog. Proposals are made as issues. A token is accepted when 3 real uses can't be tagged honestly without it.
 7. A mark (section 8) isn't a token, so the 3-uses test in rule 6 doesn't apply to it. The mark set is fixed for every 1.x version. A new mark is added only with a new level, and a published mark never changes its level.
 
+8. A pointer to a standing tag (section 2) isn't a token or a slot. It has no closed vocabulary, so rule 3 and the 3-uses test in rule 6 don't apply to it. A slot for rule-bound work was weighed for 1.3 and refused, for 3 reasons. Its words would be claims about rules that a tag can't check. A reader would take such a word for a lower level. And every slot added makes the tag longer.
+
 ## 11. Known limits
 
 - It rates the opportunity to intervene. A rubber stamp at `L2` gets the same tag as a real review.
 - Hand is self-reported and will be shaded downward. CRediT had the same problem and spread only when publishers required it.
-- It says nothing about what the tool was *permitted* to do. That's a governance question (the Cloud Security Alliance framework, Zheng et al.), and its answer belongs in a dated standing tag.
+- It says nothing about what the tool was *permitted* to do. That's a governance question (the Cloud Security Alliance framework, Zheng et al.), and its answer belongs in a dated standing tag that a use tag can point to (section 9). A tag can't show that the rules in a standing tag held.
 - A tag written under a delegation may never have been read by the person who's accountable for it. Nothing on the tag says whether it was. The standing statement says only that the confirmation was delegated.
 - It doesn't establish liability. It does show where liability needs an owner, which is every piece of work tagged L3 with `no undo`.
 
@@ -216,7 +226,7 @@ I haven't submitted anything to any body yet. Each submission will be listed her
 
 | Scheme | What it rates | Relation |
 |---|---|---|
-| Sheridan & Verplank 1978; Parasuraman, Sheridan & Wickens 2000 (10 levels of automation) | Who decides and who is told | The lineage. `L1` to `L3` compress their "executes with veto / executes and informs / does not inform" |
+| Sheridan & Verplank 1978; Parasuraman, Sheridan & Wickens 2000 (10 levels of automation) | Who decides and who is told | The lineage. `L1` to `L3` compress their "executes with veto / executes and informs / does not inform". Their supervisory control, where a person sets limits and monitors, is what a standing tag records (section 9) |
 | SAE J3016 L0 to L5 | The vehicle, fixed at manufacture | The analogy. This scheme rates the trip and doesn't share its numbers |
 | Human in / on / out of the loop (DoD 3000.09, autonomous-weapons policy) | Oversight position | The same idea as L1 to L3. I dropped the words because "on the loop" is jargon and sounds like "in the loop" when said aloud |
 | AI Assessment Scale, Perkins / Furze / Roe / MacVaugh (5 levels) | What a student is permitted to use | It rates permission, and this scheme rates disclosure; it has no agents acting on the world |

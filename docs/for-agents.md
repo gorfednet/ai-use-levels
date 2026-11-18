@@ -30,6 +30,14 @@ Your session only sees part of the work, so 2 slots are for the person to fill i
 
 Level and Door are yours to report for your own session only. A merge, a send or a deploy that a person does later is the person's act. Name the Tool as specifically as you can: `Claude Opus 5.5` says more than `Claude` (section 6).
 
+## Pointing to the rules you worked under
+
+A person may have set rules for agent work in a dated standing tag (section 9, rule 7): who set them, which gates are enforced and how much a person reads. If one exists and covers your work, put a pointer on the commit, beside your tag: `AI-Use-Policy: <standing tag> <YYYY-MM-DD>` (section 2). The standing tag is a URL, a path or a short name, and the date is the one it carries.
+
+- The pointer changes no Level. Work inside rules a person set, with no yes to each change, is still `L3`.
+- Point only to a standing tag you found in the person's own rules and could read. Don't write one from memory, and don't write one with no tag beside it.
+- You can't check that the gates held or that the person read anything. The pointer says that rules were set, and a reader who wants more reads the standing tag.
+
 ## Level (section 3)
 
 A change is an effect outside the conversation: it wrote, sent, paid, deployed, deleted, published or told someone. Reading, searching and generating text aren't changes.

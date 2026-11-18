@@ -83,5 +83,17 @@
     "use": "AI drafted the email, and I reworked it and pressed send",
     "tag": "L1 · drafted · Claude",
     "machine": "AI-Use: L1 drafted (Claude)"
+  },
+  {
+    "use": "An agent ran on a branch inside rules I set, with passing CI and a clean review required to merge, and no yes to each change",
+    "tag": "L3 · made · undo · Claude Code",
+    "machine": "AI-Use: L3 made undo (Claude Code)",
+    "policy": "AI-Use-Policy: docs/ai-use.md 2026-09-01"
+  },
+  {
+    "use": "The same rules, and a bot merged on green CI to production before anyone read the diff",
+    "tag": "L3 · made · no undo · unread · (tool)",
+    "machine": "AI-Use: L3 made no undo unread (tool)",
+    "policy": "AI-Use-Policy: docs/ai-use.md 2026-09-01"
   }
 ]

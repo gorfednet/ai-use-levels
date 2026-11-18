@@ -21,13 +21,14 @@ No tag means nothing is claimed. It never means L0. `L0` is a tag of its own, 1 
 The machine form uses the same tokens and puts the tool in parentheses. Add one line wherever the work already keeps its metadata:
 
 - In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it or has delegated the confirmation in a dated standing statement.
+- Beside it, when the work ran inside rules a person set, a pointer to the dated standing tag that records them: `AI-Use-Policy: docs/ai-use.md 2026-09-01`. The pointer changes no Level.
 - In YAML front matter, the same line unchanged: `AI-Use: L2 made undo (Claude Code)`
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
 
 Where 4 words don't fit, a mark can stand for the Level. It's a circle for the work with a dot for the tool, placed outside the circle, on its edge or inside it. The SVGs are in [marks/](marks/) under CC0.
 
-[SPEC.md](SPEC.md) has the rules, the test for each token and 17 worked examples.
+[SPEC.md](SPEC.md) has the rules, the test for each token and 19 worked examples.
 
 ## Read it
 

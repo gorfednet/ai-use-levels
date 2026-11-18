@@ -17,6 +17,19 @@ Settles who confirms a tag. Section 3 said a person confirms every tag before it
 - `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note and `spec.json` together.
 - Why a minor version: a rule the scheme settled one way is settled another way. No token, slot, flag or definition changed.
 
+### Proposal 2: a pointer to the rules a person set
+
+Work that an agent does inside rules a person wrote, with gates enforced and no yes to each change, is L3 under 1.2. A standing instruction isn't a yes, and a model reviewing a model doesn't lower the level. That stays. The tag rates the opportunity to intervene on one change, and a tag can't check a claim that the rules held. What 1.2 lacked was a place to say the rules existed. Section 11 put the answer in a dated standing tag, and nothing joined a tag to one.
+
+- Section 2 adds a pointer from a tag to the standing tag in force: in a commit, a second trailer `AI-Use-Policy: <standing tag> <YYYY-MM-DD>`, and in running text a phrase beside the tag. It's not a token and has no slot. The tag reads the same without it.
+- Section 3 says rules set in advance don't lower the level. Section 9 rule 7 says what a standing tag for agent work records: who set the rules and when, which gates are enforced and how much a person reads. It changes no Level and isn't checked. Section 9 rule 8 says no layer above the tag is needed.
+- Section 10 rule 8 says the pointer isn't a token or a slot. It gives 3 reasons a slot was refused. Its words would be claims a tag can't check. A reader would take one for a lower level. Every slot added makes the tag longer. A new flag was weighed and refused for the same reasons.
+- Section 7 gains 2 worked examples. Rule-bound work stays `L3 · made · undo`, and a bot that merged unread stays `L3 · made · no undo · unread`. `examples/examples.json` gains the same 2, each with its `policy` line, and README says 19 examples.
+- `spec.json` gains `machineForm.policy` (`trailer`, `pattern`, `records`, `changesLevel`, `since`), and `spec.schema.json` requires it. `changesLevel` is `false` and the schema holds it there.
+- `scripts/check-trailers.mjs` checks the form of an `AI-Use-Policy` line and that its date exists. It also checks that a commit has at most 1, and that none stands without an `AI-Use` tag. It can't tell whether the standing tag it names exists. A policy line is never read as a tag. `test/policy.test.mjs` holds `spec.json`, the spec text and the examples together, and the near misses are in `test/check-trailers.test.mjs`.
+- [docs/for-agents.md](docs/for-agents.md) tells an agent when to add the pointer and what it can't claim.
+- Why a minor version: it adds a convention beside the tag and changes no token, slot, flag, level or definition.
+
 ## 1.2 (2026-10-30)
 
 Settles rules the scheme had left open. No token changed meaning, and a tag written before 1.2 reads the same under 1.2.
