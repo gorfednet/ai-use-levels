@@ -51,6 +51,10 @@ Section 6 said to name the tool with the biggest hand first. Shares drift as wor
 - The release workflow takes its notes from `scripts/release-notes.mjs`. It refuses a tag whose entry here is still a draft, and one `CITATION.cff` doesn't cite yet.
 - Why a minor version all the same: no token, slot, flag or definition changed, and the Tool slot is free text. Section 10 rule 4 asks a minor version to stay backward compatible, and this change is the exception to it, recorded here and in section 11.
 
+### Alt text
+
+- Section 8 rule 2 now says a picture's own alt text describes the picture. Its tag goes in the caption and the sidecar. The example of a generated image changes to match. A mark's own alt text can still hold the tag. The reason is W3C's [alt decision tree](https://www.w3.org/WAI/tutorials/images/decision-tree/), which has no branch for provenance. No token, mark or test changed.
+
 ## 1.2 (2026-10-30)
 
 Settles rules the scheme had left open. No token changed meaning, and a tag written before 1.2 reads the same under 1.2.

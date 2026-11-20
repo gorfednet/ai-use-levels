@@ -174,7 +174,7 @@ A mark is a symbol for the Level alone. It's for places with no room for the ful
 | `L3` Unattended | ![AI use level 3, Unattended](marks/l3-light.svg) | inside the circle, because the tool changed the work by itself | AI USE LEVEL THREE SYMBOL | "AI use level three, Unattended" |
 
 1. A mark shows the Level and nothing else. Hand, Door, the flag and the Tool are left to the full tag. A mark takes no `no undo` or other modifier, because the set of 4 marks is fixed (rule 10.7).
-2. A mark points to a full tag. Put the full tag in the mark's link, alt text or title, or next to the work. A mark with no full tag behind it claims nothing, the same as a missing tag (section 2).
+2. A mark points to a full tag. Put the full tag in the mark's link, alt text or title, or next to the work. A picture's own alt text describes the picture, so its tag goes in the caption and the sidecar. W3C's [alt decision tree](https://www.w3.org/WAI/tutorials/images/decision-tree/) has no branch for provenance. A mark with no full tag behind it claims nothing, the same as a missing tag (section 2).
 3. Alt text and the SVG `<title>` are the label `AI use level 2, Supervised`. A screen reader says it as the spoken form "AI use level two, Supervised" and doesn't describe the shape.
 4. The marks are monochrome and must stay distinct at 12 px and at 1 bit. Don't add letters, digits or colour inside the circle.
 5. The files are in `marks/`, black on white (`-light`) and white on black (`-dark`), under CC0 so anyone can redraw or embed them. `spec.json` lists each mark with its name, spoken form, file names and braille.
@@ -186,7 +186,7 @@ Examples:
 |---|---|---|
 | A blog post byline, linked | L1 mark | `L1 · drafted · Claude Opus 5.5` |
 | A slide footer | L2 mark | `L2 · made · undo · Claude Code` in the speaker notes and the deck's sources slide |
-| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's alt text and sidecar |
+| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's caption and sidecar |
 | A support bot's display name | L3 mark | the dated standing tag on the help page: `L3 · made · no undo · (tool)`, since June 2026 |
 
 The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. It's no shorter than `L2`, an emoji looks different on each platform, and a screen reader reads it as "robot face".
@@ -266,3 +266,4 @@ Sources read:
 - https://labs.cloudsecurityalliance.org/research/agentic-ai-autonomy-levels-control-framework-v2-csa-styled/
 - https://www.alphaxiv.org/abs/2607.23438
 - https://medium.com/@tahirbalarabe2/what-is-loop-engineering-four-levels-of-agentic-loops-ccc48b850002
+- https://www.w3.org/WAI/tutorials/images/decision-tree/
