@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 // Checks the form of every AI-Use line on the commits in a range. It says nothing about whether a
-// tag is true, and a commit with no AI-Use line passes, because no tag means nothing is claimed.
+// tag is true or who wrote it (a person, or an agent under a delegation, SPEC.md section 3), and a
+// commit with no AI-Use line passes, because no tag means nothing is claimed. It also checks the form
+// of an AI-Use-Standing line, the pointer to a dated standing statement, and that one never stands
+// without a tag. It can't tell a delegated tag from a confirmed one, so it can't require the pointer.
 //
 //   node scripts/check-trailers.mjs --range <base>..<head>
 //
@@ -14,6 +17,53 @@ import { readJson, tokenize } from '../test/lib/spec.mjs';
 // Loose on purpose: "ai-use:" and "AI_Use:" are read as tags, so checkTag can reject them.
 // Only column 0 counts, so a commit message can quote a tag by indenting it.
 const KEY = /^ai[-_]use\s*:/i;
+
+// The pointer to a standing statement (SPEC.md section 2), "AI-Use-Standing: <URL or path> <YYYY-MM-DD>".
+// KEY above needs "use" to be followed by a colon, so a standing line is never read as a tag.
+// The target is one run with no spaces: a URL or a path, never a name in several words. A path
+// that climbs out of the repository (../, /abs, ~/) is refused, because a reader can't open it.
+const STANDING_KEY = /^ai[-_]use[-_]standing\s*:/i;
+const STANDING = /^AI-Use-Standing: (\S+) (\d{4})-(\d{2})-(\d{2})$/;
+
+export function standingLines(message) {
+  return message
+    .split('\n')
+    .map((line) => line.trimEnd())
+    .filter((line) => STANDING_KEY.test(line));
+}
+
+// Returns what is wrong with one standing line. An empty list means it is well formed. It checks the
+// form and that the date exists. It can't tell whether the statement it points to is there.
+export function checkStanding(line, spec) {
+  const trailer = spec.machineForm?.standing?.trailer;
+  if (typeof trailer !== 'string') throw new Error('spec.json: machineForm.standing.trailer is missing');
+  if (trailer !== 'AI-Use-Standing') throw new Error(`spec.json: the standing trailer is ${trailer}, not AI-Use-Standing`);
+  const match = STANDING.exec(line);
+  if (!match) return [`not a standing line: expected ${spec.machineForm.standing.pattern}`];
+  // A URL is http or https and is left alone. Anything else is a path, read from the repository root.
+  // It stays inside the repository: no leading /, \ or ~, no drive letter, no other scheme (file:)
+  // and no .. part.
+  const target = match[1];
+  if (!/^https?:\/\/\S/i.test(target) && (/^[/\\~]|^[a-z][a-z0-9+.-]*:/i.test(target) || target.split(/[/\\]/).includes('..'))) {
+    return [`the path ${target} leaves the repository: a reader of the tag can't open it`];
+  }
+  const [, , year, month, day] = match.map((part, i) => (i < 2 ? part : Number(part)));
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day) {
+    return [`the date ${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} does not exist`];
+  }
+  return [];
+}
+
+// Commit-level problems with the pointer: at most one, and never without a tag beside it.
+export function checkStandingPlacement(message) {
+  const pointers = standingLines(message).length;
+  const tags = tagLines(message).length;
+  const problems = [];
+  if (pointers > 1) problems.push(`${pointers} standing lines on one commit`);
+  if (pointers > 0 && tags === 0) problems.push('a standing line with no AI-Use tag beside it');
+  return problems;
+}
 
 export function tagLines(message) {
   return message
@@ -132,8 +182,22 @@ function main(argv) {
   }
   const spec = readJson('spec.json');
   let tags = 0;
+  let pointers = 0;
   let bad = 0;
   for (const { sha, message } of commits) {
+    for (const line of standingLines(message)) {
+      pointers += 1;
+      const problems = checkStanding(line, spec);
+      if (problems.length > 0) {
+        bad += 1;
+        console.error(`${sha.slice(0, 9)} ${line}\n  ${problems.join('\n  ')}`);
+      }
+    }
+    const placement = checkStandingPlacement(message);
+    if (placement.length > 0) {
+      bad += 1;
+      console.error(`${sha.slice(0, 9)} standing line placement\n  ${placement.join('\n  ')}`);
+    }
     for (const line of tagLines(message)) {
       tags += 1;
       const problems = checkTag(line, spec);
@@ -143,7 +207,8 @@ function main(argv) {
       }
     }
   }
-  console.log(`check-trailers: ${commits.length} commit(s), ${tags} tag(s), ${bad} bad`);
+  const seen = pointers > 0 ? ` (${pointers} standing line(s))` : '';
+  console.log(`check-trailers: ${commits.length} commit(s), ${tags} tag(s), ${bad} bad${seen}`);
   return bad === 0 ? 0 : 1;
 }
 

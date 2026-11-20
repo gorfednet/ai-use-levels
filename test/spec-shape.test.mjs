@@ -103,9 +103,38 @@ test('every example machine string tokenizes into known tokens plus a parenthesi
   }
 });
 
-test('CITATION.cff cites the version in spec.json', () => {
+// The version CITATION.cff has to cite, read from a changelog: the major.minor of the first
+// "## <version> (<date>)" heading that isn't marked draft, with the date of that minor's own
+// heading. A patch entry such as "## 1.2.1" doesn't move the cited version or its date, which is
+// what scripts/release-notes.mjs asks of a patch tag. A draft is cited only once it is released.
+function released(changelog) {
+  const headings = changelog
+    .split('\n')
+    .map((line) => /^## (\d+(?:\.\d+)*) \((.+)\)$/.exec(line))
+    .filter((match) => match && !/draft|not released/i.test(match[2]))
+    .map((match) => ({ version: match[1], date: match[2] }));
+  if (headings.length === 0) throw new Error('the changelog lists no released version');
+  const version = parseVersion(headings[0].version).slice(0, 2).join('.');
+  const own = headings.find((heading) => heading.version === version);
+  if (!own) throw new Error(`the changelog has no heading for ${version} itself`);
+  return own;
+}
+
+test('a patch entry leaves the cited version and its date where the minor put them', () => {
+  const log = (...headings) => headings.map((heading) => `## ${heading}\n\nNotes.\n`).join('\n');
+  assert.deepEqual(released(log('1.3 (draft, 2026-11-20, not released)', '1.2 (2026-10-30)')), { version: '1.2', date: '2026-10-30' });
+  assert.deepEqual(released(log('1.2.1 (2026-11-21)', '1.2 (2026-10-30)')), { version: '1.2', date: '2026-10-30' });
+  assert.deepEqual(released(log('1.3 (draft)', '1.2.1 (2026-11-21)', '1.2 (2026-10-30)', '1.1.6 (2026-10-28)')), { version: '1.2', date: '2026-10-30' });
+  assert.deepEqual(released(log('1.3 (2026-11-21)', '1.2.1 (2026-11-21)', '1.2 (2026-10-30)')), { version: '1.3', date: '2026-11-21' });
+  assert.throws(() => released(log('1.3 (draft)')), /no released version/);
+  assert.throws(() => released(log('1.2.1 (2026-11-21)', '1.1 (2026-10-25)')), /no heading for 1\.2 itself/);
+});
+
+test('CITATION.cff cites the newest released version, with its date', () => {
   const cff = readText('CITATION.cff');
-  const { version } = readJson('spec.json');
+  const { version, date } = released(readText('CHANGELOG.md'));
+  assert.ok(compareVersions(version, readJson('spec.json').version) <= 0, 'a released version is not newer than spec.json');
   assert.ok(cff.includes(`version: "${version}"`), `CITATION.cff does not name version ${version}`);
   assert.ok(cff.includes(`/ai-use-levels/${version}/`), `CITATION.cff does not link version ${version}`);
+  assert.ok(cff.includes(`date-released: "${date}"`), `CITATION.cff does not carry the release date ${date}`);
 });

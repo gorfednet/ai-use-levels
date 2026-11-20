@@ -20,23 +20,26 @@ No tag means nothing is claimed. It never means L0. `L0` is a tag of its own, 1 
 
 The machine form uses the same tokens and puts the tool in parentheses. Add one line wherever the work already keeps its metadata:
 
-- In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it.
+- In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it or has delegated the confirmation in a dated standing statement.
+- Beside it, a pointer to a dated standing statement the reader can open: `AI-Use-Standing: docs/ai-use.md 2026-09-01`. A tag an agent wrote under a delegation always has one, and it points to the delegation. The same line works in front matter, and in HTML it's `<meta name="AI-Use-Standing" content="docs/ai-use.md 2026-09-01">`. The pointer changes no Level.
 - In YAML front matter, the same line unchanged: `AI-Use: L2 made undo (Claude Code)`
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
 
 Where 4 words don't fit, a mark can stand for the Level. It's a circle for the work with a dot for the tool, placed outside the circle, on its edge or inside it. The SVGs are in [marks/](marks/) under CC0.
 
-[SPEC.md](SPEC.md) has the rules, the test for each token and 17 worked examples.
+[SPEC.md](SPEC.md) has the rules, the test for each token and 18 worked examples.
 
 ## Read it
 
-- [SPEC.md](SPEC.md): the specification, version 1.2.
+- [SPEC.md](SPEC.md): the specification. It is a draft of 1.3 until 1.3 is released, and 1.2 is the released version.
 - [spec.json](spec.json): the same scheme as data, with the slots, the tokens and the machine form.
 - [spec.schema.json](spec.schema.json): the JSON Schema that `spec.json` has to fit.
 - [examples/examples.json](examples/examples.json): the worked examples with their machine form.
+- [models.json](models.json): the ranked model list that orders several tools in one tag.
+- [docs/delegation.md](docs/delegation.md): the author's delegation of the tag confirmation.
 - [CHANGELOG.md](CHANGELOG.md): what each version changed.
-- [docs/for-agents.md](docs/for-agents.md): what an agent may draft and what a person confirms.
+- [docs/for-agents.md](docs/for-agents.md): what an agent may draft, what a person confirms and how a person delegates the confirmation.
 
 The canonical page is https://papers.4thcltr.com/ai-use-levels/. It serves each version at its own URL, so a tag can cite a version that never moves.
 
@@ -58,8 +61,8 @@ Text and data are both under CC BY 4.0 ([LICENSE](LICENSE)). If you embed the to
 
 Run `npm ci` once, then `npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape and validates against `spec.schema.json`, that every example tokenizes and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
 
-Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged.
+Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged. Version 1.3 was written the same way, but I set its decisions and didn't read the result before it merged.
 
 ```
-AI-Use: L2 made undo (Claude Fable 5.1)
+AI-Use: L3 made undo unread (Claude Fable 5.2 + Claude Sonnet 5.5)
 ```

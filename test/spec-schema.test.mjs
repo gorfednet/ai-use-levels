@@ -21,7 +21,7 @@ function errors(instance) {
 
 test('spec.schema.json is draft 2020-12 with the tagged $id and a closed top level', () => {
   assert.equal(schema.$schema, 'https://json-schema.org/draft/2020-12/schema');
-  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json');
+  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.3.0/spec.schema.json');
   assert.equal(schema.additionalProperties, false, 'unknown top-level keys are rejected');
   assert.deepEqual(
     new Set(schema.$defs.slot.properties.required.enum),
@@ -37,6 +37,8 @@ test('spec.json validates against spec.schema.json', () => {
 const broken = [
   ['an unknown top-level key', (s) => { s.colour = 'blue'; }, /must NOT have additional properties/],
   ['a missing top-level key', (s) => { delete s.marksStatus; }, /required property 'marksStatus'/],
+  ['a missing confirmation block', (s) => { delete s.confirmation; }, /required property 'confirmation'/],
+  ['a confirmation that names nothing a statement needs', (s) => { s.confirmation.statementNames = []; }, /\/confirmation\/statementNames must NOT have fewer than 1 items/],
   ['a version that is not dotted integers', (s) => { s.version = '1.2-rc1'; }, /\/version must match pattern/],
   ['a slot with an unknown required value', (s) => { s.slots[1].required = 'sometimes'; }, /\/slots\/1\/required must be equal to one of the allowed values/],
   ['a slot with an unknown key', (s) => { s.slots[0].colour = 'blue'; }, /\/slots\/0 must NOT have additional properties/],
@@ -46,6 +48,18 @@ const broken = [
   ['a token deprecated without a replacement', (s) => { s.tokens[1].deprecated = { since: '1.3' }; }, /\/tokens\/1\/deprecated/],
   ['a mark whose braille is text', (s) => { s.marks[0].braille = 'L0'; }, /\/marks\/0\/braille must match pattern/],
   ['a mark missing its dark file', (s) => { delete s.marks[2].files.dark; }, /\/marks\/2\/files must have required property 'dark'/],
+  ['a machine form without its standing pointer', (s) => { delete s.machineForm.standing; }, /\/machineForm must have required property 'standing'/],
+  ['a standing pointer that changes the level', (s) => { s.machineForm.standing.changesLevel = true; }, /\/machineForm\/standing\/changesLevel must be equal to constant/],
+  ['a standing pointer under the unpublished draft key', (s) => { s.machineForm.standing.trailer = 'AI-Use-Policy'; }, /\/machineForm\/standing\/trailer must be equal to constant/],
+  ['a standing pointer whose target may be a short name', (s) => { s.machineForm.standing.pattern = 'AI-Use-Standing: <standing tag> <YYYY-MM-DD>'; }, /\/machineForm\/standing\/pattern must match pattern/],
+  ['a standing pointer with a phrase for its running-text form', (s) => { s.machineForm.standing.forms.text = 'under the standing tag of <date>'; }, /\/machineForm\/standing\/forms\/text must be equal to constant/],
+  ['a standing pointer with no HTML form', (s) => { delete s.machineForm.standing.forms.meta; }, /\/machineForm\/standing\/forms must have required property 'meta'/],
+  ['a standing pointer that keeps the cut rule-bound records', (s) => { s.machineForm.standing.records = ['which gates are enforced']; }, /\/machineForm\/standing must NOT have additional properties/],
+  ['a standing pointer a delegated tag may leave out', (s) => { s.machineForm.standing.requiredWhen = 'never'; }, /\/machineForm\/standing\/requiredWhen must be equal to constant/],
+  ['a delegation with a rule dropped', (s) => { s.confirmation.underDelegation.pop(); }, /\/confirmation\/underDelegation must NOT have fewer than 4 items/],
+  ['a delegation with no place for its statement', (s) => { delete s.confirmation.statementPlace; }, /\/confirmation must have required property 'statementPlace'/],
+  ['a missing tool order', (s) => { delete s.toolOrder; }, /required property 'toolOrder'/],
+  ['a tool order that names another list', (s) => { s.toolOrder.list = 'credits.json'; }, /\/toolOrder\/list must be equal to constant/],
   ['a machine form without level0', (s) => { delete s.machineForm.level0; }, /\/machineForm must have required property 'level0'/],
   ['a level0 that names a tool', (s) => { s.machineForm.level0 = 'AI-Use: L0 (none)'; }, /\/machineForm\/level0 must match pattern/],
   ['a pattern with a required tool', (s) => { s.machineForm.pattern = 'AI-Use: <level> [hand] [door] [flag] (<tool>) [v<major>]'; }, /\/machineForm\/pattern must match pattern/],

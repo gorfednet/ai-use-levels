@@ -70,6 +70,12 @@
     "machine": "AI-Use: L3 made no undo (tool)"
   },
   {
+    "use": "An agent ran overnight on a branch and wrote its own tag under my delegation, before I read anything",
+    "tag": "L3 · made · undo · unread · Claude Code",
+    "machine": "AI-Use: L3 made undo unread (Claude Code)",
+    "standing": "AI-Use-Standing: docs/ai-use.md 2026-09-01"
+  },
+  {
     "use": "A bot auto-merged on green CI, and nobody has read the diff",
     "tag": "L3 · made · no undo · unread · (tool)",
     "machine": "AI-Use: L3 made no undo unread (tool)"
