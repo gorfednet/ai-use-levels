@@ -32,22 +32,6 @@ Adopting it means changing `SPEC.md`, `spec.json`, `spec.schema.json`, `examples
 - No listener has tested the level cues. A person who hasn't learned them won't know what a cue means. Rule 8.9 keeps a spoken or readable tag beside every cue. The beat lengths may change after a listening test. `spec.json` says so under `marksStatus`.
 - A level cue for `L4` would have 5 beats. Earcon guidance caps a short motive at 4 notes, so a new level may need a new cue design.
 
-## Example to change
-
-The third row of the examples table in section 8 reads:
-
-| Where | Mark | Full tag behind it |
-|---|---|---|
-| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's alt text and sidecar |
-
-Proposed:
-
-| Where | Mark | Full tag behind it |
-|---|---|---|
-| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's caption and sidecar |
-
-Alt text describes the picture. Rule 2 still lets the mark's own alt text hold the tag.
-
 ## Examples to add
 
 | Where | Mark or cue | Full tag behind it |
@@ -58,9 +42,9 @@ Alt text describes the picture. Rule 2 still lets the mark's own alt text hold t
 
 ## What adoption changes
 
-- `SPEC.md`: rules 7 to 12 in section 8, the 2 new limits in section 11, the changed example and the 3 new ones.
+- `SPEC.md`: rules 7 to 12 in section 8, the 2 new limits in section 11 and the 3 new examples.
 - `spec.json`: a `cue` list of beat lengths on each mark, and a line under `marksStatus` that no listener has tested the cues.
-- `spec.schema.json`: the `cue` field.
+- `spec.schema.json`: the `cue` field, and the new key under `marksStatus`. That object allows only `braille` and `unicode` today.
 - `test/marks.test.mjs`: each cue is 1 long beat and as many short beats as its level. The near-miss case is a cue with 1 beat too many.
 - `CHANGELOG.md` and `CITATION.cff`: the 1.4 entry.
 - No token changes, so `tokens-stable` is untouched.
@@ -69,7 +53,4 @@ Alt text describes the picture. Rule 2 still lets the mark's own alt text hold t
 
 - The owner decided on 20 November 2026 that the level cue goes into this draft now, before a listening test.
 - The owner confirmed `com.4thcltr.ai-use` as the C2PA assertion label on 20 November 2026.
-
-## Open question for the owner
-
-- Whether the changed alt-text example should go into 1.3 as a small fix.
+- The owner put the alt-text change into 1.3 on 20 November 2026. Pull request 30 has it, and this draft no longer does.

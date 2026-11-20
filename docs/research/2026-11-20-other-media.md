@@ -208,7 +208,7 @@ Limits:
 - Platforms often strip metadata on upload. Players don't show a `TXXX` frame.
 - A signed C2PA manifest proves who made the claim. It doesn't prove the tag is true.
 - The owner confirmed the `com.4thcltr.ai-use` label on 20 November 2026. No manifest uses it yet.
-- SPEC.md section 8 has an example that puts the full tag in a generated image's alt text. The alt decision tree argues against it. The draft changes that example.
+- SPEC.md section 8 has an example that puts the full tag in a generated image's alt text. The alt decision tree argues against it. Pull request 30 changes that example in 1.3.
 
 Libraries: c2pa-rs (MIT and Apache 2.0) [L9], ExifTool for XMP and IPTC [L8], Mutagen for ID3 and Ogg (GPL 2 or later) [L7].
 
