@@ -19,14 +19,14 @@ Before you write a tag under a delegation, check 3 things.
 
 A delegation covers who confirms the tag. It isn't a yes to any change you make, so rate your own session as usual. An agent that works under a standing instruction to act is `L3`, whatever the delegation says.
 
-A worked example is the author's own statement, dated 18 November 2026 and kept at [delegation.md](delegation.md): "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. It doesn't cover the ai-use-levels repository or papers.4thcltr.com, where I confirm each tag. I can correct any tag later." Under it, an agent that edited files while a person approved each edit and read the result writes 2 lines on its commit and tells the person in its report:
+A worked example is the author's own statement, dated 18 November 2026 and kept at [delegation.md](delegation.md): "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later." Its scope has 2 exceptions, set the same day: it doesn't cover the ai-use-levels repository or papers.4thcltr.com, where each tag is still confirmed. Under it, an agent that edited files while a person approved each edit and read the result writes 2 lines on its commit and tells the person in its report:
 
 ```
 AI-Use: L2 made undo (Claude Opus 5.5)
 AI-Use-Standing: https://github.com/gorfednet/ai-use-levels/blob/main/docs/delegation.md 2026-11-18
 ```
 
-The person corrects the tag if it's wrong. The same agent in this repository is in the first case, because the statement doesn't cover it.
+The person corrects the tag if it's wrong. The same agent in this repository is in the first case, because the delegation doesn't cover it.
 
 ## What you can't see from your session
 

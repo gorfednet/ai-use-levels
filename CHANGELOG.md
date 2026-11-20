@@ -16,10 +16,11 @@ Settles who confirms a tag. Section 3 said a person confirms every tag before it
 - The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3.
 - Section 3 says what an agent writes under a delegation. It writes `unread` unless it saw the person read the result. Unsure between 2 Hand rungs it takes the larger, and between 2 Levels the higher. The tag carries a pointer to the delegation statement.
 - Section 9 rule 6 says where the statement sits: where a reader of the tags can open it. A copy in a private rules file isn't enough.
-- The worked example is the author's own delegation of 18 November 2026, now kept at [docs/delegation.md](docs/delegation.md). Its scope matches the practice: it doesn't cover this repository or papers.4thcltr.com, where the author confirms each tag.
+- The worked example is the author's own delegation of 18 November 2026, now kept at [docs/delegation.md](docs/delegation.md). The quote is unchanged. Its 2 exceptions stand beside it: it doesn't cover this repository or papers.4thcltr.com, where the author confirms each tag.
 - Section 11 adds a limit. A delegated tag may never have been read by the person accountable for it, and its pointer isn't checked.
 - [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. It no longer leaves Hand and `unread` to the person under a delegation. `CLAUDE.md` and `REVIEW.md` now carry the delegation wording and say this repository is outside the author's delegation.
 - `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `statementPlace`, `underDelegation`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note, the delegation page and `spec.json` together.
+- Correction: commits 181695c, 698fdc0 and a81bc6d in this version's pull request carry an `AI-Use:` trailer the author didn't confirm. They can't be rewritten. Read them as carrying no tag.
 - Why a minor version: a rule the scheme settled one way is settled another way. No token, slot, flag or definition changed.
 
 ### A pointer to a standing statement

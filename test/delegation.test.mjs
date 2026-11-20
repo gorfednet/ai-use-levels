@@ -13,7 +13,7 @@ const delegation = readText('docs/delegation.md');
 
 // The delegation statement of 18 November 2026, quoted in SPEC.md section 9, in for-agents.md and
 // in docs/delegation.md, where a reader of a tag can open it.
-const STATEMENT = "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. It doesn't cover the ai-use-levels repository or papers.4thcltr.com, where I confirm each tag. I can correct any tag later.";
+const STATEMENT = "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later.";
 const POINTER = 'AI-Use-Standing: https://github.com/gorfednet/ai-use-levels/blob/main/docs/delegation.md 2026-11-18';
 
 test('spec.json says who confirms a tag, and when delegation arrived', () => {
@@ -49,7 +49,12 @@ test('the statement sits where a reader can open it, and each copy of the pointe
 });
 
 test('the statement names its scope, and this repository is outside it', () => {
-  assert.ok(STATEMENT.includes("It doesn't cover the ai-use-levels repository or papers.4thcltr.com"), 'the 2 exclusions');
+  // The exceptions stand beside the quote, never inside it: the quote is the owner's wording.
+  const EXCEPTIONS = "it doesn't cover the ai-use-levels repository or papers.4thcltr.com";
+  assert.ok(!STATEMENT.includes('papers.4thcltr.com'), 'the quote is as the owner confirmed it');
+  for (const [name, text] of [['SPEC.md', specText], ['for-agents.md', forAgents], ['docs/delegation.md', delegation]]) {
+    assert.ok(text.includes(EXCEPTIONS), `${name} names the 2 exceptions`);
+  }
   for (const file of ['CLAUDE.md', 'REVIEW.md']) {
     const text = readText(file);
     assert.ok(text.includes("doesn't cover this repository"), `${file} says the delegation does not cover this repository`);
