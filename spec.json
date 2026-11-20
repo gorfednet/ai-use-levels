@@ -170,7 +170,7 @@
     "standing": {
       "trailer": "AI-Use-Standing",
       "pattern": "AI-Use-Standing: <URL or path> <YYYY-MM-DD>",
-      "target": "A URL or a path a reader of the tag can open, with no spaces. It holds a dated standing statement: a delegation of the confirmation, a standing tag, or both.",
+      "target": "A URL or a path a reader of the tag can open, with no spaces. A path stays inside the repository the commit is in. It holds a dated standing statement: a delegation of the confirmation, a standing tag, or both.",
       "requiredWhen": "the tag was written under a delegation",
       "records": ["who set the rules and when", "which gates are enforced", "how much a person reads"],
       "changesLevel": false,

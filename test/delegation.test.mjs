@@ -69,6 +69,8 @@ test('SPEC.md section 3 says what an agent writes under a delegation', () => {
   assert.ok(rule.includes('It writes `unread` unless it saw the person read the result'), 'unread unless seen');
   assert.ok(rule.includes('between 2 Hand rungs it takes the larger, and between 2 Levels the higher'), 'larger Hand, higher Level');
   assert.ok(rule.includes('carries a pointer to the delegation statement'), 'the pointer');
+  assert.ok(rule.includes("it doesn't mark the tag as delegated"), 'the pointer alone does not say delegated');
+  assert.ok(!/can tell it from a tag a person confirmed|pointer says the confirmation was delegated/.test(specText), 'no claim that the pointer marks a delegated tag');
 });
 
 test('SPEC.md section 3 keeps the delegation apart from a yes to a change', () => {

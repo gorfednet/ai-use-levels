@@ -46,7 +46,7 @@ The pointer is a second trailer beside your tag: `AI-Use-Standing: <URL or path>
 
 - Under a delegation you always write it, and it points to the delegation statement.
 - A person may also have set rules for agent work in a dated standing tag (section 9, rule 7): who set them, which gates are enforced and how much a person reads. If one covers your work and you have no delegation pointer to write, point to it. A commit takes 1 pointer, so a person with both keeps them on one page.
-- The target is a URL or a path with no spaces. A name such as "the engineering policy" isn't one, because a reader can't open it.
+- The target is a URL or a path with no spaces. A path starts at the repository root and stays inside it, so `../rules.md` isn't one. A name such as "the engineering policy" isn't one, because a reader can't open it.
 - The pointer changes no Level. Work inside rules a person set, with no yes to each change, is still `L3`.
 - Point only to a statement you could open and read. Don't write one from memory, and don't write one with no tag beside it.
 - You can't check that the gates held or that the person read anything. The pointer says that a statement exists, and a reader who wants more opens it.

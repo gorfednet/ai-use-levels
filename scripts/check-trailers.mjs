@@ -20,7 +20,8 @@ const KEY = /^ai[-_]use\s*:/i;
 
 // The pointer to a standing statement (SPEC.md section 2), "AI-Use-Standing: <URL or path> <YYYY-MM-DD>".
 // KEY above needs "use" to be followed by a colon, so a standing line is never read as a tag.
-// The target is one run with no spaces: a URL or a path, never a name in several words.
+// The target is one run with no spaces: a URL or a path, never a name in several words. A path
+// that climbs out of the repository (../, /abs, ~/) is refused, because a reader can't open it.
 const STANDING_KEY = /^ai[-_]use[-_]standing\s*:/i;
 const STANDING = /^AI-Use-Standing: (\S+) (\d{4})-(\d{2})-(\d{2})$/;
 
@@ -39,6 +40,11 @@ export function checkStanding(line, spec) {
   if (trailer !== 'AI-Use-Standing') throw new Error(`spec.json: the standing trailer is ${trailer}, not AI-Use-Standing`);
   const match = STANDING.exec(line);
   if (!match) return [`not a standing line: expected ${spec.machineForm.standing.pattern}`];
+  // A path is read from the repository root and stays inside it. A URL has a scheme and is left alone.
+  const target = match[1];
+  if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(target) && (/^[/~]/.test(target) || target.split(/[/\\]/).includes('..'))) {
+    return [`the path ${target} leaves the repository: a reader of the tag can't open it`];
+  }
   const [, , year, month, day] = match.map((part, i) => (i < 2 ? part : Number(part)));
   const date = new Date(Date.UTC(year, month - 1, day));
   if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day) {
