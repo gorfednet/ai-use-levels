@@ -1,6 +1,7 @@
 {
   "updated": "2026-11-20",
-  "order": "Most capable first. Where capability doesn't settle it, newer before older.",
+  "order": "Newest and biggest first, oldest last. Most capable first, and where capability doesn't settle it, newer before older.",
+  "source": "The author set this order on 20 November 2026 (\"ranked model is in - newest and biggest to oldest like my example this mornign\"). His example that morning was Fable 5.2, Opus 5.5, Fable 5.1, Opus 5.0, then an unversioned name, then a product.",
   "updateRule": "Add a model in the pull request that first needs it: when it's released, or when it first appears in a tag. Place it by its maker's own ranking where there is one, and above older models of the same tier. Never remove a model, so an old tag still sorts. A model may move, and tags already written aren't rewritten. Set the date above in the same change.",
   "models": [
     "Claude Fable 5.2",

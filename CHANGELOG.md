@@ -41,7 +41,7 @@ A tag can now point to a dated standing statement: a delegation, a standing tag 
 Section 6 said to name the tool with the biggest hand first. Shares drift as work goes on, so the same set of tools came out in a different order from one commit to the next.
 
 - Several tools are now ordered by capability, then by recency. The order says nothing about which tool had the biggest hand.
-- [models.json](models.json) is the ranked model list. Listed models go first in list order, then unversioned names of listed models in alphabetical order, then every other tool in alphabetical order. A model or a family the list doesn't have sorts with the other tools until it's added.
+- [models.json](models.json) is the ranked model list: newest and biggest first, oldest last. The author set its order on 20 November 2026, and the file records that as its source. Listed models go first in list order, then unversioned names of listed models in alphabetical order, then every other tool in alphabetical order. A model or a family the list doesn't have sorts with the other tools until it's added.
 - The list carries its own update rule and date. It gains a model when one is released or first appears in a tag, and it never loses one. It changes without a new version of the scheme.
 - `scripts/order-tools.mjs` applies the rule, and `--check` fails a list that's out of order. `test/tool-order.test.mjs` holds the list, the script and section 6 together. No check in this repository reads the order of a tag on a commit.
 - `spec.json` gains `toolOrder` (`rule`, `groups`, `list`, `since`), and `spec.schema.json` requires it.

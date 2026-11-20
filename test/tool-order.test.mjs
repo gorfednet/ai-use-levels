@@ -12,7 +12,10 @@ const { models } = list;
 const specText = readText('SPEC.md');
 
 test('models.json is a ranked list of versioned names, each listed once, with a real date', () => {
-  assert.deepEqual(Object.keys(list), ['updated', 'order', 'updateRule', 'models']);
+  assert.deepEqual(Object.keys(list), ['updated', 'order', 'source', 'updateRule', 'models']);
+  assert.ok(list.order.startsWith('Newest and biggest first, oldest last.'), 'the order the author set');
+  assert.ok(list.source.includes('20 November 2026'), 'the source of the order is dated');
+  assert.deepEqual(models.slice(0, 4), ['Claude Fable 5.2', 'Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 5.0'], "the author's example leads the list");
   assert.ok(models.length > 0, 'the list has models');
   for (const model of models) {
     assert.match(model, /^\S+( \S+)* \S*\d\S*$/, `${model}: ends with a version`);
