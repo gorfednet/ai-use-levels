@@ -13,7 +13,7 @@ const delegation = readText('docs/delegation.md');
 
 // The delegation statement of 18 November 2026, quoted in SPEC.md section 9, in for-agents.md and
 // in docs/delegation.md, where a reader of a tag can open it.
-const STATEMENT = "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later.";
+const STATEMENT = "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. The agents that do the work write these tags under the AI Use Levels specification. I don't confirm each tag before it's committed. I may correct any of them at any time.";
 const POINTER = 'AI-Use-Standing: https://github.com/gorfednet/ai-use-levels/blob/main/docs/delegation.md 2026-11-18';
 
 test('spec.json says who confirms a tag, and when delegation arrived', () => {
