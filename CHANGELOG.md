@@ -2,19 +2,9 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots, or settles a rule the scheme left open, and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
-## 1.3 (draft, 2026-11-20, not released)
+## 1.3 (2026-11-20)
 
 The owner accepted delegated confirmation and the pointer on 20 November 2026 ("Yes, with changes"). The changes are in the text below. No token changed meaning. A tag with 1 tool reads the same under 1.2 and 1.3. A tag with several tools doesn't, because their order meant something else in 1.2 (Tool order, below).
-
-Release steps, in the release pull request:
-
-- Drop "draft" and "not released" from this heading and set its date. `scripts/release-notes.mjs` refuses the `v1.3.0` tag until then.
-- Update `CITATION.cff` (`version`, `date-released`, `url`). The same script refuses the tag while it cites 1.2.
-- Update `package.json` and `package-lock.json`, and the version lines in `README.md`.
-- Update `REVIEW.md`, which says `SPEC.md` holds 1.3 until its release.
-- Leave the `$id` in `spec.schema.json` and its pin in `test/spec-schema.test.mjs` alone. Both already name `v1.3.0`, because the schema fits 1.3 and no longer fits 1.2. The URL opens once the tag exists.
-- Delete this list.
-- After the merge, tag `v1.3.0` and update the canonical page at papers.4thcltr.com.
 
 ### Delegated confirmation
 
@@ -24,7 +14,7 @@ Adds a second way to confirm a tag. Section 3 said a person confirms every tag b
 - The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3.
 - Section 3 says what an agent writes under a delegation. It writes `unread` unless it saw the person read the result. Unsure between 2 Hand rungs it takes the larger, and between 2 Levels the higher. The tag carries a pointer to the delegation statement.
 - Section 9 rule 6 says where the statement sits: where a reader of the tags can open it. A copy in a private rules file isn't enough.
-- The worked example is the author's own delegation of 18 November 2026, now kept at [docs/delegation.md](docs/delegation.md). The quote is unchanged. Its 2 exceptions stand beside it: it doesn't cover this repository or papers.4thcltr.com, where the author confirms each tag.
+- The worked example is the author's own delegation of 18 November 2026, now kept at [docs/delegation.md](docs/delegation.md). The quote is his wording, confirmed 18 November 2026 and reworded by him on 20 November 2026 ("Draft A"). The date of the delegation stays 18 November 2026. Its 2 exceptions stand beside it: it doesn't cover this repository or papers.4thcltr.com, where the author confirms each tag.
 - Section 11 adds a limit. A delegated tag may never have been read by the person accountable for it. Its pointer isn't checked, and the pointer alone doesn't mark the tag as delegated.
 - [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. It no longer leaves Hand and `unread` to the person under a delegation. `CLAUDE.md` and `REVIEW.md` now carry the delegation wording and say this repository is outside the author's delegation.
 - `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `statementPlace`, `underDelegation`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note, the delegation page and `spec.json` together.

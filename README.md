@@ -32,7 +32,7 @@ Where 4 words don't fit, a mark can stand for the Level. It's a circle for the w
 
 ## Read it
 
-- [SPEC.md](SPEC.md): the specification. It is a draft of 1.3 until 1.3 is released, and 1.2 is the released version.
+- [SPEC.md](SPEC.md): the specification, version 1.3.
 - [spec.json](spec.json): the same scheme as data, with the slots, the tokens and the machine form.
 - [spec.schema.json](spec.schema.json): the JSON Schema that `spec.json` has to fit.
 - [examples/examples.json](examples/examples.json): the worked examples with their machine form.
@@ -45,9 +45,9 @@ The canonical page is https://papers.4thcltr.com/ai-use-levels/. It serves each 
 
 ## Cite it
 
-> AI Use Levels 1.2. 4th Culture, Toronto, 2026. https://papers.4thcltr.com/ai-use-levels/
+> AI Use Levels 1.3. 4th Culture, Toronto, 2026. https://papers.4thcltr.com/ai-use-levels/
 
-In running text, "AI Use Levels 1.2" with the link is enough. A tag with no version token is version 1.
+In running text, "AI Use Levels 1.3" with the link is enough. A tag with no version token is version 1.
 
 ## Argue with it
 
