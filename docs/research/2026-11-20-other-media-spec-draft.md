@@ -8,9 +8,9 @@ Adopting it means changing `SPEC.md`, `spec.json`, `spec.schema.json`, `examples
 
 7. Words are the tag in every medium. In audio and video, say the full tag once where the credits are. Use the spoken form of section 2: "level two, made, undo, Claude Code". A mark shown on screen follows rules 1 to 3. A spoken tag is captioned as speech.
 
-8. A level cue is a mark played in time. It's 1 long beat for the work, then 1 short beat for each level. `L0` is long. `L1` is long short. `L2` is long short short. `L3` is long short short short. A long beat is 400 ms, a short beat is 100 ms and each gap is 150 ms. Every beat has the same pitch and the same loudness. As sound it uses 1 musical timbre. As vibration it uses the same times: `[400, 150, 100, 150, 100]` is `L2`.
+8. A level cue is a sound or a vibration that stands for the Level. It's 1 long beat for the work, then 1 short beat for each level. `L0` is long. `L1` is long short. `L2` is long short short. `L3` is long short short short. A long beat is 400 ms, a short beat is 100 ms and each gap is 150 ms. Every beat has the same pitch and the same loudness. As sound it uses 1 musical timbre. As vibration it uses the same times: `[400, 150, 100, 150, 100]` is `L2`.
 
-9. A level cue never stands alone. It plays just before the spoken tag, or beside a tag a person can read. A caption names it: `[AI use level cue: 2]`. It isn't a new mark under rule 10.7, and it shows the Level and nothing else, as rule 1 says. No listener has tested the level cues yet, and `spec.json` says so under `marksStatus`.
+9. A level cue never stands alone. It plays just before the spoken tag, or beside a tag a person can read. A caption names it: `[AI use level cue: 2]`. It shows the Level and nothing else. A level cue isn't a mark, so rule 10.7 doesn't count it and the set of 4 marks stays fixed.
 
 10. A raised mark is at least 6 mm across with 3 mm clear around it, the `L1` dot included. The braille of rule 6 is the label, and the raised mark is an extra.
 
@@ -26,6 +26,11 @@ Adopting it means changing `SPEC.md`, `spec.json`, `spec.schema.json`, `examples
     A standard value can go beside it, such as an IPTC digital source type. That value describes the media and never stands for the Level. A platform's own AI label and a disclosure the law requires stay as they are. The tag is added to them.
 
 12. In plain text the level token is the mark: write `L2`. A terminal prints the tag as text, and colour is never the only thing that shows the Level.
+
+## Text to add to section 11, Known limits
+
+- No listener has tested the level cues. A person who hasn't learned them won't know what a cue means. Rule 8.9 keeps a spoken or readable tag beside every cue. The beat lengths may change after a listening test. `spec.json` says so under `marksStatus`.
+- A level cue for `L4` would have 5 beats. Earcon guidance caps a short motive at 4 notes, so a new level may need a new cue design.
 
 ## Example to change
 
@@ -53,15 +58,18 @@ Alt text describes the picture. Rule 2 still lets the mark's own alt text hold t
 
 ## What adoption changes
 
-- `SPEC.md`: rules 7 to 12, the changed example and the 3 new ones.
+- `SPEC.md`: rules 7 to 12 in section 8, the 2 new limits in section 11, the changed example and the 3 new ones.
 - `spec.json`: a `cue` list of beat lengths on each mark, and a line under `marksStatus` that no listener has tested the cues.
 - `spec.schema.json`: the `cue` field.
 - `test/marks.test.mjs`: each cue is 1 long beat and as many short beats as its level. The near-miss case is a cue with 1 beat too many.
 - `CHANGELOG.md` and `CITATION.cff`: the 1.4 entry.
 - No token changes, so `tokens-stable` is untouched.
 
+## Decided
+
+- The owner decided on 20 November 2026 that the level cue goes into this draft now, before a listening test.
+
 ## Open questions for the owner
 
-- Whether the level cue belongs in the spec before a listening test, or stays in research until one is run.
 - Whether `com.4thcltr.ai-use` is the right C2PA label, or a domain for the scheme itself is better.
 - Whether the changed alt-text example should go into 1.3 as a small fix.

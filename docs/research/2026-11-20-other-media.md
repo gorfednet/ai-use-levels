@@ -7,7 +7,7 @@ The owner asked how a use tag could be shown in audio and other media beyond bra
 ## Summary
 
 - Words stay the tag in every medium. The spoken form in SPEC.md section 2 already works for audio, video and screen readers.
-- One new thing is proposed: a level cue. It's 1 long beat for the work, then 1 short beat per level. The same rhythm works as sound and as vibration.
+- The draft adds 1 new thing, a level cue. The owner decided on 20 November 2026 that it goes into the draft now. It's 1 long beat for the work, then 1 short beat per level. The same rhythm works as sound and as vibration.
 - The level cue never stands alone. Untrained listeners identified about 10% of earcons in the study the handbook cites [1].
 - Files carry the machine form `AI-Use:` unchanged, in the field each format already has for free text.
 - Nobody has tested the level cue or the raised marks with listeners or readers. Section "Limits of this memo" lists what else is unproven.
@@ -17,7 +17,7 @@ The owner asked how a use tag could be shown in audio and other media beyond bra
 - 29 sources and 9 library pages are listed at the end. Each was opened on 20 November 2026.
 - The list says how much of each was reached: the full text, an abstract or a catalogue record.
 - 6 searches failed to open and are named under "Not opened". Nothing in this memo rests on them.
-- The scheme has 4 levels, `L0` to `L3`. Every design below is sized for 4 and leaves room for `L4`.
+- The scheme has 4 levels, `L0` to `L3`. Every design below is sized for 4. All but the level cue leave room for `L4` (part 2).
 
 ## 1. Spoken audio and screen readers
 
@@ -70,7 +70,7 @@ Recommended form, the level cue:
 
 - The long beat stands for the work, as the circle does. Each short beat is 1 level, so the count is the level.
 - Every beat has the same pitch and the same loudness. Use 1 musical timbre and keep it between 150 Hz and 5 kHz [1].
-- The level cue is optional. It plays just before the spoken tag or alongside the visible one.
+- Using a level cue is optional. It plays just before the spoken tag or alongside the visible one.
 - A music track with no speech has the tag in its metadata.
 
 Reasoning:
