@@ -7,11 +7,11 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import {
   bareForm,
-  checkPolicy,
-  checkPolicyPlacement,
+  checkStanding,
+  checkStandingPlacement,
   checkTag,
   doorLevels,
-  policyLines,
+  standingLines,
   tagLines,
   toolFloor,
 } from '../scripts/check-trailers.mjs';
@@ -212,79 +212,87 @@ test('a missing or malformed --range is an error', (t) => {
   }
 });
 
-// The pointer to a standing tag (SPEC.md section 2, spec.json machineForm.policy).
-test('every worked example with a policy line passes, beside its tag', () => {
-  const withPolicy = examples.filter((example) => example.policy !== undefined);
-  assert.ok(withPolicy.length > 0, 'at least one example has a policy line');
-  for (const example of withPolicy) {
-    assert.deepEqual(checkPolicy(example.policy, spec), [], example.policy);
-    assert.deepEqual(checkPolicyPlacement(`Subject\n\n${example.machine}\n${example.policy}`), [], example.policy);
+// The pointer to a standing statement (SPEC.md section 2, spec.json machineForm.standing).
+test('every worked example with a standing line passes, beside its tag', () => {
+  const withStanding = examples.filter((example) => example.standing !== undefined);
+  assert.ok(withStanding.length > 0, 'at least one example has a standing line');
+  for (const example of withStanding) {
+    assert.deepEqual(checkStanding(example.standing, spec), [], example.standing);
+    assert.deepEqual(checkStandingPlacement(`Subject\n\n${example.machine}\n${example.standing}`), [], example.standing);
   }
 });
 
-test('well-formed policy lines pass', () => {
+test('well-formed standing lines pass', () => {
   for (const line of [
-    'AI-Use-Policy: docs/ai-use.md 2026-09-01',
-    'AI-Use-Policy: https://example.com/ai-use 2026-09-01',
-    'AI-Use-Policy: engineering standing tag 2026-02-28',
-    'AI-Use-Policy: x 2028-02-29',
+    'AI-Use-Standing: docs/ai-use.md 2026-09-01',
+    'AI-Use-Standing: https://example.com/ai-use 2026-09-01',
+    'AI-Use-Standing: ../standing/ai-use.md#delegation 2026-02-28',
+    'AI-Use-Standing: x 2028-02-29',
   ]) {
-    assert.deepEqual(checkPolicy(line, spec), [], line);
+    assert.deepEqual(checkStanding(line, spec), [], line);
   }
 });
 
-const policyNearMisses = [
-  ['AI-Use-Policy: docs/ai-use.md', /not a policy line/],
-  ['AI-Use-Policy: 2026-09-01', /not a policy line/],
-  ['AI-Use-Policy: docs/ai-use.md 2026-9-1', /not a policy line/],
-  ['AI-Use-Policy: 2026-09-01 docs/ai-use.md', /not a policy line/],
-  ['AI-Use-Policy:docs/ai-use.md 2026-09-01', /not a policy line/],
-  ['ai-use-policy: docs/ai-use.md 2026-09-01', /not a policy line/],
-  ['AI_Use_Policy: docs/ai-use.md 2026-09-01', /not a policy line/],
-  ['AI-Use-Policy: docs/ai-use.md 2026-09-01 ', /not a policy line/], // policyLines trims a real line first
-  ['AI-Use-Policy: docs/ai-use.md 2026-02-30', /does not exist/],
-  ['AI-Use-Policy: docs/ai-use.md 2027-02-29', /does not exist/],
-  ['AI-Use-Policy: docs/ai-use.md 2026-13-01', /does not exist/],
-  ['AI-Use-Policy: docs/ai-use.md 2026-00-10', /does not exist/],
+const standingNearMisses = [
+  ['AI-Use-Standing: docs/ai-use.md', /not a standing line/],
+  ['AI-Use-Standing: engineering standing tag 2026-02-28', /not a standing line/], // a name in several words is no URL or path
+  ['AI-Use-Standing: docs/ai use.md 2026-09-01', /not a standing line/],
+  ['AI-Use-Standing:  2026-09-01', /not a standing line/],
+  ['AI-Use-Standing: 2026-09-01', /not a standing line/],
+  ['AI-Use-Standing: docs/ai-use.md 2026-9-1', /not a standing line/],
+  ['AI-Use-Standing: 2026-09-01 docs/ai-use.md', /not a standing line/],
+  ['AI-Use-Standing:docs/ai-use.md 2026-09-01', /not a standing line/],
+  ['ai-use-standing: docs/ai-use.md 2026-09-01', /not a standing line/],
+  ['AI_Use_Standing: docs/ai-use.md 2026-09-01', /not a standing line/],
+  ['AI-Use-Standing: docs/ai-use.md 2026-09-01 ', /not a standing line/], // standingLines trims a real line first
+  ['AI-Use-Standing: docs/ai-use.md 2026-02-30', /does not exist/],
+  ['AI-Use-Standing: docs/ai-use.md 2027-02-29', /does not exist/],
+  ['AI-Use-Standing: docs/ai-use.md 2026-13-01', /does not exist/],
+  ['AI-Use-Standing: docs/ai-use.md 2026-00-10', /does not exist/],
 ];
 
-for (const [line, expected] of policyNearMisses) {
+for (const [line, expected] of standingNearMisses) {
   test(`fails: ${line}`, () => {
-    const problems = checkPolicy(line, spec);
+    const problems = checkStanding(line, spec);
     assert.ok(problems.length > 0, 'at least one problem');
     assert.match(problems.join('\n'), expected);
   });
 }
 
-test('a policy line is never read as a tag, and a tag line never as a policy line', () => {
-  const message = 'AI-Use: L3 made undo (Claude Code)\nAI-Use-Policy: docs/ai-use.md 2026-09-01';
+test('the unpublished draft key is not a standing line', () => {
+  assert.deepEqual(standingLines('AI-Use-Policy: docs/ai-use.md 2026-09-01'), []);
+  assert.match(checkStanding('AI-Use-Policy: docs/ai-use.md 2026-09-01', spec).join('\n'), /not a standing line/);
+});
+
+test('a standing line is never read as a tag, and a tag line never as a standing line', () => {
+  const message = 'AI-Use: L3 made undo (Claude Code)\nAI-Use-Standing: docs/ai-use.md 2026-09-01';
   assert.deepEqual(tagLines(message), ['AI-Use: L3 made undo (Claude Code)']);
-  assert.deepEqual(policyLines(message), ['AI-Use-Policy: docs/ai-use.md 2026-09-01']);
-  assert.deepEqual(policyLines('Subject mentions AI-Use-Policy: x 2026-09-01\n\n    AI-Use-Policy: x 2026-09-01'), []);
+  assert.deepEqual(standingLines(message), ['AI-Use-Standing: docs/ai-use.md 2026-09-01']);
+  assert.deepEqual(standingLines('Subject mentions AI-Use-Standing: x 2026-09-01\n\n    AI-Use-Standing: x 2026-09-01'), []);
 });
 
-test('a policy line stands only beside a tag, and only one', () => {
-  const policy = 'AI-Use-Policy: docs/ai-use.md 2026-09-01';
-  assert.deepEqual(checkPolicyPlacement(`Subject\n\nAI-Use: L3 made undo (Claude Code)\n${policy}`), []);
-  assert.match(checkPolicyPlacement(`Subject\n\n${policy}`).join('\n'), /no AI-Use tag beside it/);
-  assert.match(checkPolicyPlacement(`Subject\n\nAI-Use: L1 (ChatGPT)\n${policy}\n${policy}`).join('\n'), /2 policy lines/);
+test('a standing line stands only beside a tag, and only one', () => {
+  const pointer = 'AI-Use-Standing: docs/ai-use.md 2026-09-01';
+  assert.deepEqual(checkStandingPlacement(`Subject\n\nAI-Use: L3 made undo (Claude Code)\n${pointer}`), []);
+  assert.match(checkStandingPlacement(`Subject\n\n${pointer}`).join('\n'), /no AI-Use tag beside it/);
+  assert.match(checkStandingPlacement(`Subject\n\nAI-Use: L1 (ChatGPT)\n${pointer}\n${pointer}`).join('\n'), /2 standing lines/);
 });
 
-test('the policy trailer comes from spec.json', () => {
-  assert.throws(() => checkPolicy('AI-Use-Policy: x 2026-09-01', { machineForm: {} }), /policy\.trailer is missing/);
-  const renamed = { machineForm: { policy: { trailer: 'AI-Policy', pattern: 'x' } } };
-  assert.throws(() => checkPolicy('AI-Use-Policy: x 2026-09-01', renamed), /not AI-Use-Policy/);
+test('the standing trailer comes from spec.json', () => {
+  assert.throws(() => checkStanding('AI-Use-Standing: x 2026-09-01', { machineForm: {} }), /standing\.trailer is missing/);
+  const renamed = { machineForm: { standing: { trailer: 'AI-Use-Policy', pattern: 'x' } } };
+  assert.throws(() => checkStanding('AI-Use-Standing: x 2026-09-01', renamed), /not AI-Use-Standing/);
 });
 
-test('a good policy line passes the range, and a bad one or a lone one fails it', (t) => {
+test('a good standing line passes the range, and a bad one or a lone one fails it', (t) => {
   const { commit, run } = repo(t);
-  commit('Good\n\nAI-Use: L3 made undo (Claude Code)\nAI-Use-Policy: docs/ai-use.md 2026-09-01');
+  commit('Good\n\nAI-Use: L3 made undo (Claude Code)\nAI-Use-Standing: docs/ai-use.md 2026-09-01');
   const good = run('--range', 'HEAD~1..HEAD');
   assert.equal(good.status, 0, good.stderr);
-  assert.match(good.stdout, /1 commit\(s\), 1 tag\(s\), 0 bad \(1 policy line\(s\)\)/);
-  commit('Bad date\n\nAI-Use: L3 made undo (Claude Code)\nAI-Use-Policy: docs/ai-use.md 2026-02-30');
+  assert.match(good.stdout, /1 commit\(s\), 1 tag\(s\), 0 bad \(1 standing line\(s\)\)/);
+  commit('Bad date\n\nAI-Use: L3 made undo (Claude Code)\nAI-Use-Standing: docs/ai-use.md 2026-02-30');
   assert.equal(run('--range', 'HEAD~1..HEAD').status, 1);
-  commit('Alone\n\nAI-Use-Policy: docs/ai-use.md 2026-09-01');
+  commit('Alone\n\nAI-Use-Standing: docs/ai-use.md 2026-09-01');
   const alone = run('--range', 'HEAD~1..HEAD');
   assert.equal(alone.status, 1);
   assert.match(alone.stderr, /no AI-Use tag beside it/);

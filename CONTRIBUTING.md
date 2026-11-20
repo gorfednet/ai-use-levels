@@ -29,9 +29,11 @@ A typo, a broken link or a sentence that reads badly doesn't need an issue first
 
 ## Tags on commits
 
-A commit here doesn't need an `AI-Use:` trailer. If you add one, you're accountable for what it says. An agent can draft a tag, and a person confirms or corrects it before it goes on a commit. The person can instead delegate the confirmation in a dated standing statement, and the agent then writes the tag itself (SPEC.md section 3). [docs/for-agents.md](docs/for-agents.md) has the detail.
+A commit here doesn't need an `AI-Use:` trailer. If you add one, you're accountable for what it says. An agent can draft a tag, and a person confirms or corrects it before it goes on a commit. The person can instead delegate the confirmation in a dated standing statement that a reader of the tags can open. The agent then writes the tag itself and points to the statement with an `AI-Use-Standing:` line (SPEC.md section 3). The author's delegation is in [docs/delegation.md](docs/delegation.md), and it doesn't cover this repository. [docs/for-agents.md](docs/for-agents.md) has the detail.
 
-CI runs `scripts/check-trailers.mjs` on a pull request's commits. It checks the form of any trailer against `spec.json`, including a Door at L2 and L3 and none at L0 and L1. A commit with no trailer passes, because no tag means nothing is claimed. The check can't tell whether a tag is true, and it can't tell a tag a person confirmed from one an agent wrote under a delegation.
+CI runs `scripts/check-trailers.mjs` on a pull request's commits. It checks the form of any trailer against `spec.json`, including a Door at L2 and L3 and none at L0 and L1. A commit with no trailer passes, because no tag means nothing is claimed. It checks the form of an `AI-Use-Standing:` line too: a target with no spaces, a date that exists, at most 1 on a commit, and never without a tag. The check can't tell whether a tag is true, and it can't tell a tag a person confirmed from one an agent wrote under a delegation.
+
+A tag with several tools lists them in the order of [models.json](models.json) (SPEC.md section 6). When a new model is released or first appears in a tag, add it to the list in that pull request and set the list's date.
 
 ## Style
 

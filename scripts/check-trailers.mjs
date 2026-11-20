@@ -2,7 +2,8 @@
 // Checks the form of every AI-Use line on the commits in a range. It says nothing about whether a
 // tag is true or who wrote it (a person, or an agent under a delegation, SPEC.md section 3), and a
 // commit with no AI-Use line passes, because no tag means nothing is claimed. It also checks the form
-// of an AI-Use-Policy line, the pointer to a standing tag, and that one never stands without a tag.
+// of an AI-Use-Standing line, the pointer to a dated standing statement, and that one never stands
+// without a tag. It can't tell a delegated tag from a confirmed one, so it can't require the pointer.
 //
 //   node scripts/check-trailers.mjs --range <base>..<head>
 //
@@ -17,26 +18,27 @@ import { readJson, tokenize } from '../test/lib/spec.mjs';
 // Only column 0 counts, so a commit message can quote a tag by indenting it.
 const KEY = /^ai[-_]use\s*:/i;
 
-// The pointer to a standing tag (SPEC.md section 2), "AI-Use-Policy: <standing tag> <YYYY-MM-DD>".
-// KEY above needs "use" to be followed by a colon, so a policy line is never read as a tag.
-const POLICY_KEY = /^ai[-_]use[-_]policy\s*:/i;
-const POLICY = /^AI-Use-Policy: (\S(?:.*\S)?) (\d{4})-(\d{2})-(\d{2})$/;
+// The pointer to a standing statement (SPEC.md section 2), "AI-Use-Standing: <URL or path> <YYYY-MM-DD>".
+// KEY above needs "use" to be followed by a colon, so a standing line is never read as a tag.
+// The target is one run with no spaces: a URL or a path, never a name in several words.
+const STANDING_KEY = /^ai[-_]use[-_]standing\s*:/i;
+const STANDING = /^AI-Use-Standing: (\S+) (\d{4})-(\d{2})-(\d{2})$/;
 
-export function policyLines(message) {
+export function standingLines(message) {
   return message
     .split('\n')
     .map((line) => line.trimEnd())
-    .filter((line) => POLICY_KEY.test(line));
+    .filter((line) => STANDING_KEY.test(line));
 }
 
-// Returns what is wrong with one policy line. An empty list means it is well formed. It checks the
-// form and that the date exists. It can't tell whether the standing tag it names is there.
-export function checkPolicy(line, spec) {
-  const trailer = spec.machineForm?.policy?.trailer;
-  if (typeof trailer !== 'string') throw new Error('spec.json: machineForm.policy.trailer is missing');
-  if (trailer !== 'AI-Use-Policy') throw new Error(`spec.json: the policy trailer is ${trailer}, not AI-Use-Policy`);
-  const match = POLICY.exec(line);
-  if (!match) return [`not a policy line: expected ${spec.machineForm.policy.pattern}`];
+// Returns what is wrong with one standing line. An empty list means it is well formed. It checks the
+// form and that the date exists. It can't tell whether the statement it points to is there.
+export function checkStanding(line, spec) {
+  const trailer = spec.machineForm?.standing?.trailer;
+  if (typeof trailer !== 'string') throw new Error('spec.json: machineForm.standing.trailer is missing');
+  if (trailer !== 'AI-Use-Standing') throw new Error(`spec.json: the standing trailer is ${trailer}, not AI-Use-Standing`);
+  const match = STANDING.exec(line);
+  if (!match) return [`not a standing line: expected ${spec.machineForm.standing.pattern}`];
   const [, , year, month, day] = match.map((part, i) => (i < 2 ? part : Number(part)));
   const date = new Date(Date.UTC(year, month - 1, day));
   if (date.getUTCFullYear() !== year || date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day) {
@@ -46,12 +48,12 @@ export function checkPolicy(line, spec) {
 }
 
 // Commit-level problems with the pointer: at most one, and never without a tag beside it.
-export function checkPolicyPlacement(message) {
-  const policies = policyLines(message).length;
+export function checkStandingPlacement(message) {
+  const pointers = standingLines(message).length;
   const tags = tagLines(message).length;
   const problems = [];
-  if (policies > 1) problems.push(`${policies} policy lines on one commit`);
-  if (policies > 0 && tags === 0) problems.push('a policy line with no AI-Use tag beside it');
+  if (pointers > 1) problems.push(`${pointers} standing lines on one commit`);
+  if (pointers > 0 && tags === 0) problems.push('a standing line with no AI-Use tag beside it');
   return problems;
 }
 
@@ -172,21 +174,21 @@ function main(argv) {
   }
   const spec = readJson('spec.json');
   let tags = 0;
-  let policies = 0;
+  let pointers = 0;
   let bad = 0;
   for (const { sha, message } of commits) {
-    for (const line of policyLines(message)) {
-      policies += 1;
-      const problems = checkPolicy(line, spec);
+    for (const line of standingLines(message)) {
+      pointers += 1;
+      const problems = checkStanding(line, spec);
       if (problems.length > 0) {
         bad += 1;
         console.error(`${sha.slice(0, 9)} ${line}\n  ${problems.join('\n  ')}`);
       }
     }
-    const placement = checkPolicyPlacement(message);
+    const placement = checkStandingPlacement(message);
     if (placement.length > 0) {
       bad += 1;
-      console.error(`${sha.slice(0, 9)} policy line placement\n  ${placement.join('\n  ')}`);
+      console.error(`${sha.slice(0, 9)} standing line placement\n  ${placement.join('\n  ')}`);
     }
     for (const line of tagLines(message)) {
       tags += 1;
@@ -197,7 +199,7 @@ function main(argv) {
       }
     }
   }
-  const seen = policies > 0 ? ` (${policies} policy line(s))` : '';
+  const seen = pointers > 0 ? ` (${pointers} standing line(s))` : '';
   console.log(`check-trailers: ${commits.length} commit(s), ${tags} tag(s), ${bad} bad${seen}`);
   return bad === 0 ? 0 : 1;
 }

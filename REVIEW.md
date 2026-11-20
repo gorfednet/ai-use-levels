@@ -4,14 +4,16 @@ Read by the Claude reviewer (`.github/workflows/claude-review.yml`, which calls 
 
 ## What this repository is
 
-AI Use Levels: a public scheme, version 1.2, that tags what one piece of work owes to generative AI (Level, Hand, Door, Tool). It holds the specification (`SPEC.md`, `spec.json`, `spec.schema.json`), worked examples (`examples/`), the marks (`marks/`), and `scripts/check-trailers.mjs`, which checks the form of `AI-Use:` trailers on a pull request's commits. Node 22, `node --test`. The repository is public, so CI (`.github/workflows/ci.yml`) runs on GitHub-hosted runners only.
+AI Use Levels: a public scheme that tags what one piece of work owes to generative AI (Level, Hand, Door, Tool). Version 1.2 is released, and `SPEC.md` holds 1.3 until its release. It holds the specification (`SPEC.md`, `spec.json`, `spec.schema.json`), worked examples (`examples/`), the marks (`marks/`), the ranked model list (`models.json`) with `scripts/order-tools.mjs`, the author's delegation (`docs/delegation.md`), and `scripts/check-trailers.mjs`, which checks the form of `AI-Use:` and `AI-Use-Standing:` trailers on a pull request's commits. Node 22, `node --test`. The repository is public, so CI (`.github/workflows/ci.yml`) runs on GitHub-hosted runners only.
 
 ## House rules to hold the change to
 
 - `SPEC.md` is the authority. `docs/for-agents.md` repeats parts of it and changes none; if the two disagree, SPEC.md is right.
-- A published token never changes meaning. A change to a token, a rule or a version needs `spec.json`, `spec.schema.json`, `SPEC.md`, `examples/examples.json`, `CHANGELOG.md` and `CITATION.cff` to agree; the tests in `test/` (`spec-shape`, `spec-schema`, `examples`, `tokens-stable`, `marks`) hold them together. `tokens-stable` compares HEAD against every `v*` tag.
+- A published token never changes meaning. A change to a token, a rule or a version needs `spec.json`, `spec.schema.json`, `SPEC.md`, `examples/examples.json`, `CHANGELOG.md` and `CITATION.cff` to agree; the tests in `test/` (`spec-shape`, `spec-schema`, `examples`, `tokens-stable`, `marks`, `delegation`, `standing`, `tool-order`) hold them together. `tokens-stable` compares HEAD against every `v*` tag.
 - Do not weaken a test to go green: no loosened pattern in `scripts/check-trailers.mjs`, no deleted example, no edited published token. A new guard needs the near-miss negative case.
-- An agent drafts the `AI-Use` tag and a person confirms it (owner, 30 October 2026). No commit in the pull request carries an `AI-Use:` trailer the owner has not confirmed; a proposed tag goes in the pull request body, labelled as a draft. The trailer check proves the form of a tag, never that it is true.
+- The spec lets the accountable person delegate confirming the tag (SPEC.md section 3, accepted by the owner on 20 November 2026). His delegation of 18 November 2026 (`docs/delegation.md`) doesn't cover this repository. Here an agent drafts the tag in the pull request body, labelled as a draft, and the owner confirms it. Report any commit in the pull request that carries an `AI-Use:` or `AI-Use-Standing:` trailer. The trailer check proves the form of a tag, never that it is true.
+- The delegation statement reads the same in `SPEC.md` section 9, `docs/for-agents.md` and `docs/delegation.md`. It is the owner's own words, so a change to it needs his yes on the pull request.
+- `models.json` only gains models or moves them. A removed model is a finding, because old tags stop sorting.
 - Copy follows `docs/content-guidelines.md`: plain language, digits for numbers, Canadian Press spelling, no AI tells. SPEC.md counts are digits and -ize spellings.
 - Open work goes in the pull request or an issue; this repository has no `docs/backlog.json`.
 - No secrets in the repository. Feature work goes through a branch and pull request, not a direct push to `main`.

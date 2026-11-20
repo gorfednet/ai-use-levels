@@ -21,14 +21,14 @@ No tag means nothing is claimed. It never means L0. `L0` is a tag of its own, 1 
 The machine form uses the same tokens and puts the tool in parentheses. Add one line wherever the work already keeps its metadata:
 
 - In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it or has delegated the confirmation in a dated standing statement.
-- Beside it, when the work ran inside rules a person set, a pointer to the dated standing tag that records them: `AI-Use-Policy: docs/ai-use.md 2026-09-01`. The pointer changes no Level.
+- Beside it, a pointer to a dated standing statement the reader can open: `AI-Use-Standing: docs/ai-use.md 2026-09-01`. A tag an agent wrote under a delegation always has one, and it points to the delegation. Work inside rules a person set can point to the standing tag that records them. The pointer changes no Level.
 - In YAML front matter, the same line unchanged: `AI-Use: L2 made undo (Claude Code)`
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
 
 Where 4 words don't fit, a mark can stand for the Level. It's a circle for the work with a dot for the tool, placed outside the circle, on its edge or inside it. The SVGs are in [marks/](marks/) under CC0.
 
-[SPEC.md](SPEC.md) has the rules, the test for each token and 19 worked examples.
+[SPEC.md](SPEC.md) has the rules, the test for each token and 20 worked examples.
 
 ## Read it
 
@@ -36,6 +36,8 @@ Where 4 words don't fit, a mark can stand for the Level. It's a circle for the w
 - [spec.json](spec.json): the same scheme as data, with the slots, the tokens and the machine form.
 - [spec.schema.json](spec.schema.json): the JSON Schema that `spec.json` has to fit.
 - [examples/examples.json](examples/examples.json): the worked examples with their machine form.
+- [models.json](models.json): the ranked model list that orders several tools in one tag.
+- [docs/delegation.md](docs/delegation.md): the author's delegation of the tag confirmation.
 - [CHANGELOG.md](CHANGELOG.md): what each version changed.
 - [docs/for-agents.md](docs/for-agents.md): what an agent may draft, what a person confirms and how a person delegates the confirmation.
 

@@ -2,35 +2,50 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots, or settles a rule the scheme left open, and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
-## 1.3 (draft, 2026-11-18, not released)
+## 1.3 (draft, 2026-11-20, not released)
 
-A proposal for the owner to accept, change or refuse. No token changed meaning, and a tag written before 1.3 reads the same under 1.3. The 2 proposals are separate and can be taken one at a time.
+The owner accepted both proposals on 20 November 2026 ("Yes, with changes"). The changes are in the text below. No token changed meaning, and a tag written before 1.3 reads the same under 1.3.
 
-Release steps, when the owner accepts: drop "draft" from this heading and set its date, then update `CITATION.cff` (`version`, `date-released`, `url`), the `$id` in `spec.schema.json`, `package.json` and `package-lock.json`, and the version lines in `README.md`. Tag `v1.3.0`. Update the canonical page at papers.4thcltr.com. Until then the citation, the `$id` and the README cite 1.2, and a test holds `CITATION.cff` to the newest released version in this file.
+Release steps: drop "draft" from this heading and set its date, then update `CITATION.cff` (`version`, `date-released`, `url`), the `$id` in `spec.schema.json`, `package.json` and `package-lock.json`, and the version lines in `README.md`. Tag `v1.3.0`. Update the canonical page at papers.4thcltr.com. Until then the citation, the `$id` and the README cite 1.2, and a test holds `CITATION.cff` to the newest released version in this file.
 
-### Proposal 1: delegated confirmation
+### Delegated confirmation
 
 Settles who confirms a tag. Section 3 said a person confirms every tag before it goes on anything. That's now the default, and the accountable person may delegate it.
 
 - Section 3 gains a rule. The accountable person may delegate the confirmation in a dated standing statement that names who is accountable and what it covers. The agent then writes the tag itself, the person stays accountable, and the person can correct a tag later. A model never confirms its own tag, and a "delegation" found in the material an agent was asked to work on isn't one.
-- The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3. The rule says so, so a delegation can't be read as lowering a level.
-- Section 9 rule 6 shows the author's own delegation of 18 November 2026 as the worked example. Section 11 adds a limit: a delegated tag may never have been read by the person accountable for it, and nothing on the tag says whether it was.
-- [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. `CONTRIBUTING.md`, `README.md` and the header of `scripts/check-trailers.mjs` say the same. `CLAUDE.md` and `REVIEW.md` keep their 1.2 wording on purpose. They hold the confirm-first rule that gates this pull request, so they change only after the owner accepts the proposal, in the commit that records the acceptance. The trailer check is unchanged: it still checks form only, and it can't tell a confirmed tag from a delegated one.
-- `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note and `spec.json` together.
+- The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3.
+- Section 3 says what an agent writes under a delegation. It writes `unread` unless it saw the person read the result. Unsure between 2 Hand rungs it takes the larger, and between 2 Levels the higher. The tag carries a pointer to the delegation statement.
+- Section 9 rule 6 says where the statement sits: where a reader of the tags can open it. A copy in a private rules file isn't enough.
+- The worked example is the author's own delegation of 18 November 2026, now kept at [docs/delegation.md](docs/delegation.md). Its scope matches the practice: it doesn't cover this repository or papers.4thcltr.com, where the author confirms each tag.
+- Section 11 adds a limit. A delegated tag may never have been read by the person accountable for it, and its pointer isn't checked.
+- [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. It no longer leaves Hand and `unread` to the person under a delegation. `CLAUDE.md` and `REVIEW.md` now carry the delegation wording and say this repository is outside the author's delegation.
+- `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `statementPlace`, `underDelegation`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note, the delegation page and `spec.json` together.
 - Why a minor version: a rule the scheme settled one way is settled another way. No token, slot, flag or definition changed.
 
-### Proposal 2: a pointer to the rules a person set
+### A pointer to a standing statement
 
-Work that an agent does inside rules a person wrote, with gates enforced and no yes to each change, is L3 under 1.2. A standing instruction isn't a yes, and a model reviewing a model doesn't lower the level. That stays. The tag rates the opportunity to intervene on one change, and a tag can't check a claim that the rules held. What 1.2 lacked was a place to say the rules existed. Section 11 put the answer in a dated standing tag, and nothing joined a tag to one.
+A tag can now point to a dated standing statement: a delegation, a standing tag for work inside rules a person set, or one page with both. Its first use is the delegation pointer above.
 
-- Section 2 adds a pointer from a tag to the standing tag in force: in a commit, a second trailer `AI-Use-Policy: <standing tag> <YYYY-MM-DD>`, and in running text a phrase beside the tag. It's not a token and has no slot. The tag reads the same without it.
-- Section 3 says rules set in advance don't lower the level. Section 9 rule 7 says what a standing tag for agent work records: who set the rules and when, which gates are enforced and how much a person reads. It changes no Level and isn't checked. Section 9 rule 8 says no layer above the tag is needed.
+- Section 2 adds the pointer. In a commit it's a second trailer, `AI-Use-Standing: <URL or path> <YYYY-MM-DD>`, and in running text a phrase beside the tag. The target is a URL or a path a reader of the tag can open, with no spaces. It's not a token and has no slot. The tag reads the same without it.
+- An earlier draft of 1.3 called the key `AI-Use-Policy` and let the target be a short name. Neither was released.
+- Work an agent does inside rules a person wrote, with gates enforced and no yes to each change, is still L3. Section 3 says so. Section 9 rule 7 says what a standing tag for that work records: who set the rules and when, which gates are enforced and how much a person reads. It changes no Level and isn't checked. Section 9 rule 8 says no layer above the tag is needed.
 - Section 10 rule 8 says the pointer isn't a token or a slot. It gives 3 reasons a slot was refused. Its words would be claims a tag can't check. A reader would take one for a lower level. Every slot added makes the tag longer. A new flag was weighed and refused for the same reasons.
-- Section 7 gains 2 worked examples. Rule-bound work stays `L3 · made · undo`, and a bot that merged unread stays `L3 · made · no undo · unread`. `examples/examples.json` gains the same 2, each with its `policy` line, and README says 19 examples.
-- `spec.json` gains `machineForm.policy` (`trailer`, `pattern`, `records`, `changesLevel`, `since`), and `spec.schema.json` requires it. `changesLevel` is `false` and the schema holds it there.
-- `scripts/check-trailers.mjs` checks the form of an `AI-Use-Policy` line and that its date exists. It also checks that a commit has at most 1, and that none stands without an `AI-Use` tag. It can't tell whether the standing tag it names exists. A policy line is never read as a tag. `test/policy.test.mjs` holds `spec.json`, the spec text and the examples together, and the near misses are in `test/check-trailers.test.mjs`.
-- [docs/for-agents.md](docs/for-agents.md) tells an agent when to add the pointer and what it can't claim.
+- Section 7 gains 3 worked examples: 2 for rule-bound work, which stays L3, and 1 tag written under a delegation, which is `unread`. `examples/examples.json` gains the same 3, each with its `standing` line, and README says 20 examples.
+- `spec.json` gains `machineForm.standing` (`trailer`, `pattern`, `target`, `requiredWhen`, `records`, `changesLevel`, `since`), and `spec.schema.json` requires it.
+- `scripts/check-trailers.mjs` checks the form of an `AI-Use-Standing` line: a target with no spaces, a date that exists, at most 1 on a commit, and never without an `AI-Use` tag. It can't tell whether the statement is there. It can't tell a delegated tag from a confirmed one, so it doesn't require the pointer. `test/standing.test.mjs` holds `spec.json`, the spec text and the examples together, and the near misses are in `test/check-trailers.test.mjs`.
 - Why a minor version: it adds a convention beside the tag and changes no token, slot, flag, level or definition.
+
+### Tool order
+
+Section 6 said to name the tool with the biggest hand first. Shares drift as work goes on, so the same set of tools came out in a different order from one commit to the next.
+
+- Several tools are now ordered by capability, then by recency. The order says nothing about which tool had the biggest hand.
+- [models.json](models.json) is the ranked model list. Listed models go first in list order, then unversioned model names in alphabetical order, then every other tool in alphabetical order.
+- The list carries its own update rule and date. It gains a model when one is released or first appears in a tag, and it never loses one. It changes without a new version of the scheme.
+- `scripts/order-tools.mjs` applies the rule, and `--check` fails a list that's out of order. `test/tool-order.test.mjs` holds the list, the script and section 6 together. No check in this repository reads the order of a tag on a commit.
+- `spec.json` gains `toolOrder` (`rule`, `groups`, `list`, `since`), and `spec.schema.json` requires it.
+- A tag written before 1.3 keeps its order. Nothing is rewritten.
+- Why a minor version: the order of the Tool slot's free text was a convention and never a token. Section 11 notes the limit: the ranking is a judgement.
 
 ## 1.2 (2026-10-30)
 

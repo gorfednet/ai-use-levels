@@ -167,9 +167,11 @@
     "pattern": "AI-Use: <level> [hand] [door] [flag] [(<tool>)] [v<major>]",
     "level0": "AI-Use: L0",
     "versionToken": "absent means v1",
-    "policy": {
-      "trailer": "AI-Use-Policy",
-      "pattern": "AI-Use-Policy: <standing tag> <YYYY-MM-DD>",
+    "standing": {
+      "trailer": "AI-Use-Standing",
+      "pattern": "AI-Use-Standing: <URL or path> <YYYY-MM-DD>",
+      "target": "A URL or a path a reader of the tag can open, with no spaces. It holds a dated standing statement: a delegation of the confirmation, a standing tag, or both.",
+      "requiredWhen": "the tag was written under a delegation",
       "records": ["who set the rules and when", "which gates are enforced", "how much a person reads"],
       "changesLevel": false,
       "since": "1.3"
@@ -179,6 +181,19 @@
     "default": "A person confirms or corrects a tag before it goes on anything.",
     "delegation": "The accountable person may delegate the confirmation in a dated standing statement. The agent then writes the tag. The person stays accountable and can correct it later.",
     "statementNames": ["date", "accountable person", "what it covers"],
+    "statementPlace": "Where a reader of the tags can open it. A private rules file alone isn't enough.",
+    "underDelegation": [
+      "The agent writes unread unless it saw the person read the result.",
+      "Unsure between 2 Hand rungs, it takes the larger.",
+      "Unsure between 2 Levels, it takes the higher.",
+      "The tag carries a pointer to the delegation statement."
+    ],
+    "since": "1.3"
+  },
+  "toolOrder": {
+    "rule": "Several tools are joined with a plus and ordered by capability, then by recency. The order says nothing about which tool had the biggest hand.",
+    "groups": ["models on the ranked list, in list order", "unversioned model names, alphabetical", "every other tool, alphabetical"],
+    "list": "models.json",
     "since": "1.3"
   },
   "absence": "No tag means nothing claimed. It never means L0.",
