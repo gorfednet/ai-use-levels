@@ -68,8 +68,8 @@ Alt text describes the picture. Rule 2 still lets the mark's own alt text hold t
 ## Decided
 
 - The owner decided on 20 November 2026 that the level cue goes into this draft now, before a listening test.
+- The owner confirmed `com.4thcltr.ai-use` as the C2PA assertion label on 20 November 2026.
 
-## Open questions for the owner
+## Open question for the owner
 
-- Whether `com.4thcltr.ai-use` is the right C2PA label, or a domain for the scheme itself is better.
 - Whether the changed alt-text example should go into 1.3 as a small fix.
