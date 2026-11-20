@@ -27,6 +27,7 @@ test('SPEC.md section 6 gives the rule and its own example is in order', () => {
   assert.ok(specText.includes('order them by capability, then by recency'), 'the rule');
   assert.ok(specText.includes('The order says nothing about which tool had the biggest hand'), 'not share');
   assert.ok(specText.includes('[models.json](models.json)'), 'names the list');
+  assert.ok(specText.includes('2. Unversioned names of models on the list'), 'group 2 is families of listed models');
   const example = /order them by capability, then by recency: `L2 · made · undo · ([^`]+)`/.exec(specText)?.[1];
   assert.ok(example, 'section 6 has a multi-tool example');
   const tools = splitTools(example);
@@ -56,6 +57,7 @@ const nearMisses = [
   ['Claude Code', 2, 'a product that shares the maker name'],
   ['Opus 5.5 Turbo', 2, 'a longer name than the listed one'],
   ['Claude Opus', 1, 'a listed model without its version'],
+  ['Gemini', 2, 'a family the list does not have'],
   ['claude opus 5.5', 0, 'case does not matter'],
 ];
 for (const [tool, group, why] of nearMisses) {
@@ -81,4 +83,7 @@ test('the command prints the order, and --check fails a list that is out of orde
   assert.match(bad.stderr, /expected Opus 5.5 \+ Cursor/);
   assert.equal(run().status, 2);
   assert.equal(run('--check', 'Claude + ').status, 2);
+  const unquoted = run('--check', 'Cursor', '+', 'Opus', '5.5');
+  assert.equal(unquoted.status, 2, 'a list typed without quotes is an error, not a pass');
+  assert.match(unquoted.stderr, /more than 1 tool list/);
 });

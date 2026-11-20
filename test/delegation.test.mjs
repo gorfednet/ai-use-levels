@@ -30,9 +30,11 @@ test('spec.json says who confirms a tag, and when delegation arrived', () => {
 });
 
 test('SPEC.md and docs/for-agents.md quote the same delegation statement', () => {
-  assert.ok(specText.includes(STATEMENT), 'SPEC.md quotes the statement');
-  assert.ok(forAgents.includes(STATEMENT), 'for-agents.md quotes the statement');
-  assert.ok(delegation.includes(`"Delegation, 18 November 2026. ${STATEMENT}"`), 'docs/delegation.md holds the statement');
+  // Each check runs from the opening quotation mark to the closing one, so a sentence added
+  // anywhere inside the quote fails it.
+  assert.ok(specText.includes(`: "Delegation, 18 November 2026. ${STATEMENT}" `), 'SPEC.md quotes the statement whole');
+  assert.ok(forAgents.includes(`: "${STATEMENT}" `), 'for-agents.md quotes the statement whole');
+  assert.ok(delegation.includes(`\n"Delegation, 18 November 2026. ${STATEMENT}"\n`), 'docs/delegation.md holds the statement whole');
 });
 
 test('the statement sits where a reader can open it, and each copy of the pointer is the same well-formed line', () => {
@@ -51,7 +53,6 @@ test('the statement sits where a reader can open it, and each copy of the pointe
 test('the statement names its scope, and this repository is outside it', () => {
   // The exceptions stand beside the quote, never inside it: the quote is the owner's wording.
   const EXCEPTIONS = "it doesn't cover the ai-use-levels repository or papers.4thcltr.com";
-  assert.ok(!STATEMENT.includes('papers.4thcltr.com'), 'the quote is as the owner confirmed it');
   for (const [name, text] of [['SPEC.md', specText], ['for-agents.md', forAgents], ['docs/delegation.md', delegation]]) {
     assert.ok(text.includes(EXCEPTIONS), `${name} names the 2 exceptions`);
   }

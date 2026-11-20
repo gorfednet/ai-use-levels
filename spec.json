@@ -192,7 +192,7 @@
   },
   "toolOrder": {
     "rule": "Several tools are joined with a plus and ordered by capability, then by recency. The order says nothing about which tool had the biggest hand.",
-    "groups": ["models on the ranked list, in list order", "unversioned model names, alphabetical", "every other tool, alphabetical"],
+    "groups": ["models on the ranked list, in list order", "unversioned names of models on the list, alphabetical", "every other tool, alphabetical"],
     "list": "models.json",
     "since": "1.3"
   },

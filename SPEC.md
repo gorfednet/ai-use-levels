@@ -115,8 +115,8 @@ Name the tool as specifically as you can: `Claude Opus 5.5`, `Claude Code`, `Cop
 With several tools, join them with a plus and order them by capability, then by recency: `L2 · made · undo · Claude Fable 5.2 + Claude Opus 5.5 + Claude + Cursor`. The order says nothing about which tool had the biggest hand. Hand rates the result as a whole, and a share per tool was never a slot. The order has 3 groups:
 
 1. Models on the ranked list, in the list's order. The list is [models.json](models.json) in this repository, most capable first and newer before older where capability doesn't settle it. A name matches a listed model when it gives the version, with or without the maker's name, so `Opus 5.5` sorts as `Claude Opus 5.5`.
-2. Unversioned model names, such as `Claude` or `Sonnet`, in alphabetical order. A name with no version can't be ranked, because it doesn't say which model it was.
-3. Every other tool, such as `Cursor`, `Copilot` or a model the list doesn't have yet, in alphabetical order.
+2. Unversioned names of models on the list, such as `Claude` or `Sonnet`, in alphabetical order. A name with no version can't be ranked, because it doesn't say which model it was.
+3. Every other tool, in alphabetical order: a product such as `Cursor` or `Copilot`, a model the list doesn't have yet, or an unversioned name from a family the list doesn't have.
 
 A reach parenthetical stays with its tool and doesn't affect the order. `scripts/order-tools.mjs` applies the rule. The list is updated when a model is released or first appears in a tag, and `models.json` carries its own update rule and date. It changes without a new version of the scheme, because the order isn't a token and claims nothing about the work. A publisher can keep a ranked list of their own and say where it is. Before 1.3 the first tool was the one with the biggest hand, and a tag written then keeps its order.
 

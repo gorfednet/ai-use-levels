@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // Puts the tools of a tag in the order SPEC.md section 6 gives: models on the ranked list
-// (models.json) in list order, then unversioned model names in alphabetical order, then every other
-// tool in alphabetical order. The order says nothing about which tool had the biggest hand.
+// (models.json) in list order, then unversioned names of listed models in alphabetical order, then
+// every other tool in alphabetical order. The order says nothing about which tool had the biggest hand.
 //
 //   node scripts/order-tools.mjs "Cursor + Sonnet + Opus 5.5"      prints the ordered list
 //   node scripts/order-tools.mjs --check "Cursor + Opus 5.5"       exit 1 when it is out of order
 //
-// Exit 2 on a missing or empty tool list.
+// Exit 2 on a missing or empty tool list, or on more than 1 (a list typed without its quotes).
 import { realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { readJson } from '../test/lib/spec.mjs';
@@ -46,7 +46,8 @@ function runsInside(long, short) {
   return long.some((_, at) => short.every((word, i) => word === long[at + i]));
 }
 
-// 0 for a model on the list, 1 for an unversioned model name, 2 for anything else. A name matches a
+// 0 for a model on the list, 1 for an unversioned name of a listed model, 2 for anything else (a
+// family the list doesn't have, such as an unlisted maker's name, is in 2 until a model of it is added). A name matches a
 // listed model when it ends with the model's version and the words before it, with or without the
 // maker's name: "Opus 5.5" is "Claude Opus 5.5". The version alone ("5.5") names no model.
 export function classify(tool, models) {
@@ -79,7 +80,12 @@ export function orderTools(tools, models) {
 
 function main(argv) {
   const check = argv.includes('--check');
-  const list = argv.find((arg) => arg !== '--check');
+  const lists = argv.filter((arg) => arg !== '--check');
+  if (lists.length > 1) {
+    console.error('order-tools: more than 1 tool list. Put the whole list in quotes, such as "Claude Opus 5.5 + Cursor"');
+    return 2;
+  }
+  const [list] = lists;
   if (!list || list.trim().length === 0) {
     console.error('order-tools: a tool list is required, such as "Claude Opus 5.5 + Cursor"');
     return 2;
