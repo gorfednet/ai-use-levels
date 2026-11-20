@@ -229,6 +229,8 @@ test('well-formed standing lines pass', () => {
     'AI-Use-Standing: standing/ai-use.md#delegation 2026-02-28',
     'AI-Use-Standing: docs/v1..2/ai-use.md 2026-09-01',
     'AI-Use-Standing: https://example.com/a/../ai-use 2026-09-01',
+    'AI-Use-Standing: http://example.com/ai-use 2026-09-01',
+    'AI-Use-Standing: docs/standing/c/ai-use.md 2026-09-01',
     'AI-Use-Standing: x 2028-02-29',
   ]) {
     assert.deepEqual(checkStanding(line, spec), [], line);
@@ -244,6 +246,12 @@ const standingNearMisses = [
   ['AI-Use-Standing: /Users/me/rules.md 2026-09-01', /leaves the repository/],
   ['AI-Use-Standing: ~/rules.md 2026-09-01', /leaves the repository/],
   ['AI-Use-Standing: .. 2026-09-01', /leaves the repository/],
+  ['AI-Use-Standing: C:/Users/me/rules.md 2026-09-01', /leaves the repository/],
+  ['AI-Use-Standing: c:\\\\rules.md 2026-09-01', /leaves the repository/],
+  ['AI-Use-Standing: \\\\\\\\host\\\\rules.md 2026-09-01', /leaves the repository/],
+  ['AI-Use-Standing: file:///Users/me/rules.md 2026-09-01', /leaves the repository/],
+  ['AI-Use-Standing: ssh://host/rules.md 2026-09-01', /leaves the repository/],
+  ['AI-Use-Standing: https:// 2026-09-01', /not a standing line|leaves the repository/],
   ['AI-Use-Standing:  2026-09-01', /not a standing line/],
   ['AI-Use-Standing: 2026-09-01', /not a standing line/],
   ['AI-Use-Standing: docs/ai-use.md 2026-9-1', /not a standing line/],

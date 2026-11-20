@@ -40,9 +40,11 @@ export function checkStanding(line, spec) {
   if (trailer !== 'AI-Use-Standing') throw new Error(`spec.json: the standing trailer is ${trailer}, not AI-Use-Standing`);
   const match = STANDING.exec(line);
   if (!match) return [`not a standing line: expected ${spec.machineForm.standing.pattern}`];
-  // A path is read from the repository root and stays inside it. A URL has a scheme and is left alone.
+  // A URL is http or https and is left alone. Anything else is a path, read from the repository root.
+  // It stays inside the repository: no leading /, \ or ~, no drive letter, no other scheme (file:)
+  // and no .. part.
   const target = match[1];
-  if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(target) && (/^[/~]/.test(target) || target.split(/[/\\]/).includes('..'))) {
+  if (!/^https?:\/\/\S/i.test(target) && (/^[/\\~]|^[a-z][a-z0-9+.-]*:/i.test(target) || target.split(/[/\\]/).includes('..'))) {
     return [`the path ${target} leaves the repository: a reader of the tag can't open it`];
   }
   const [, , year, month, day] = match.map((part, i) => (i < 2 ? part : Number(part)));
