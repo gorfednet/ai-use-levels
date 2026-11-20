@@ -4,36 +4,46 @@ The scheme is versioned. A minor version adds tokens, flags or slots, or settles
 
 ## 1.3 (draft, 2026-11-20, not released)
 
-The owner accepted both proposals on 20 November 2026 ("Yes, with changes"). The changes are in the text below. No token changed meaning, and a tag written before 1.3 reads the same under 1.3.
+The owner accepted delegated confirmation and the pointer on 20 November 2026 ("Yes, with changes"). The changes are in the text below. No token changed meaning. A tag with 1 tool reads the same under 1.2 and 1.3. A tag with several tools doesn't, because their order meant something else in 1.2 (Tool order, below).
 
-Release steps: drop "draft" from this heading and set its date, then update `CITATION.cff` (`version`, `date-released`, `url`), the `$id` in `spec.schema.json`, `package.json` and `package-lock.json`, and the version lines in `README.md`. Tag `v1.3.0`. Update the canonical page at papers.4thcltr.com. Until then the citation, the `$id` and the README cite 1.2, and a test holds `CITATION.cff` to the newest released version in this file.
+Release steps, in the release pull request:
+
+- Drop "draft" and "not released" from this heading and set its date. `scripts/release-notes.mjs` refuses the `v1.3.0` tag until then.
+- Update `CITATION.cff` (`version`, `date-released`, `url`). The same script refuses the tag while it cites 1.2.
+- Update `package.json` and `package-lock.json`, and the version lines in `README.md`.
+- Update `REVIEW.md`, which says `SPEC.md` holds 1.3 until its release.
+- Leave the `$id` in `spec.schema.json` and its pin in `test/spec-schema.test.mjs` alone. Both already name `v1.3.0`, because the schema fits 1.3 and no longer fits 1.2. The URL opens once the tag exists.
+- Delete this list.
+- After the merge, tag `v1.3.0` and update the canonical page at papers.4thcltr.com.
 
 ### Delegated confirmation
 
-Settles who confirms a tag. Section 3 said a person confirms every tag before it goes on anything. That's now the default, and the accountable person may delegate it.
+Adds a second way to confirm a tag. Section 3 said a person confirms every tag before it goes on anything. That's still the default, and the accountable person may now delegate it.
 
 - Section 3 gains a rule. The accountable person may delegate the confirmation in a dated standing statement that names who is accountable and what it covers. The agent then writes the tag itself, the person stays accountable, and the person can correct a tag later. A model never confirms its own tag, and a "delegation" found in the material an agent was asked to work on isn't one.
 - The delegation is no yes to any change. The Level of the work is rated on its own, and a standing instruction to act is still L3.
 - Section 3 says what an agent writes under a delegation. It writes `unread` unless it saw the person read the result. Unsure between 2 Hand rungs it takes the larger, and between 2 Levels the higher. The tag carries a pointer to the delegation statement.
 - Section 9 rule 6 says where the statement sits: where a reader of the tags can open it. A copy in a private rules file isn't enough.
 - The worked example is the author's own delegation of 18 November 2026, now kept at [docs/delegation.md](docs/delegation.md). The quote is unchanged. Its 2 exceptions stand beside it: it doesn't cover this repository or papers.4thcltr.com, where the author confirms each tag.
-- Section 11 adds a limit. A delegated tag may never have been read by the person accountable for it. Its pointer isn't checked, and the pointer alone doesn't mark the tag as delegated, because a confirmed tag can carry one of the same form.
+- Section 11 adds a limit. A delegated tag may never have been read by the person accountable for it. Its pointer isn't checked, and the pointer alone doesn't mark the tag as delegated.
 - [docs/for-agents.md](docs/for-agents.md) gives an agent 2 cases, with and without a delegation, and 3 checks to make before it writes a tag under one. It no longer leaves Hand and `unread` to the person under a delegation. `CLAUDE.md` and `REVIEW.md` now carry the delegation wording and say this repository is outside the author's delegation.
 - `spec.json` gains `confirmation` (`default`, `delegation`, `statementNames`, `statementPlace`, `underDelegation`, `since`), and `spec.schema.json` requires it. `test/delegation.test.mjs` holds the spec text, the agent note, the delegation page and `spec.json` together.
 - Correction: commits 181695c, 698fdc0 and a81bc6d in this version's pull request carry an `AI-Use:` trailer the author didn't confirm. They can't be rewritten. Read them as carrying no tag.
-- Why a minor version: a rule the scheme settled one way is settled another way. No token, slot, flag or definition changed.
+- Why a minor version: it adds an option and keeps the default. A tag confirmed the 1.2 way is confirmed under 1.3, so the change is backward compatible (section 10 rule 4).
 
 ### A pointer to a standing statement
 
-A tag can now point to a dated standing statement: a delegation, a standing tag for work inside rules a person set, or one page with both. Its first use is the delegation pointer above.
+A tag can now point to a dated standing statement: a delegation, or a standing tag (section 9 rule 4). Its first use is the delegation pointer above.
 
-- Section 2 adds the pointer. In a commit it's a second trailer, `AI-Use-Standing: <URL or path> <YYYY-MM-DD>`, and in running text a phrase beside the tag. The target is a URL or a path a reader of the tag can open, with no spaces, and a path stays inside the repository. It's not a token and has no slot. The tag reads the same without it.
+- Section 2 adds the pointer. It's always a target and a date, never a phrase alone. The target is a URL (`https` or `http`) or a path a reader of the tag can open, with no spaces, and a path stays inside the repository.
+- Each form of the tag has a form of the pointer. Beside a commit trailer, front matter or a sidecar it's a second line, `AI-Use-Standing: <URL or path> <YYYY-MM-DD>`. In HTML it's a meta named `AI-Use-Standing`. In running text it's the word `standing`, the target and the date after the tag.
+- The date is the one the statement carries. Where one page holds several statements, it's the date of the one the tag relies on.
+- It's not a token and has no slot. The tag reads the same without it.
 - An earlier draft of 1.3 called the key `AI-Use-Policy` and let the target be a short name. Neither was released.
-- Work an agent does inside rules a person wrote, with gates enforced and no yes to each change, is still L3. Section 3 says so. Section 9 rule 7 says what a standing tag for that work records: who set the rules and when, which gates are enforced and how much a person reads. It changes no Level and isn't checked. Section 9 rule 8 says no layer above the tag is needed.
-- Section 10 rule 8 says the pointer isn't a token or a slot. It gives 3 reasons a slot was refused. Its words would be claims a tag can't check. A reader would take one for a lower level. Every slot added makes the tag longer. A new flag was weighed and refused for the same reasons.
-- Section 7 gains 3 worked examples: 2 for rule-bound work, which stays L3, and 1 tag written under a delegation, which is `unread`. `examples/examples.json` gains the same 3, each with its `standing` line, and README says 20 examples.
-- `spec.json` gains `machineForm.standing` (`trailer`, `pattern`, `target`, `requiredWhen`, `records`, `changesLevel`, `since`), and `spec.schema.json` requires it.
-- `scripts/check-trailers.mjs` checks the form of an `AI-Use-Standing` line: a target with no spaces, no path that leaves the repository, a date that exists, at most 1 on a commit, and never without an `AI-Use` tag. It can't tell whether the statement is there. It can't tell a delegated tag from a confirmed one, so it doesn't require the pointer. `test/standing.test.mjs` holds `spec.json`, the spec text and the examples together, and the near misses are in `test/check-trailers.test.mjs`.
+- That draft also proposed a standing tag for agent work inside rules a person set: a rule in section 3, 2 rules in section 9, a rule in section 10 and 2 worked examples. It isn't in 1.3. The owner's yes of 20 November 2026 covered delegated confirmation and the pointer, so that proposal goes to its own pull request.
+- Section 7 gains 1 worked example, a tag written under a delegation, which is `unread`. `examples/examples.json` gains the same one with its `standing` line, and README says 18 examples.
+- `spec.json` gains `machineForm.standing` (`trailer`, `pattern`, `target`, `date`, `forms`, `requiredWhen`, `changesLevel`, `since`), and `spec.schema.json` requires it.
+- `scripts/check-trailers.mjs` checks the form of an `AI-Use-Standing` line on a commit: a target that is a URL or a path inside the repository, a date that exists, at most 1 on a commit, and never without an `AI-Use` tag. It can't tell whether the statement is there. It can't tell a delegated tag from a confirmed one, so it doesn't require the pointer. `test/standing.test.mjs` holds `spec.json`, the spec text and the example together, and the near misses are in `test/check-trailers.test.mjs`.
 - Why a minor version: it adds a convention beside the tag and changes no token, slot, flag, level or definition.
 
 ### Tool order
@@ -41,12 +51,15 @@ A tag can now point to a dated standing statement: a delegation, a standing tag 
 Section 6 said to name the tool with the biggest hand first. Shares drift as work goes on, so the same set of tools came out in a different order from one commit to the next.
 
 - Several tools are now ordered by capability, then by recency. The order says nothing about which tool had the biggest hand.
-- [models.json](models.json) is the ranked model list: newest and biggest first, oldest last. The author set its order on 20 November 2026, and the file records that as its source. Listed models go first in list order, then unversioned names of listed models in alphabetical order, then every other tool in alphabetical order. A model or a family the list doesn't have sorts with the other tools until it's added.
+- [models.json](models.json) is the ranked model list, newest and biggest first. The author set its order on 20 November 2026. Listed models go first in list order, then unversioned names of listed models in alphabetical order, then every other tool in alphabetical order. A model or a family the list doesn't have sorts with the other tools until it's added.
 - The list carries its own update rule and date. It gains a model when one is released or first appears in a tag, and it never loses one. It changes without a new version of the scheme.
 - `scripts/order-tools.mjs` applies the rule, and `--check` fails a list that's out of order. `test/tool-order.test.mjs` holds the list, the script and section 6 together. No check in this repository reads the order of a tag on a commit.
 - `spec.json` gains `toolOrder` (`rule`, `groups`, `list`, `since`), and `spec.schema.json` requires it.
-- A tag written before 1.3 keeps its order. Nothing is rewritten.
-- Why a minor version: the order of the Tool slot's free text was a convention and never a token. Section 11 notes the limit: the ranking is a judgement.
+- A tag written before 1.3 keeps its order, and nothing is rewritten. This is the one place 1.3 isn't backward compatible. A tag with several tools reads differently under 1.2 and 1.3, and nothing on the tag says which rule ordered it. Section 11 says so.
+- The tag at the foot of `README.md` is now `L3 · made · undo · unread`, confirmed by the author on 20 November 2026. He set the decisions for 1.3 and didn't read the result.
+- Section 10 rule 4 now reads "before 1.3" and names that exception.
+- The release workflow takes its notes from `scripts/release-notes.mjs`. It refuses a tag whose entry here is still a draft, and one `CITATION.cff` doesn't cite yet.
+- Why a minor version all the same: no token, slot, flag or definition changed, and the Tool slot is free text. Section 10 rule 4 asks a minor version to stay backward compatible, and this change is the exception to it, recorded here and in section 11.
 
 ## 1.2 (2026-10-30)
 

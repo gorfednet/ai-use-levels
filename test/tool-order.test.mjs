@@ -12,9 +12,9 @@ const { models } = list;
 const specText = readText('SPEC.md');
 
 test('models.json is a ranked list of versioned names, each listed once, with a real date', () => {
-  assert.deepEqual(Object.keys(list), ['updated', 'order', 'source', 'updateRule', 'models']);
-  assert.ok(list.order.startsWith('Newest and biggest first, oldest last.'), 'the order the author set');
-  assert.ok(list.source.includes('20 November 2026'), 'the source of the order is dated');
+  assert.deepEqual(Object.keys(list), ['updated', 'order', 'updateRule', 'models']);
+  assert.ok(list.order.startsWith('Newest and biggest first.'), 'the order the author set');
+  assert.ok(!/oldest last/.test(list.order), 'the list does not end on its oldest model, so the line does not say so');
   assert.deepEqual(models.slice(0, 4), ['Claude Fable 5.2', 'Claude Opus 5.5', 'Claude Fable 5.1', 'Claude Opus 5.0'], "the author's example leads the list");
   assert.ok(models.length > 0, 'the list has models');
   for (const model of models) {
@@ -52,6 +52,11 @@ test('the last 2 groups are alphabetical, and a reach parenthetical stays with i
   );
 });
 
+test('a versioned model the list does not have sorts with the other tools, after an unversioned name', () => {
+  assert.deepEqual(orderTools(['Claude Opus 5.6', 'Cursor', 'Claude', 'Claude Opus 5.5'], models), ['Claude Opus 5.5', 'Claude', 'Claude Opus 5.6', 'Cursor']);
+  assert.ok(specText.includes('So an unlisted `Claude Opus 5.6` sorts after `Claude` until the list gains it.'), 'SPEC.md says so');
+});
+
 // Near misses: each looks like a listed model or a family name and is neither.
 const nearMisses = [
   ['5.5', 2, 'a version alone names no model'],
@@ -61,6 +66,8 @@ const nearMisses = [
   ['Opus 5.5 Turbo', 2, 'a longer name than the listed one'],
   ['Claude Opus', 1, 'a listed model without its version'],
   ['Gemini', 2, 'a family the list does not have'],
+  ['(tool)', 2, 'a placeholder in parentheses is no model name'],
+  ['(IDE)', 2, 'a reach parenthetical with no tool before it'],
   ['claude opus 5.5', 0, 'case does not matter'],
 ];
 for (const [tool, group, why] of nearMisses) {

@@ -1,5 +1,5 @@
-// The pointer to a standing statement (SPEC.md sections 2, 9 and 10, spec.json machineForm.standing):
-// the machine form, the spec text and the examples say the same thing, and the pointer is no token.
+// The pointer to a standing statement (SPEC.md section 2, spec.json machineForm.standing): the
+// machine form, the spec text and the examples say the same thing, and the pointer is no token.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readJson, readText } from './lib/spec.mjs';
@@ -9,62 +9,68 @@ const examples = readJson('examples/examples.json');
 const specText = readText('SPEC.md');
 const { standing } = spec.machineForm;
 
-test('spec.json describes the pointer, and a standing tag changes no Level', () => {
+// SPEC.md section 2, from its heading to the next one.
+const two = specText.slice(specText.indexOf('\n## 2. Syntax'), specText.indexOf('\n## 3. '));
+
+test('spec.json describes the pointer, and it changes no Level', () => {
   assert.equal(standing.trailer, 'AI-Use-Standing');
   assert.equal(standing.pattern, 'AI-Use-Standing: <URL or path> <YYYY-MM-DD>');
   assert.ok(standing.target.includes('a reader of the tag can open'), 'the target is one a reader can open');
   assert.equal(standing.requiredWhen, 'the tag was written under a delegation');
   assert.equal(standing.changesLevel, false);
   assert.equal(standing.since, '1.3');
-  assert.deepEqual(standing.records, ['who set the rules and when', 'which gates are enforced', 'how much a person reads']);
+  assert.equal(standing.records, undefined, 'the rule-bound records are not part of 1.3');
 });
 
-test('SPEC.md names the pattern and the 3 things a standing tag records', () => {
-  assert.ok(specText.includes(`\`${standing.pattern}\``), 'SPEC.md shows the pattern');
-  const pointer = specText.split('\n').find((line) => line.includes(`\`${standing.pattern}\``));
-  assert.ok(pointer.includes('a URL or a path that a reader of the tag can open'), 'the target is one a reader can open');
-  assert.ok(!/short name/.test(specText), 'a short name is no target');
-  assert.ok(pointer.includes('A tag written under a delegation always carries the pointer'), 'a delegated tag carries it');
-  assert.ok(pointer.includes('a commit takes at most 1'), 'at most 1 per commit');
-  assert.ok(!specText.includes('AI-Use-Policy'), 'the unpublished draft key is gone');
-  const rule = specText.split('\n').find((line) => line.startsWith('7. A standing tag for agent work'));
-  assert.ok(rule, 'section 9 has the rule');
-  for (const [i, word] of ['who set the rules and when', 'which gates the rules enforce', 'how much a person reads'].entries()) {
-    assert.ok(rule.includes(word), `rule 7 records fact ${i + 1}: ${word}`);
+test('SPEC.md section 2 gives every form of the pointer a target and a date', () => {
+  assert.ok(two.length > 0, 'section 2 was found');
+  assert.deepEqual(Object.keys(standing.forms), ['line', 'meta', 'text']);
+  assert.equal(standing.forms.line, standing.pattern);
+  for (const [name, form] of Object.entries(standing.forms)) {
+    assert.ok(form.includes('<URL or path> <YYYY-MM-DD>'), `${name}: a target and a date`);
   }
-  assert.ok(rule.includes('changes the Level of no piece of work'), 'a standing tag changes no Level');
+  assert.ok(two.includes(`\`${standing.forms.line}\``), 'the line form');
+  assert.ok(two.includes(`\`${standing.forms.meta}\``), 'the HTML form');
+  assert.ok(two.includes('The word `standing`, the target and the date, after the tag'), 'the running-text form');
+  assert.ok(two.includes('standing docs/ai-use.md 2026-09-01'), 'the running-text example has a path and a date');
+  assert.ok(two.includes('always a target and a date'), 'never a phrase alone');
+  assert.ok(!/under the standing tag of/.test(specText), 'no phrase pointer without a URL or path');
+  assert.ok(!/short name/.test(specText), 'a short name is no target');
+  assert.ok(!specText.includes('AI-Use-Policy'), 'the unpublished draft key is gone');
 });
 
-test('rules a person set in advance leave the Level alone', () => {
-  const bullet = specText.split('\n').find((line) => line.startsWith('- Rules a person set in advance'));
-  assert.ok(bullet, 'section 3 has the rule');
-  assert.ok(bullet.includes('so the work is L3'), 'the work is still L3');
+test('SPEC.md section 2 says what the target and the date are', () => {
+  assert.ok(two.includes('a URL or a path that a reader of the tag can open'), 'a reader can open the target');
+  assert.ok(two.includes('stays inside it'), 'a path stays inside the repository');
+  assert.ok(two.includes("it's the date of the statement the tag relies on"), 'the date on a page with several statements');
+  assert.ok(two.includes("that's the delegation's date"), 'the date under a delegation');
+  assert.ok(standing.date.includes('the date of the one the tag relies on'), 'spec.json says the same');
+  assert.ok(two.includes('A tag written under a delegation always carries the pointer'), 'a delegated tag carries it');
+  assert.ok(two.includes('a tag takes at most 1'), 'at most 1');
 });
 
 test('the pointer is no token and no slot', () => {
   const words = [standing.trailer, 'standing', 'policy'];
   assert.deepEqual(spec.tokens.filter((token) => words.includes(token.id)), [], 'no standing token');
   assert.deepEqual(spec.slots.filter((slot) => words.includes(slot.id)), [], 'no standing slot');
-  assert.ok(specText.includes("isn't a token or a slot"), 'SPEC.md says so in section 10');
+  assert.ok(two.includes("The pointer isn't a token and has no slot"), 'SPEC.md says so in section 2');
 });
 
-test('each example with a standing line uses the trailer, and rule-bound work stays level 3', () => {
+test('the rule-bound standing tag of the first draft is not in 1.3', () => {
+  for (const gone of ['Rules a person set in advance', 'inside human-set rules', "A layer above the tag isn't needed", 'which gates the rules enforce']) {
+    assert.ok(!specText.includes(gone), `SPEC.md no longer says: ${gone}`);
+  }
+  assert.equal(examples.filter((example) => /rules I set|The same rules/.test(example.use)).length, 0, 'no rule-bound example');
+});
+
+test('the delegated example is unread and carries a pointer with a target and a date', () => {
   const withStanding = examples.filter((example) => example.standing !== undefined);
-  assert.equal(withStanding.length, 3, 'the 2 rule-bound examples and the delegated one');
+  assert.equal(withStanding.length, 1, 'the delegated example');
   assert.equal(examples.filter((example) => example.policy !== undefined).length, 0, 'no example keeps the draft key');
-  for (const example of withStanding) {
-    assert.ok(example.standing.startsWith(`${standing.trailer}: `), `${example.standing}: uses the trailer in spec.json`);
-  }
-  const ruleBound = withStanding.filter((example) => /rules/.test(example.use));
-  assert.equal(ruleBound.length, 2, 'the 2 rule-bound examples');
-  for (const example of ruleBound) {
-    assert.ok(example.machine.startsWith('AI-Use: L3 '), `${example.machine}: rule-bound work stays L3`);
-  }
-});
-
-test('the delegated example is unread and carries the pointer', () => {
-  const delegated = examples.filter((example) => /under my delegation/.test(example.use));
-  assert.equal(delegated.length, 1, 'one delegated example');
-  assert.ok(delegated[0].machine.includes(' unread '), 'the agent saw nobody read the result');
-  assert.ok(delegated[0].standing, 'it points to the delegation');
+  const [delegated] = withStanding;
+  assert.match(delegated.use, /under my delegation/);
+  assert.ok(delegated.machine.includes(' unread '), 'the agent saw nobody read the result');
+  assert.match(delegated.standing, /^AI-Use-Standing: \S+ \d{4}-\d{2}-\d{2}$/);
+  const row = specText.split('\n').find((line) => line.includes(`| ${delegated.use} |`));
+  assert.ok(row?.includes(`\`${delegated.standing}\``), 'SPEC.md section 7 shows the same pointer, not a phrase');
 });

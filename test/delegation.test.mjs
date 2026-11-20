@@ -47,7 +47,10 @@ test('the statement sits where a reader can open it, and each copy of the pointe
     assert.ok(text.includes(POINTER), `${name} shows the pointer`);
   }
   assert.deepEqual(checkStanding(POINTER, spec), []);
-  assert.ok(POINTER.includes('/docs/delegation.md '), 'the pointer names the file that holds the statement');
+  // The file the pointer names is read from disk: it exists in this repository and holds the statement.
+  const target = /^AI-Use-Standing: https:\/\/github\.com\/gorfednet\/ai-use-levels\/blob\/main\/(\S+) \d{4}-\d{2}-\d{2}$/.exec(POINTER)?.[1];
+  assert.ok(target, 'the pointer names a file in this repository');
+  assert.ok(readText(target).includes(STATEMENT), `${target} holds the statement the pointer promises`);
 });
 
 test('the statement names its scope, and this repository is outside it', () => {
@@ -55,6 +58,7 @@ test('the statement names its scope, and this repository is outside it', () => {
   const EXCEPTIONS = "it doesn't cover the ai-use-levels repository or papers.4thcltr.com";
   for (const [name, text] of [['SPEC.md', specText], ['for-agents.md', forAgents], ['docs/delegation.md', delegation]]) {
     assert.ok(text.includes(EXCEPTIONS), `${name} names the 2 exceptions`);
+    assert.ok(text.includes('The author set 2 exceptions the same day'), `${name} says who set them and when`);
   }
   for (const file of ['CLAUDE.md', 'REVIEW.md']) {
     const text = readText(file);
@@ -77,7 +81,7 @@ test('SPEC.md section 3 keeps the delegation apart from a yes to a change', () =
   const rule = specText.split('\n').find((line) => line.startsWith('- The accountable person may delegate'));
   assert.ok(rule, 'section 3 has the delegation rule');
   assert.ok(rule.includes("It isn't a yes to any change"), 'a delegation is not a yes');
-  assert.ok(rule.includes('a standing instruction to act is still L3'), 'a standing instruction is still L3');
+  assert.ok(rule.includes('A standing instruction to act is still L3'), 'a standing instruction is still L3');
   assert.ok(rule.includes('A model never confirms its own tag'), 'a model does not confirm its own tag');
 });
 

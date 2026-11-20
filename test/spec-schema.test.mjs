@@ -21,7 +21,7 @@ function errors(instance) {
 
 test('spec.schema.json is draft 2020-12 with the tagged $id and a closed top level', () => {
   assert.equal(schema.$schema, 'https://json-schema.org/draft/2020-12/schema');
-  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.2.0/spec.schema.json');
+  assert.equal(schema.$id, 'https://github.com/gorfednet/ai-use-levels/blob/v1.3.0/spec.schema.json');
   assert.equal(schema.additionalProperties, false, 'unknown top-level keys are rejected');
   assert.deepEqual(
     new Set(schema.$defs.slot.properties.required.enum),
@@ -52,6 +52,9 @@ const broken = [
   ['a standing pointer that changes the level', (s) => { s.machineForm.standing.changesLevel = true; }, /\/machineForm\/standing\/changesLevel must be equal to constant/],
   ['a standing pointer under the unpublished draft key', (s) => { s.machineForm.standing.trailer = 'AI-Use-Policy'; }, /\/machineForm\/standing\/trailer must be equal to constant/],
   ['a standing pointer whose target may be a short name', (s) => { s.machineForm.standing.pattern = 'AI-Use-Standing: <standing tag> <YYYY-MM-DD>'; }, /\/machineForm\/standing\/pattern must match pattern/],
+  ['a standing pointer with a phrase for its running-text form', (s) => { s.machineForm.standing.forms.text = 'under the standing tag of <date>'; }, /\/machineForm\/standing\/forms\/text must be equal to constant/],
+  ['a standing pointer with no HTML form', (s) => { delete s.machineForm.standing.forms.meta; }, /\/machineForm\/standing\/forms must have required property 'meta'/],
+  ['a standing pointer that keeps the cut rule-bound records', (s) => { s.machineForm.standing.records = ['which gates are enforced']; }, /\/machineForm\/standing must NOT have additional properties/],
   ['a standing pointer a delegated tag may leave out', (s) => { s.machineForm.standing.requiredWhen = 'never'; }, /\/machineForm\/standing\/requiredWhen must be equal to constant/],
   ['a delegation with a rule dropped', (s) => { s.confirmation.underDelegation.pop(); }, /\/confirmation\/underDelegation must NOT have fewer than 4 items/],
   ['a delegation with no place for its statement', (s) => { delete s.confirmation.statementPlace; }, /\/confirmation must have required property 'statementPlace'/],

@@ -18,15 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: Notes from CHANGELOG.md
-        id: notes
+        # The script refuses a tag whose CHANGELOG entry still says draft, and one CITATION.cff
+        # doesn't cite yet, so a tag pushed early publishes nothing. It uses no dependencies.
         run: |
           set -euo pipefail
-          v="${GITHUB_REF_NAME#v}"
-          v="${v%.0}"   # "1.0.0" is listed as "## 1.0"
-          awk -v v="$v" -v full="${GITHUB_REF_NAME#v}" '
-            /^## /{on = ($2==v || $2==full)} on && !/^## /{print}
-          ' CHANGELOG.md | sed '/./,$!d' > notes.md
+          node scripts/release-notes.mjs "$GITHUB_REF_NAME" > notes.md
           test -s notes.md || { echo "no CHANGELOG entry for $GITHUB_REF_NAME"; exit 1; }
       - name: Create the release
         env:

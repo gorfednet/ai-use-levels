@@ -33,9 +33,11 @@ export function splitTools(list) {
   return names;
 }
 
-// The name without its reach parenthetical, lower-cased and split into words.
+// The name without its reach parenthetical, lower-cased and split into words. A name that is only a
+// parenthetical, such as the placeholder "(tool)", keeps it, so it never reads as an empty name.
 function wordsOf(tool) {
-  return tool.replace(/\s*\([^()]*\)\s*$/, '').toLowerCase().split(/\s+/).filter(Boolean);
+  const bare = tool.replace(/\s*\([^()]*\)\s*$/, '');
+  return (bare.trim().length > 0 ? bare : tool).toLowerCase().split(/\s+/).filter(Boolean);
 }
 
 function endsWith(long, short) {
@@ -60,7 +62,7 @@ export function classify(tool, models) {
     });
     return rank === -1 ? { group: 2, rank: 0 } : { group: 0, rank };
   }
-  const family = models.some((model) => runsInside(wordsOf(model).slice(0, -1), words));
+  const family = words.length > 0 && models.some((model) => runsInside(wordsOf(model).slice(0, -1), words));
   return { group: family ? 1 : 2, rank: 0 };
 }
 

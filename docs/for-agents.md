@@ -19,7 +19,7 @@ Before you write a tag under a delegation, check 3 things.
 
 A delegation covers who confirms the tag. It isn't a yes to any change you make, so rate your own session as usual. An agent that works under a standing instruction to act is `L3`, whatever the delegation says.
 
-A worked example is the author's own statement, dated 18 November 2026 and kept at [delegation.md](delegation.md): "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later." Its scope has 2 exceptions, set the same day: it doesn't cover the ai-use-levels repository or papers.4thcltr.com, where each tag is still confirmed. Under it, an agent that edited files while a person approved each edit and read the result writes 2 lines on its commit and tells the person in its report:
+A worked example is the author's own statement, dated 18 November 2026 and kept at [delegation.md](delegation.md): "I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later." The author set 2 exceptions the same day: it doesn't cover the ai-use-levels repository or papers.4thcltr.com, where each tag is still confirmed. Under it, an agent that edited files while a person approved each edit and read the result writes 2 lines on its commit and tells the person in its report:
 
 ```
 AI-Use: L2 made undo (Claude Opus 5.5)
@@ -42,14 +42,16 @@ With several tools, order them as section 6 says and join them with a plus. `nod
 
 ## The pointer beside your tag
 
-The pointer is a second trailer beside your tag: `AI-Use-Standing: <URL or path> <YYYY-MM-DD>` (section 2). It points to a dated standing statement that a reader of the tag can open. The date is the one the statement carries.
+The pointer is a second trailer beside your tag: `AI-Use-Standing: <URL or path> <YYYY-MM-DD>` (section 2). It points to a dated standing statement that a reader of the tag can open.
 
 - Under a delegation you always write it, and it points to the delegation statement.
-- A person may also have set rules for agent work in a dated standing tag (section 9, rule 7): who set them, which gates are enforced and how much a person reads. If one covers your work and you have no delegation pointer to write, point to it. A commit takes 1 pointer, so a person with both keeps them on one page.
-- The target is a URL or a path with no spaces. A path starts at the repository root and stays inside it, so `../rules.md` isn't one. A name such as "the engineering policy" isn't one, because a reader can't open it.
-- The pointer changes no Level. Work inside rules a person set, with no yes to each change, is still `L3`.
+- It's always a target and a date. A phrase such as "under my delegation" isn't a pointer.
+- The target is a URL or a path with no spaces. A URL starts with `https://` or `http://`. A path starts at the repository root and stays inside it, so `../rules.md` isn't one.
+- The date is the one the statement carries. If the page holds several statements, use the date of the delegation.
+- Outside a commit the pointer keeps its 2 parts. In front matter it's the same line. In HTML it's `<meta name="AI-Use-Standing" content="<URL or path> <YYYY-MM-DD>">`. In running text it's the word `standing`, the target and the date after the tag.
+- The pointer changes no Level, and a tag takes 1.
 - Point only to a statement you could open and read. Don't write one from memory, and don't write one with no tag beside it.
-- You can't check that the gates held or that the person read anything. The pointer says that a statement exists, and a reader who wants more opens it.
+- The pointer says that a statement exists. You can't check what the statement says about the person, and a reader who wants more opens it.
 
 ## Level (section 3)
 

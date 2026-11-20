@@ -21,14 +21,14 @@ No tag means nothing is claimed. It never means L0. `L0` is a tag of its own, 1 
 The machine form uses the same tokens and puts the tool in parentheses. Add one line wherever the work already keeps its metadata:
 
 - In a commit message, as the last line, beside `Co-Authored-By`: `AI-Use: L2 made undo (Claude Code)`. A tool may draft the line, and the person accountable for the work confirms it or has delegated the confirmation in a dated standing statement.
-- Beside it, a pointer to a dated standing statement the reader can open: `AI-Use-Standing: docs/ai-use.md 2026-09-01`. A tag an agent wrote under a delegation always has one, and it points to the delegation. Work inside rules a person set can point to the standing tag that records them. The pointer changes no Level.
+- Beside it, a pointer to a dated standing statement the reader can open: `AI-Use-Standing: docs/ai-use.md 2026-09-01`. A tag an agent wrote under a delegation always has one, and it points to the delegation. The same line works in front matter, and in HTML it's `<meta name="AI-Use-Standing" content="docs/ai-use.md 2026-09-01">`. The pointer changes no Level.
 - In YAML front matter, the same line unchanged: `AI-Use: L2 made undo (Claude Code)`
 - In an HTML page: `<meta name="AI-Use" content="L2 made undo (Claude Code)">`
 - In a LinkedIn post, or any running text, at the end: `(This post: L1 · drafted · Claude Opus 5.5)`
 
 Where 4 words don't fit, a mark can stand for the Level. It's a circle for the work with a dot for the tool, placed outside the circle, on its edge or inside it. The SVGs are in [marks/](marks/) under CC0.
 
-[SPEC.md](SPEC.md) has the rules, the test for each token and 20 worked examples.
+[SPEC.md](SPEC.md) has the rules, the test for each token and 18 worked examples.
 
 ## Read it
 
@@ -61,8 +61,8 @@ Text and data are both under CC BY 4.0 ([LICENSE](LICENSE)). If you embed the to
 
 Run `npm ci` once, then `npm test` runs the checks with `node --test`. They confirm that `spec.json` has the right shape and validates against `spec.schema.json`, that every example tokenizes and that the examples match the Worked examples section of SPEC.md. They also confirm that every token published in an earlier `v*` tag is still in the current `spec.json` and unchanged, because a published token never changes meaning. CI also checks the form of any `AI-Use:` trailer on a pull request's commits, and a commit with no trailer passes. CI runs on GitHub-hosted runners because this repository is public.
 
-Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged.
+Claude Code wrote the text in this repository from my data sheet and later rewrote it at my direction. Each time it worked under supervision, on a branch, and I read the result before it was merged. Version 1.3 was written the same way, but I set its decisions and didn't read the result before it merged.
 
 ```
-AI-Use: L2 made undo (Claude Fable 5.1)
+AI-Use: L3 made undo unread (Claude Fable 5.2 + Claude Sonnet 5.5)
 ```
