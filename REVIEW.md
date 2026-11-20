@@ -4,7 +4,7 @@ Read by the Claude reviewer (`.github/workflows/claude-review.yml`, which calls 
 
 ## What this repository is
 
-AI Use Levels: a public scheme that tags what one piece of work owes to generative AI (Level, Hand, Door, Tool). Version 1.2 is released, and `SPEC.md` holds 1.3 until its release. It holds the specification (`SPEC.md`, `spec.json`, `spec.schema.json`), worked examples (`examples/`), the marks (`marks/`), the ranked model list (`models.json`) with `scripts/order-tools.mjs`, the author's delegation (`docs/delegation.md`), and `scripts/check-trailers.mjs`, which checks the form of `AI-Use:` and `AI-Use-Standing:` trailers on a pull request's commits. Node 22, `node --test`. The repository is public, so CI (`.github/workflows/ci.yml`) runs on GitHub-hosted runners only.
+AI Use Levels: a public scheme that tags what one piece of work owes to generative AI (Level, Hand, Door, Tool). Version 1.3 is released, and `SPEC.md` holds it. It holds the specification (`SPEC.md`, `spec.json`, `spec.schema.json`), worked examples (`examples/`), the marks (`marks/`), the ranked model list (`models.json`) with `scripts/order-tools.mjs`, the author's delegation (`docs/delegation.md`), and `scripts/check-trailers.mjs`, which checks the form of `AI-Use:` and `AI-Use-Standing:` trailers on a pull request's commits. Node 22, `node --test`. The repository is public, so CI (`.github/workflows/ci.yml`) runs on GitHub-hosted runners only.
 
 ## House rules to hold the change to
 

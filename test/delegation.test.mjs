@@ -33,7 +33,7 @@ test('SPEC.md and docs/for-agents.md quote the same delegation statement', () =>
   // Each check runs from the opening quotation mark to the closing one, so a sentence added
   // anywhere inside the quote fails it.
   assert.ok(specText.includes(`: "Delegation, 18 November 2026. ${STATEMENT}" `), 'SPEC.md quotes the statement whole');
-  assert.ok(forAgents.includes(`: "${STATEMENT}" `), 'for-agents.md quotes the statement whole');
+  assert.ok(forAgents.includes(`: "Delegation, 18 November 2026. ${STATEMENT}" `), 'for-agents.md quotes the statement whole');
   assert.ok(delegation.includes(`\n"Delegation, 18 November 2026. ${STATEMENT}"\n`), 'docs/delegation.md holds the statement whole');
 });
 

@@ -2,19 +2,9 @@
 
 The scheme is versioned. A minor version adds tokens, flags or slots, or settles a rule the scheme left open, and stays backward compatible. A published token never changes meaning. A patch tag fixes wording and does not move the version in `spec.json`.
 
-## 1.3 (draft, 2026-11-20, not released)
+## 1.3 (2026-11-20)
 
 The owner accepted delegated confirmation and the pointer on 20 November 2026 ("Yes, with changes"). The changes are in the text below. No token changed meaning. A tag with 1 tool reads the same under 1.2 and 1.3. A tag with several tools doesn't, because their order meant something else in 1.2 (Tool order, below).
-
-Release steps, in the release pull request:
-
-- Drop "draft" and "not released" from this heading and set its date. `scripts/release-notes.mjs` refuses the `v1.3.0` tag until then.
-- Update `CITATION.cff` (`version`, `date-released`, `url`). The same script refuses the tag while it cites 1.2.
-- Update `package.json` and `package-lock.json`, and the version lines in `README.md`.
-- Update `REVIEW.md`, which says `SPEC.md` holds 1.3 until its release.
-- Leave the `$id` in `spec.schema.json` and its pin in `test/spec-schema.test.mjs` alone. Both already name `v1.3.0`, because the schema fits 1.3 and no longer fits 1.2. The URL opens once the tag exists.
-- Delete this list.
-- After the merge, tag `v1.3.0` and update the canonical page at papers.4thcltr.com.
 
 ### Delegated confirmation
 
