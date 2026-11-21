@@ -146,7 +146,7 @@ Every example uses 1 tag: `AI-Use: L2 drafted undo (Claude Opus 5.5)`. Each exam
 - `spec.json`: the version becomes 1.4. Each mark gains a `cue` list and a `gapMs`. `marksStatus` gains a line that no listener has tested the cues.
 - `spec.schema.json`: the `cue` and `gapMs` fields on a mark, and the new key under `marksStatus`. That object allows only `braille` and `unicode` today.
 - `test/marks.test.mjs`, the count: each cue is 1 chord of 2 notes and as many pips as its level. The near-miss case is a cue with 1 pip too many.
-- `test/marks.test.mjs`, Morse: no cue matches a Morse code. The test holds the ITU-R M.1677-1 table. It reads a cue as dots and dashes when every beat has the same single pitch, and it looks that string up. The near-miss case is the `L2` cue with its chord cut to 1 note. It has to fail as the letter D.
+- `test/marks.test.mjs`, Morse: no cue matches a Morse code. The test holds the ITU-R M.1677-1 table. It reads a cue as dots and dashes when every beat is a single note, at any pitch, and it looks that string up. The near-miss cases are the `L2` cue with its chord cut to either note. Each has to fail as the letter D.
 - `CHANGELOG.md` and `CITATION.cff`: the 1.4 entry.
 - `examples/examples.json` doesn't change. It mirrors section 7 only.
 - No token changes, so `tokens-stable` is untouched.
