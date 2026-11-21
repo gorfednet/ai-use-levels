@@ -128,7 +128,7 @@ Every example uses 1 tag: `AI-Use: L2 drafted undo (Claude Opus 5.5)`. Each exam
 ## Text to add to section 11, Known limits
 
 - No listener has tested the level cues. A person who hasn't learned them won't know what a cue means. Rule 8.9 keeps a spoken or readable tag beside every cue. The beat lengths and the notes may change after a listening test. `spec.json` says so under `marksStatus`.
-- The level cues were checked on paper against Morse and 11 other families of signals. No listener has compared them. `L3` is the closest to 2 alarm patterns.
+- The level cues were checked on paper against Morse and 9 other families of signals. Operating-system sounds weren't checked. No listener has compared them. `L3` is the closest to 2 alarm patterns.
 - The chord is what keeps a cue out of Morse. On a speaker that plays it as 1 pitch, the 4 cues are the Morse letters T, N, D and B.
 - A level cue for `L4` would have 5 notes. Earcon guidance caps a short motive at 4, so a new level may need a new cue design.
 
@@ -143,8 +143,8 @@ Every example uses 1 tag: `AI-Use: L2 drafted undo (Claude Opus 5.5)`. Each exam
 ## What adoption changes
 
 - `SPEC.md`: the version becomes 1.4. Rules 7 to 12 go in section 8, with the 4 new limits in section 11 and the 3 new examples.
-- `spec.json`: the version becomes 1.4. Each mark gains a `cue` list and the set gains `gapMs`. `marksStatus` gains a line that no listener has tested the cues.
-- `spec.schema.json`: the `cue` and `gapMs` fields, and the new key under `marksStatus`. That object allows only `braille` and `unicode` today.
+- `spec.json`: the version becomes 1.4. Each mark gains a `cue` list and a `gapMs`. `marksStatus` gains a line that no listener has tested the cues.
+- `spec.schema.json`: the `cue` and `gapMs` fields on a mark, and the new key under `marksStatus`. That object allows only `braille` and `unicode` today.
 - `test/marks.test.mjs`, the count: each cue is 1 chord of 2 notes and as many pips as its level. The near-miss case is a cue with 1 pip too many.
 - `test/marks.test.mjs`, Morse: no cue matches a Morse code. The test holds the ITU-R M.1677-1 table. It reads a cue as dots and dashes when every beat has the same single pitch, and it looks that string up. The near-miss case is the `L2` cue with its chord cut to 1 note. It has to fail as the letter D.
 - `CHANGELOG.md` and `CITATION.cff`: the 1.4 entry.
@@ -158,6 +158,6 @@ Every example uses 1 tag: `AI-Use: L2 drafted undo (Claude Opus 5.5)`. Each exam
 - The owner put the alt-text change into 1.3 on 20 November 2026. Pull request 30 has it, and this draft no longer does.
 - The owner asked on 20 November 2026 that the level cue not conflict with Morse or other known signals. The cue was redesigned around a chord, and the memo's part 2 has the check.
 
-## Open question for the owner
+## Open questions for the owner
 
-- The redesign drops the vibration form. A vibration that's only on or off can't avoid Morse. The owner hasn't confirmed that.
+- None. The owner confirmed the redesign on 20 November 2026, with the chord and with no vibration form.

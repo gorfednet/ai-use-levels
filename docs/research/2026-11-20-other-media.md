@@ -9,7 +9,7 @@ The owner asked how a use tag could be shown in audio and other media beyond bra
 - Words stay the tag in every medium. The spoken form in SPEC.md section 2 already works for audio, video and screen readers.
 - The draft adds 1 new thing, a level cue. The owner decided on 20 November 2026 that it goes into the draft now.
 - The cue is a 2-note chord for the work, then 1 short pip per level. It's sound only.
-- The chord keeps the cue out of Morse. Part 2 checks each level against 12 families of known signals.
+- The chord keeps the cue out of Morse. Part 2 checks each level against Morse and 9 other families of known signals. Operating-system sounds weren't checked.
 - The level cue never stands alone. Untrained listeners identified about 10% of earcons in the study the handbook cites [1].
 - Files carry the machine form `AI-Use:` unchanged, in the field each format already has for free text.
 - Nobody has tested the level cue or the raised marks with listeners or readers. Section "Limits of this memo" lists what else is unproven.
