@@ -174,7 +174,7 @@ A mark is a symbol for the Level alone. It's for places with no room for the ful
 | `L3` Unattended | ![AI use level 3, Unattended](marks/l3-light.svg) | inside the circle, because the tool changed the work by itself | AI USE LEVEL THREE SYMBOL | "AI use level three, Unattended" |
 
 1. A mark shows the Level and nothing else. Hand, Door, the flag and the Tool are left to the full tag. A mark takes no `no undo` or other modifier, because the set of 4 marks is fixed (rule 10.7).
-2. A mark points to a full tag. Put the full tag in the mark's link, alt text or title, or next to the work. A mark with no full tag behind it claims nothing, the same as a missing tag (section 2).
+2. A mark points to a full tag. Put the full tag in the mark's link, alt text or title, or next to the work. A picture's own alt text describes the picture, so its tag goes in the caption and the sidecar. W3C's [alt decision tree](https://www.w3.org/WAI/tutorials/images/decision-tree/) has no branch for provenance. A mark with no full tag behind it claims nothing, the same as a missing tag (section 2).
 3. Alt text and the SVG `<title>` are the label `AI use level 2, Supervised`. A screen reader says it as the spoken form "AI use level two, Supervised" and doesn't describe the shape.
 4. The marks are monochrome and must stay distinct at 12 px and at 1 bit. Don't add letters, digits or colour inside the circle.
 5. The files are in `marks/`, black on white (`-light`) and white on black (`-dark`), under CC0 so anyone can redraw or embed them. `spec.json` lists each mark with its name, spoken form, file names and braille.
@@ -186,7 +186,7 @@ Examples:
 |---|---|---|
 | A blog post byline, linked | L1 mark | `L1 · drafted · Claude Opus 5.5` |
 | A slide footer | L2 mark | `L2 · made · undo · Claude Code` in the speaker notes and the deck's sources slide |
-| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's alt text and sidecar |
+| An overlay on a generated image | L1 mark | `L1 · made · Midjourney` in the image's caption and sidecar |
 | A support bot's display name | L3 mark | the dated standing tag on the help page: `L3 · made · no undo · (tool)`, since June 2026 |
 
 The robot-face mark proposed for 1.1 (`🤖2`) is withdrawn. It's no shorter than `L2`, an emoji looks different on each platform, and a screen reader reads it as "robot face".
@@ -200,7 +200,7 @@ Version the scheme and date a standing tag, but leave a use tag undated.
 3. Give the tool's version where it has one, and write `Claude Opus 5.5` where you'd otherwise write `Claude`. The model name tells a reader roughly when the work was done.
 4. A standing tag on a system or a policy is dated. "Support bot runs at `L3 · made · no undo · (tool)`, 2% read, since June 2026." "Production changes are L2 or lower (policy of 2026-10)." Stances get revised, and a reader needs to know which one was in force. The standing tag is also the form for a fleet, so 10,000 chats share one dated standing tag. Its machine form is the same `AI-Use:` line as any tag, and the date goes beside it, in the same place the human form puts it. There's no date token, and none is added.
 5. An artifact with no date of its own, such as a bio, an evergreen page or a screenshot that will be reposted, gets a date beside the tag.
-6. A delegation of the confirmation (section 3) is a dated standing statement too. It's in the accountable person's own words, and it names the work it covers. It sits where a reader of the tags can open it, such as a file in the repository or a public page. A copy in a rules file that only the person and their agents can read isn't enough. A reader can't weigh a statement they can't see. The author's own is the worked example, kept at [docs/delegation.md](docs/delegation.md): "Delegation, 18 November 2026. I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later." The author set 2 exceptions the same day: it doesn't cover the ai-use-levels repository or papers.4thcltr.com. Each tag there is still confirmed. A tag written under it points there: `AI-Use-Standing: https://github.com/gorfednet/ai-use-levels/blob/main/docs/delegation.md 2026-11-18`. The person ends a delegation by dating its end. Tags written before that stay as they are.
+6. A delegation of the confirmation (section 3) is a dated standing statement too. It's in the accountable person's own words, and it names the work it covers. It sits where a reader of the tags can open it, such as a file in the repository or a public page. A copy in a rules file that only the person and their agents can read isn't enough. A reader can't weigh a statement they can't see. The author's own is the worked example, kept at [docs/delegation.md](docs/delegation.md): "Delegation, 18 November 2026. I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. The agents that do the work write these tags under the AI Use Levels specification. I don't confirm each tag before it's committed. I may correct any of them at any time." The author set 2 exceptions the same day: it doesn't cover the ai-use-levels repository or papers.4thcltr.com. Each tag there is still confirmed. A tag written under it points there: `AI-Use-Standing: https://github.com/gorfednet/ai-use-levels/blob/main/docs/delegation.md 2026-11-18`. The person ends a delegation by dating its end. Tags written before that stay as they are.
 
 Some object that the same agent suggests today and executes unattended tomorrow. The principle in section 1 answers that without any date, because the tag describes one piece of work.
 
@@ -266,3 +266,4 @@ Sources read:
 - https://labs.cloudsecurityalliance.org/research/agentic-ai-autonomy-levels-control-framework-v2-csa-styled/
 - https://www.alphaxiv.org/abs/2607.23438
 - https://medium.com/@tahirbalarabe2/what-is-loop-engineering-four-levels-of-agentic-loops-ccc48b850002
+- https://www.w3.org/WAI/tutorials/images/decision-tree/

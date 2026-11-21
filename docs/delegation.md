@@ -4,9 +4,9 @@ This is the author's own delegation, the worked example in [SPEC.md](../SPEC.md)
 
 ## The statement
 
-"Delegation, 18 November 2026. I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. Agents write those tags themselves, and I don't confirm each one. I can correct any tag later."
+"Delegation, 18 November 2026. I'm accountable for the `AI-Use` tags on commits in the gorfednet repositories. The agents that do the work write these tags under the AI Use Levels specification. I don't confirm each tag before it's committed. I may correct any of them at any time."
 
-Michael Duncan McArthur, 18 November 2026. The quote is his wording, confirmed that day. Everything below it on this page describes the delegation and isn't a quote.
+Michael Duncan McArthur, 18 November 2026. The quote is his wording, confirmed 18 November 2026 and reworded by him on 20 November 2026. Everything below it on this page describes the delegation and isn't a quote.
 
 ## What it covers
 
