@@ -7,16 +7,18 @@ The owner asked how a use tag could be shown in audio and other media beyond bra
 ## Summary
 
 - Words stay the tag in every medium. The spoken form in SPEC.md section 2 already works for audio, video and screen readers.
-- The draft adds 1 new thing, a level cue. The owner decided on 20 November 2026 that it goes into the draft now. It's 1 long beat for the work, then 1 short beat per level. The same rhythm works as sound and as vibration.
+- The draft adds 1 new thing, a level cue. The owner decided on 20 November 2026 that it goes into the draft now.
+- The cue is a 2-note chord for the work, then 1 short pip per level. It's sound only.
+- The chord keeps the cue out of Morse. Part 2 checks each level against 12 families of known signals.
 - The level cue never stands alone. Untrained listeners identified about 10% of earcons in the study the handbook cites [1].
 - Files carry the machine form `AI-Use:` unchanged, in the field each format already has for free text.
 - Nobody has tested the level cue or the raised marks with listeners or readers. Section "Limits of this memo" lists what else is unproven.
 
 ## How the sources were read
 
-- 29 sources and 9 library pages are listed at the end. Each was opened on 20 November 2026.
+- 42 sources and 9 library pages are listed at the end. Each was opened on 20 November 2026.
 - The list says how much of each was reached: the full text, an abstract or a catalogue record.
-- 6 searches failed to open and are named under "Not opened". Nothing in this memo rests on them.
+- 9 sources or groups of sources failed to open and are named under "Not opened". Nothing in this memo rests on them.
 - The scheme has 4 levels, `L0` to `L3`. Every design below is sized for 4. All but the level cue leave room for `L4` (part 2).
 
 ## 1. Spoken audio and screen readers
@@ -63,13 +65,15 @@ Recommended form, the level cue:
 
 | Level | Cue | Sound, in milliseconds |
 |---|---|---|
-| `L0` | long | 400 on |
-| `L1` | long, short | 400 on, 150 off, 100 on |
-| `L2` | long, short, short | 400 on, 150 off, 100 on, 150 off, 100 on |
-| `L3` | long, short, short, short | 400 on, then 150 off and 100 on, 3 times |
+| `L0` | chord | chord 400 |
+| `L1` | chord, pip | chord 400, gap 150, pip 100 |
+| `L2` | chord, pip, pip | chord 400, gap 150, pip 100, gap 150, pip 100 |
+| `L3` | chord, pip, pip, pip | chord 400, then gap 150 and pip 100, 3 times |
 
-- The long beat stands for the work, as the circle does. Each short beat is 1 level, so the count is the level.
-- Every beat has the same pitch and the same loudness. Use 1 musical timbre and keep it between 150 Hz and 5 kHz [1].
+- The chord is 2 notes sounded together, a perfect fourth apart. It stands for the work, as the circle does.
+- Each pip is 1 short note at the chord's upper pitch. The number of pips is the level.
+- The suggested notes are C♯5 (554 Hz) and F♯5 (740 Hz), in 1 musical timbre.
+- The cue plays once and never repeats.
 - Using a level cue is optional. It plays just before the spoken tag or alongside the visible one.
 - A music track with no speech has the tag in its metadata.
 
@@ -79,14 +83,53 @@ Reasoning:
 - Each level has a different number of notes, which the guidelines call very effective [6].
 - A rising pitch for a higher level would also suggest "better" or "worse". The tag doesn't rank work that way.
 - A cue that mirrored the dot's position (before, on, inside) was considered. Hearing that order is harder than counting beats.
-- The rhythm is on or off only, so it survives the simplest vibration motor (part 3).
-- `L4` would be 4 short beats. Blattner's limit for a motive is 4 notes [1], and `L4` would have 5.
+- The chord is there because of Morse (next part).
+- `L4` would be a chord and 4 pips. Blattner's limit for a motive is 4 notes [1], and `L4` would have 5.
+
+### Check against Morse and other known signals
+
+The owner asked on 20 November 2026 that the cue not conflict with Morse or other known audio signals. The first design did. It was 1 long tone and then 1 short tone per level, all at 1 pitch. In Morse that's T, N, D and B.
+
+Rhythm can't fix it:
+
+- Morse is 1 tone keyed on and off. A dash is 3 dots long [30].
+- 30 patterns exist with 1 to 4 beats in 2 lengths. 26 of them are the letters A to Z in the ITU table [30].
+- The other 4 are Ä, Ö, Ü and CH in national use [32].
+- So every short pattern of long and short beats at 1 pitch is a Morse letter.
+
+The new design leaves Morse by adding a second pitch. A chord sounds 2 notes at once, and a keyed single tone can't make one. The interval and the notes were then chosen against the other signals:
+
+| Signal family | Its pattern | `L0` | `L1` | `L2` | `L3` | How the cue differs |
+|---|---|---|---|---|---|---|
+| Morse letters, figures and signs | 1 tone, dots and dashes [30] | no match | no match | no match | no match | Every cue opens with 2 pitches at once |
+| Morse prosigns and SOS | 1 tone. SOS is 3 dots, 3 dashes, 3 dots [31][32] | no match | no match | no match | no match | Same |
+| Fire alarm, temporal-3 | 3 pulses of 0.5 seconds, a pause of 1.5 seconds, repeated for 180 seconds or more [38] | no match | no match | no match | no match | Pips are 0.1 seconds, and the cue plays once |
+| Carbon monoxide alarm, temporal-4 | 4 pulses of 100 ms on and 100 ms off, then 5 seconds off, repeated [37] | no match | no match | no match | closest | `L3` has 4 sounds, and the first is a 400 ms chord. It plays once |
+| Medical alarms, IEC 60601-1-8 | A pointer of 5 fast pulses for high priority, 3 slower pulses for medium [41] | no match | no match | no match | closest | `L3` has 3 pips after a chord. Rule: no cue on equipment that sounds alarms |
+| Telephone dial, ringing, busy and reorder | 2 tones together: 350 and 440 Hz, 440 and 480 Hz, 480 and 620 Hz. Continuous or repeating [36] | no match | no match | no match | no match | A different interval and different notes. One 400 ms chord |
+| Broadcast time pips | 5 pips of 0.1 seconds and a last one of 0.5 seconds, 1 second apart, at 1 kHz [35] | no match | no match | no match | no match | At most 3 pips, 0.25 seconds apart, at 740 Hz. The long sound comes first |
+| US emergency alert tone | 853 and 960 Hz together for 8 to 25 seconds [33] | no match | no match | no match | no match | 0.4 seconds, other notes |
+| NOAA Weather Radio tone | 1,050 Hz [42] | no match | no match | no match | no match | Other notes, and a chord |
+| Canadian alert tone | 8 seconds of half-second tones. One group is 440, 659.26 and 3,135.96 Hz [34] | no match | no match | no match | no match | 440 and 659.26 Hz are a perfect fifth, so the chord is a fourth on other notes |
+| Reversing beeper | Pure-tone beeps at about 1,000 Hz [39] | no match | no match | no match | no match | Musical timbre at 554 and 740 Hz, played once |
+| Operating-system sounds | Not checked. No vendor page that documents the notes was opened | unknown | unknown | unknown | unknown | Unknown. A short chord could resemble a notification sound |
+
+How the interval was chosen:
+
+- A major second is the US alert tone (853 and 960 Hz).
+- A major third is the dial tone (350 and 440 Hz).
+- A perfect fifth is in the Canadian alert tone (440 and 659.26 Hz).
+- A perfect fourth is in none of the signals above.
+- 554 and 740 Hz are at least 60 Hz from every frequency in the table.
 
 Limits:
 
 - Untested. The 10% figure says a first-time listener won't know what it means.
-- `L0` is a single tone, which sounds like any beep.
-- The 4 cues match Morse T, N, D and B. A Morse reader may hear letters.
+- "No match" means the patterns differ on paper. No listener has compared them.
+- `L3` is the closest to 2 alarm patterns. The draft's rule keeps cues off equipment that sounds alarms.
+- On a speaker that plays the chord as 1 pitch, the cue is T, N, D or B again.
+- ISO 8201, IEC 60601-1-8 and SAE J994 weren't opened. Their patterns here come from secondary sources.
+- Operating-system sounds weren't checked.
 - The durations are a starting point taken from the 0.1 second rule. A listening test should set them.
 
 Libraries: the Web Audio API's `OscillatorNode` [L2], Tone.js (MIT) [L1]. SSML's `audio` element can place a recorded cue ahead of the spoken tag [11].
@@ -106,19 +149,17 @@ What exists:
 - MPEG-I part 31 is a coding standard for haptic signals [16]. Only its catalogue page opened.
 - The Apple Core Haptics page didn't open, so iOS isn't covered.
 
-Recommended form: the same level cue, felt.
+Recommended form: no vibration cue for now.
 
-- The pattern for `L2` is `navigator.vibrate([400, 150, 100, 150, 100])`. `L3` has 7 entries, inside the limit of 10.
-- Play it only when the person opens or focuses the tag. Never play it by itself on page load.
-- The visible or spoken tag is always there as well.
-
-Reasoning: 1 code for sound and touch means 1 thing to learn. On and off is all the web API offers, and the cue needs nothing more.
+- The first design used the same rhythm for sound and touch. The Morse check ends that.
+- A vibration motor on the web is on or off. It has no second pitch.
+- Every on and off pattern of 1 to 4 beats is a Morse letter (part 2). A vibrating cue would be T, N, D and B.
+- A device that vibrates shows the tag as text, or says it.
 
 Limits:
 
-- Untested, and no source here has data on counting pulses.
-- On the web it reaches Chromium browsers only. Many people turn vibration off.
-- No open haptics library was found. The platform APIs are the route.
+- A native API with amplitude or texture could make a cue that isn't Morse. No source here tests one.
+- No open haptics library was found.
 
 ## 4. Tactile print beyond braille
 
@@ -135,7 +176,7 @@ Recommended form:
 
 - The braille token is the label. The raised mark is an extra.
 - Emboss the circle at 6 mm or more, with 3 mm clear on every side. That clear space includes the `L1` dot.
-- Don't make a third tactile code from the level cue. Braille and the mark are enough.
+- Don't make a tactile code from the level cue. Braille and the mark are enough.
 
 Reasoning: the braille token is a word. BANA ranks a word above a keyed symbol.
 
@@ -235,7 +276,8 @@ Libraries: none needed. `scripts/check-trailers.mjs` already parses the line.
 
 ## Not recommended
 
-- A sound or a vibration as the only tag. Nobody has learned it. WCAG 1.3.3 makes the same point for instructions that rely on sound [8].
+- A vibration cue. On and off patterns this short are Morse letters (part 2).
+- A sound as the only tag. Nobody has learned it. WCAG 1.3.3 makes the same point for instructions that rely on sound [8].
 - Pitch or loudness to show the level.
 - Separate cues for Hand, Door, the flag or the Tool. Earcon studies cap a family at about 3 values per attribute [1].
 - A level that means "synthetic voice". The tag rates how the work was made, whatever the voice.
@@ -248,7 +290,8 @@ Libraries: none needed. `scripts/check-trailers.mjs` already parses the line.
 ## Limits of this memo
 
 - No listener, reader or viewer tested anything proposed here.
-- Peer-reviewed evidence is thin. 1 journal article was reached by its record only. 1 conference paper and 1 handbook chapter were read in full, and neither copy states its review.
+- Peer-reviewed evidence is thin. 2 journal articles on medical alarms were read in part, and 1 on earcons by its record only. 1 conference paper and 1 handbook chapter were read in full, and neither copy states its review.
+- 8 rows of the signal table rest on Wikipedia or a trade article. The standards behind them weren't opened.
 - Sources 22 and 23 are a secondary copy and a summary page. The Official Journal text of Article 50 didn't open.
 - The C2PA version read was 2.2. The site lists versions up to 2.5.
 - iOS haptics, TikTok's label, the XMP specification and ISO's haptic guidance (9241-910 and 9241-920) weren't opened.
@@ -298,6 +341,19 @@ Only J is confirmed peer-reviewed. The opened copies of C and B don't state thei
 | 27 | FSFE, REUSE Specification 3.3. https://reuse.software/spec-3.3/ | S | Relevant sections |
 | 28 | Android, `VibrationEffect` reference. https://developer.android.com/reference/android/os/VibrationEffect | G | Full page |
 | 29 | NO_COLOR. https://no-color.org/ | O | Full page |
+| 30 | ITU-R, Recommendation M.1677-1, International Morse code, 2009. https://www.itu.int/rec/R-REC-M.1677-1-200910-I/en | S | Full text, decoded from the PDF. The @ row didn't decode |
+| 31 | Wikipedia, "Prosigns for Morse code". https://en.wikipedia.org/wiki/Prosigns_for_Morse_code | O | Full article |
+| 32 | Wikipedia, "Morse code". https://en.wikipedia.org/wiki/Morse_code | O | First two thirds |
+| 33 | 47 CFR 11.31, EAS protocol, Cornell Law School copy. https://www.law.cornell.edu/cfr/text/47/11.31 | S | Full text |
+| 34 | Wikipedia, "Alert Ready". https://en.wikipedia.org/wiki/Alert_Ready | O | Full article |
+| 35 | Wikipedia, "Greenwich Time Signal". https://en.wikipedia.org/wiki/Greenwich_Time_Signal | O | Full article |
+| 36 | Wikipedia, "Precise tone plan". https://en.wikipedia.org/wiki/Precise_tone_plan | O | Full article |
+| 37 | Electronic Security Association, "Carbon Monoxide: The Invisible Life Safety Risk", quoting NFPA 72. https://esaweb.org/carbon-monoxide-the-invisible-life-safety-risk/ | O | Full article |
+| 38 | Wikipedia, "Fire alarm notification appliance". https://en.wikipedia.org/wiki/Fire_alarm_notification_appliance | O | Coding section |
+| 39 | Wikipedia, "Back-up beeper". https://en.wikipedia.org/wiki/Back-up_beeper | O | Full article |
+| 40 | Ribeiro Ferreira and others, "Capturing the attentional response to clinical auditory alarms: An ERP study on priority pulses", *PLOS ONE*, 2023. https://europepmc.org/article/PMC/PMC9934403 | J | Passages on the pointers |
+| 41 | "Improved pointer in auditory alarms enhances response accuracy", *BJA Open*, 2025. https://europepmc.org/article/PMC/PMC11952019 | J | Passages on the pointers |
+| 42 | Wikipedia, "Emergency Alert System". https://en.wikipedia.org/wiki/Emergency_Alert_System | O | First part |
 
 Libraries and tools:
 
@@ -321,3 +377,6 @@ Not opened, so not used:
 - Apple Core Haptics documentation.
 - ISO's own pages for 24503, 11683 and 9241-910.
 - The Official Journal text of the EU AI Act.
+- ISO 8201, IEC 60601-1-8, SAE J994 and ITU-T E.180. Each is behind a paywall or didn't open.
+- The Canadian alert tone's own guidance page, which refused the connection.
+- Any vendor page that documents an operating system's sounds note by note.
